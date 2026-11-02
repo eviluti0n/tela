@@ -152,6 +152,14 @@
   .hw-remove { border: none; background: none; color: #b42318; font-size: 13px; font-weight: 600; padding: 2px 4px; border-radius: 6px; }
   .hw-remove:hover { background: #fdecea; }
   .s-actions { margin-top: auto; }
+  .field .input-wrap { position: relative; display: flex; flex-direction: column; }
+  .field .input-wrap input { padding-right: 60px; }
+  .toggle-pw {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    border: none; background: transparent; color: var(--muted); cursor: pointer;
+    font: inherit; font-size: 12px; font-weight: 600; padding: 6px 8px; border-radius: 6px;
+  }
+  .toggle-pw:hover { background: var(--brown-50); color: var(--green-700); }
   .field small { font-weight: 400; color: var(--muted); font-size: 12px; }
   .field .opt { font-weight: 400; color: var(--muted); }
   .error { display: none; background: #fdecea; color: #b42318; border-radius: 10px; padding: 10px 12px; font-size: 14px; margin-bottom: 14px; }
@@ -399,8 +407,8 @@
     <label class="field">Name<input id="accName" maxlength="40" autocomplete="off" placeholder="e.g. Keyara"></label>
     <label class="field">Username<input id="accUser" maxlength="20" autocomplete="off" autocapitalize="none" spellcheck="false">
       <small>3–20 characters: letters, numbers, dots, dashes or underscores.</small></label>
-    <label class="field">Password<input id="accPass" type="password" autocomplete="new-password"><small id="accPassHint">At least 8 characters, and not containing their username.</small></label>
-    <label class="field">Confirm password<input id="accConfirm" type="password" autocomplete="new-password"></label>
+    <label class="field">Password<span class="input-wrap"><input id="accPass" type="password" autocomplete="new-password"><button type="button" class="toggle-pw" data-for="accPass">Show</button></span><small id="accPassHint">At least 8 characters, and not containing their username.</small></label>
+    <label class="field">Confirm password<span class="input-wrap"><input id="accConfirm" type="password" autocomplete="new-password"><button type="button" class="toggle-pw" data-for="accConfirm">Show</button></span></label>
     <div class="field" id="accTutorsField" role="group" aria-labelledby="accTutorsLabel">
       <span id="accTutorsLabel">Tutors <span class="opt">(optional)</span></span>
       <ul class="member-list" id="accTutors"></ul>
@@ -1170,9 +1178,18 @@ TelaDB.start("tutor").then(() => {
     document.querySelectorAll("#accForm .invalid").forEach(el => el.classList.remove("invalid"));
   }
   document.querySelectorAll("[data-accrole]").forEach(t => t.addEventListener("click", () => { setAccRole(t.dataset.accrole); $("accName").focus(); }));
+  function setPwShown(btn, show) {
+    $(btn.dataset.for).type = show ? "text" : "password";
+    btn.textContent = show ? "Hide" : "Show";
+  }
+  document.querySelectorAll(".toggle-pw").forEach(btn => btn.addEventListener("click", e => {
+    e.preventDefault();
+    setPwShown(btn, $(btn.dataset.for).type === "password");
+  }));
   function openAccountForm(role, editing = null) {
     accEdit = editing;
     $("accForm").reset();
+    document.querySelectorAll(".toggle-pw").forEach(btn => setPwShown(btn, false));
     const tutorsMap = TelaDB.tutorAccounts();
     $("accTutors").innerHTML = Object.entries(tutorsMap).sort(([, a], [, b]) => String(a.displayName).localeCompare(String(b.displayName)))
       .map(([u, a]) => `<li><label><input type="checkbox" name="accTutor" value="${esc(u)}"><span>${esc(TelaMessages.properName(a.displayName || u))} <small>@${esc(u)}</small></span></label></li>`).join("");
