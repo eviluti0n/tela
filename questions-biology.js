@@ -2892,4 +2892,450 @@
     ex("Explain why eating plants rather than meat could feed more people.", 2, "Energy is lost at each trophic level.", "Eating plants removes a stage, so more biomass is available."),
     ex("Calculate the efficiency of transfer if 1000 kg of grass supports 100 kg of rabbits, and explain your answer.", 2, "Efficiency = 100 ÷ 1000 × 100 = 10%.", "90% of the biomass is lost at that step.")
   ]);
+
+  // ======================= 6-MARK QUESTIONS =======================
+  // Extended-response questions in the style of the GCSE 6-markers (plan, describe, explain, compare, evaluate).
+  // They're original questions, not copied from past papers. Like the real ones they're marked by level, so each
+  // lists the indicative content (shown as bullets if the student marks themselves wrong) plus the level guide.
+  //   six(question, points, kind)   kind "evaluate" or "compare" adds what those need for the top level.
+  const LEVELS = "Marked by level, not by counting points. Level 3 (5–6 marks): a detailed, logically ordered answer " +
+    "that covers most of these points and links them together. Level 2 (3–4 marks): several relevant points, with " +
+    "some linking. Level 1 (1–2 marks): a few simple, separate points.";
+  const LEVEL_EXTRA = {
+    evaluate: " For Level 3 you must weigh up both sides and give a conclusion with a reason.",
+    compare: " For Level 3 you must give both similarities and differences, saying how each one compares (not two separate descriptions).",
+    plan: " For Level 3 the method must be clear enough for someone else to follow, with the variable to change, what to measure and what to keep the same."
+  };
+  const six = (question, points, kind = "") =>
+    ({ question, type: "explain", marks: 6, points, notes: LEVELS + (LEVEL_EXTRA[kind] || ""), answer: points.join(" ") });
+
+  // ---------- 4.1 Cell Biology ----------
+  addTo("Required practical: using a microscope to observe cells", [
+    six("A student wants to look at cells from the thin inner layer of a red onion and estimate their size. Describe how the student should prepare a slide and use a light microscope to do this.", [
+      "Peel a thin layer of epidermis from the onion with forceps, so light can pass through it.",
+      "Lay it flat on a drop of water on a clean slide, with no folds.",
+      "Add a drop of stain such as iodine solution so the cell structures can be seen.",
+      "Lower a coverslip at an angle with a mounted needle to avoid trapping air bubbles.",
+      "Put the slide on the stage and start with the lowest-power objective lens.",
+      "Focus with the coarse focus, then the fine focus, then change to a higher-power objective and refocus.",
+      "Use a scale (eyepiece graticule or a ruler on the image) and count how many cells fit across a known distance to estimate the size of one cell."
+    ], "plan")
+  ]);
+  addTo("Mitosis and the cell cycle", [
+    six("Skin cells divide to replace cells that are lost. Describe what happens during the cell cycle to produce two new skin cells.", [
+      "The cell grows bigger.",
+      "The number of subcellular structures such as ribosomes and mitochondria increases.",
+      "The DNA replicates, so each chromosome is copied to form two identical copies.",
+      "During mitosis the chromosomes line up at the centre of the cell.",
+      "One copy of each chromosome is pulled to each end of the cell, and a new nucleus forms at each end.",
+      "The cytoplasm and cell membrane divide.",
+      "Two genetically identical daughter cells are made, each with the same number of chromosomes as the parent cell."
+    ])
+  ]);
+  addTo("Stem cells: types and uses (embryonic & adult)", [
+    six("Doctors hope to use stem cells to treat people with paralysis caused by a damaged spinal cord. Evaluate the use of embryonic stem cells and adult stem cells for this treatment.", [
+      "Embryonic stem cells can differentiate into any type of cell, including nerve cells.",
+      "Adult stem cells (e.g. from bone marrow) can only form a limited number of cell types, so may not form nerve cells.",
+      "Embryonic stem cells could be made by therapeutic cloning, so they match the patient and are not rejected.",
+      "Adult stem cells from the patient's own body would not be rejected, and no embryo is destroyed.",
+      "Using embryos raises ethical or religious objections, because the embryo could have become a person.",
+      "Risks of both: stem cells grown in the lab could be infected with a virus, or could keep dividing and form a tumour.",
+      "Conclusion with a reason, e.g. embryonic cells are more likely to work, but adult cells avoid the ethical problems."
+    ], "evaluate")
+  ]);
+  addTo("Required practical: osmosis in plant tissue", [
+    six("A student wants to find the concentration of sugar solution that is the same concentration as the cell contents of a carrot. Plan an investigation the student could use.", [
+      "Cut cylinders from the carrot with a cork borer, all the same length and width (and remove the skin).",
+      "Blot each cylinder dry and measure its starting mass on a balance.",
+      "Put the cylinders in a range of sugar solutions, e.g. 0, 0.2, 0.4, 0.6, 0.8 and 1.0 mol/dm³.",
+      "Keep the volume of solution, temperature and time (e.g. 24 hours) the same for each tube.",
+      "Remove the cylinders, blot them dry and measure the final mass.",
+      "Calculate the percentage change in mass, and repeat for each concentration to find a mean.",
+      "Plot percentage change in mass against concentration; the concentration where the line crosses zero (no change in mass) is the same as the cell contents."
+    ], "plan")
+  ]);
+  addTo("Digestive system: organs and enzymes", [
+    six("A person eats a cheese sandwich, which contains starch, protein and fat. Describe how the starch, protein and fat are digested and how the products are absorbed.", [
+      "Starch is broken down into sugars by amylase, made in the salivary glands and pancreas, in the mouth and small intestine.",
+      "Protein is broken down into amino acids by protease, made in the stomach and pancreas, in the stomach and small intestine.",
+      "Fat (lipids) is broken down into fatty acids and glycerol by lipase, made in the pancreas, in the small intestine.",
+      "Hydrochloric acid in the stomach gives the low pH that the stomach protease works best at.",
+      "Bile, made in the liver and stored in the gall bladder, emulsifies fat into small droplets, giving a larger surface area for lipase.",
+      "Bile is alkaline, so it neutralises stomach acid, giving a pH that the enzymes in the small intestine work best at.",
+      "The soluble products are absorbed into the blood through the villi of the small intestine, which have a large surface area and a good blood supply."
+    ])
+  ]);
+  addTo("Required practical: food tests (Benedict's, Biuret, iodine)", [
+    six("A company says its new fruit smoothie contains sugar and protein but no starch. Describe how you could test a sample of the smoothie to check this claim.", [
+      "Put a small sample of the smoothie into three separate test tubes (blending or filtering it first if it has lumps).",
+      "Sugar: add Benedict's solution and heat in a water bath at about 75 °C for a few minutes.",
+      "If sugar (a reducing sugar) is present, the colour changes from blue to green, yellow or brick red.",
+      "Protein: add Biuret reagent (or sodium hydroxide then copper sulfate solution).",
+      "If protein is present, the colour changes from blue to purple (lilac).",
+      "Starch: add a few drops of iodine solution; it stays orange-brown if there is no starch, and turns blue-black if starch is present.",
+      "Safety: wear eye protection, especially when heating Benedict's, and take care with the Biuret reagent, which is corrosive."
+    ], "plan")
+  ]);
+  addTo("Required practical: effect of pH on enzyme activity", [
+    six("A student is given amylase, starch solution, iodine solution and buffer solutions of different pH. Plan an investigation to find the effect of pH on the rate at which amylase breaks down starch.", [
+      "Put a drop of iodine solution into each well of a spotting tile.",
+      "Use buffer solutions to give a range of pH values, e.g. pH 4, 5, 6, 7 and 8.",
+      "Mix the same volume of amylase, starch solution and buffer in a test tube, and start a stopwatch.",
+      "Keep the temperature the same by putting the tubes in a water bath (e.g. at 35 °C), and keep the volumes and concentrations of amylase and starch the same.",
+      "Every 10 or 30 seconds, put a drop of the mixture into a new well of iodine.",
+      "Record the time when the iodine stays orange-brown (no longer turns blue-black), showing all the starch has been broken down.",
+      "Repeat at each pH and calculate a mean; a shorter time means a faster rate (rate = 1000 ÷ time)."
+    ], "plan")
+  ]);
+  addTo("Heart structure and the circulatory system", [
+    six("Describe how blood flows through the heart and around the body, starting with deoxygenated blood returning to the heart from the body.", [
+      "Deoxygenated blood enters the right atrium through the vena cava.",
+      "It passes through a valve into the right ventricle.",
+      "The right ventricle pumps it through the pulmonary artery to the lungs, where it picks up oxygen.",
+      "Oxygenated blood returns to the left atrium through the pulmonary vein.",
+      "It passes into the left ventricle, which has a thicker muscle wall.",
+      "The left ventricle pumps it through the aorta to the rest of the body.",
+      "Valves stop the blood flowing backwards; it is a double circulation, through the heart twice in each circuit."
+    ])
+  ]);
+  addTo("Coronary heart disease and treatments", [
+    six("A patient has coronary heart disease. Evaluate the use of stents and statins to treat the patient.", [
+      "In coronary heart disease, fatty material builds up in the coronary arteries, reducing blood flow (and oxygen) to the heart muscle.",
+      "A stent is a mesh tube placed in the artery to hold it open, so blood can flow again.",
+      "Stents work straight away and last a long time, and recovery from fitting one is quick.",
+      "But fitting a stent needs surgery, with a risk of infection, bleeding or a blood clot, and fat can build up again.",
+      "Statins lower the level of cholesterol in the blood, so fatty material builds up more slowly.",
+      "Statins are a tablet, so no surgery is needed, but they must be taken every day for life, take time to work and can have side effects such as muscle pain or liver problems.",
+      "Conclusion with a reason, e.g. a stent for a badly blocked artery, then statins to stop it happening again."
+    ], "evaluate")
+  ]);
+  addTo("Plant tissues: leaf structure and transpiration", [
+    six("Explain how water moves from the soil, through a plant and out into the air, and why this happens faster on a hot, windy day.", [
+      "Water enters root hair cells from the soil by osmosis; root hairs give a large surface area.",
+      "The water moves across the root and into the xylem.",
+      "Xylem vessels are hollow tubes that carry water up the stem to the leaves.",
+      "Water evaporates from the surfaces of cells inside the leaf.",
+      "Water vapour diffuses out of the leaf through the stomata; this loss pulls more water up the xylem (the transpiration stream).",
+      "A higher temperature gives the water molecules more energy, so evaporation and diffusion are faster.",
+      "Wind carries away water vapour from around the leaf, keeping the concentration gradient steep, so diffusion is faster."
+    ])
+  ]);
+
+  // ---------- 4.3 Infection and Response ----------
+  addTo("The immune response: white blood cells, antibodies", [
+    six("Bacteria get into the blood through a cut. Describe how white blood cells protect the body against these bacteria.", [
+      "Some white blood cells engulf the bacteria and digest them; this is phagocytosis.",
+      "Lymphocytes produce antibodies.",
+      "Each antibody is specific to (fits) the antigens on the surface of that type of bacterium.",
+      "Antibodies stick to the bacteria, clumping them together and helping to destroy them.",
+      "Some white blood cells make antitoxins, which neutralise the toxins released by the bacteria.",
+      "Memory cells stay in the blood after the infection.",
+      "If the same bacteria enter again, antibodies are made faster and in larger amounts, so the person doesn't become ill."
+    ])
+  ]);
+  addTo("Vaccination and herd immunity", [
+    six("Explain how a vaccine against measles stops a person becoming ill if they later catch the measles virus, and why it helps to vaccinate a large proportion of a population.", [
+      "The vaccine contains a dead or inactive (weakened) form of the measles virus.",
+      "The virus has antigens on its surface.",
+      "White blood cells (lymphocytes) produce antibodies specific to these antigens.",
+      "Memory cells are made, which stay in the body.",
+      "If the live virus gets in later, the memory cells make the right antibodies quickly and in large numbers.",
+      "The virus is destroyed before it can cause symptoms.",
+      "If most people are vaccinated, the virus can't spread easily, so even unvaccinated people are protected (herd immunity)."
+    ])
+  ]);
+  addTo("Antibiotics: how they work and resistance", [
+    six("A hospital finds that an antibiotic no longer kills a type of bacterium that it used to kill. Explain how this antibiotic resistance developed, and describe how the spread of resistant bacteria can be reduced.", [
+      "A random mutation in the DNA of one bacterium made it resistant to the antibiotic.",
+      "When the antibiotic was used, the bacteria without the mutation were killed.",
+      "The resistant bacteria survived (natural selection).",
+      "They reproduced quickly by binary fission, passing on the resistance allele.",
+      "The population of resistant bacteria grew, and it spreads because people aren't immune and there's no effective treatment.",
+      "Doctors should only prescribe antibiotics when they're really needed (not for viral infections), and patients should finish the course.",
+      "Use of antibiotics in farming should be restricted, and hospitals should have good hygiene, e.g. handwashing and isolating infected patients."
+    ])
+  ]);
+  addTo("Drug development: clinical trials, double-blind", [
+    six("A company has made a new drug to lower blood pressure. Describe how the drug would be tested before doctors could prescribe it.", [
+      "Preclinical testing is done in the lab on cells, tissues and then live animals.",
+      "It checks for toxicity, efficacy (whether it works) and the dose.",
+      "Clinical trials start with very low doses given to healthy volunteers, to check for side effects.",
+      "If it's safe, it is given to patients with high blood pressure to find the optimum dose.",
+      "Some patients are given a placebo, so the effect of the drug can be compared fairly.",
+      "In a double-blind trial neither the patients nor the doctors know who has the drug, so the results aren't biased.",
+      "The results are peer reviewed by other scientists before the drug is licensed."
+    ])
+  ]);
+  addTo("Monoclonal antibodies: production and uses", [
+    six("Describe how monoclonal antibodies are produced, and give two ways they can be used.", [
+      "A mouse is injected with a chosen antigen.",
+      "The mouse's lymphocytes make antibodies specific to that antigen; these lymphocytes are collected.",
+      "The lymphocytes are fused with tumour cells to make hybridoma cells.",
+      "Hybridoma cells divide quickly and can each make the antibody.",
+      "A single hybridoma cell is cloned to make many identical cells, which all make the same antibody.",
+      "The antibodies are collected and purified.",
+      "Uses: pregnancy tests, diagnosing diseases, measuring hormone levels in the blood, locating clots or cancer cells, or carrying drugs to cancer cells."
+    ])
+  ]);
+  addTo("Plant disease: detection and defence", [
+    six("Describe the different ways that plants defend themselves against pathogens and against animals that eat them.", [
+      "Physical: cellulose cell walls are hard for pathogens to get through.",
+      "Physical: a tough waxy cuticle on leaves acts as a barrier.",
+      "Physical: layers of dead cells on the surface (e.g. bark) fall off, taking pathogens with them.",
+      "Chemical: some plants make antibacterial chemicals (e.g. mint, witch hazel).",
+      "Chemical: some make poisons, so animals don't eat them (e.g. foxgloves, tobacco).",
+      "Mechanical: thorns and hairs stop animals touching or eating them.",
+      "Mechanical: leaves that droop or curl when touched, or mimicry that tricks animals."
+    ])
+  ]);
+
+  // ---------- 4.4 Bioenergetics ----------
+  addTo("Limiting factors in depth: interactions, the inverse square law and greenhouse costs", [
+    six("A farmer grows lettuces in a large greenhouse. Explain how the farmer could increase the rate of photosynthesis to grow more lettuces, and why the farmer has to think about cost.", [
+      "Light intensity, carbon dioxide concentration and temperature can each limit the rate of photosynthesis.",
+      "Lamps can give more light, including at night, increasing light intensity.",
+      "A paraffin heater can raise the carbon dioxide concentration (and also warm the greenhouse).",
+      "Heaters keep the temperature close to the optimum for the photosynthesis enzymes, but too hot would denature them.",
+      "Increasing one factor only helps until another factor becomes limiting.",
+      "Lamps, heaters and fuel cost money to buy and run.",
+      "The farmer should only raise a factor if the extra income from the larger yield is more than the extra cost."
+    ])
+  ]);
+  addTo("Required practical: investigating the rate of photosynthesis", [
+    six("Plan an investigation into how light intensity affects the rate of photosynthesis in pondweed.", [
+      "Put a piece of pondweed in a boiling tube of water with sodium hydrogencarbonate added, to provide carbon dioxide.",
+      "Place a lamp at a set distance, e.g. 10 cm, measured with a metre ruler.",
+      "Leave the pondweed for a few minutes to adjust to the light.",
+      "Count the bubbles of oxygen given off in one minute, or collect the gas in a measuring cylinder or gas syringe and measure its volume.",
+      "Repeat with the lamp at different distances, e.g. 20, 30, 40 and 50 cm.",
+      "Control variables: the same pondweed, the same concentration of sodium hydrogencarbonate, and keep the temperature constant with a water bath or an LED bulb.",
+      "Repeat at each distance and calculate a mean; light intensity is proportional to 1 ÷ distance²."
+    ], "plan")
+  ]);
+  addTo("Oxygen debt: lactic acid converted back to glucose in the liver", [
+    six("A student runs a 400 m race as fast as possible. Explain the changes that happen in the student's body during and after the race.", [
+      "Heart rate increases, so blood flows faster to the muscles.",
+      "Breathing rate and breath volume increase, so more oxygen gets into the blood.",
+      "This supplies more oxygen and glucose for aerobic respiration, and removes more carbon dioxide.",
+      "The muscles can't get enough oxygen, so they also respire anaerobically, producing lactic acid.",
+      "Lactic acid builds up and the muscles become fatigued, so they contract less efficiently.",
+      "After the race, breathing stays fast and deep to repay the oxygen debt.",
+      "Blood carries the lactic acid to the liver, where it is converted back into glucose."
+    ])
+  ]);
+
+  // ---------- 4.5 Homeostasis and Response ----------
+  addTo("Reflex arc: sensory, relay, motor neurones", [
+    six("A person touches a hot pan and quickly pulls their hand away. Describe how the nervous system produces this response.", [
+      "Receptors in the skin detect the heat (the stimulus).",
+      "Electrical impulses travel along a sensory neurone to the spinal cord (CNS).",
+      "At the synapse, a chemical is released that diffuses across the gap and starts an impulse in the next neurone.",
+      "A relay neurone in the spinal cord passes the impulse to a motor neurone.",
+      "The impulse travels along the motor neurone to the effector, a muscle in the arm.",
+      "The muscle contracts, pulling the hand away.",
+      "It's a reflex: fast and automatic, because the impulse doesn't go through the conscious part of the brain, which reduces damage."
+    ])
+  ]);
+  addTo("The eye: structure and function, accommodation", [
+    six("A student looks up from reading a book to look at a tree in the distance. Explain how the eye changes to focus on the book, and then on the tree.", [
+      "Light is refracted by the cornea and the lens to focus an image on the retina.",
+      "Near object (book): the ciliary muscles contract.",
+      "The suspensory ligaments slacken (loosen).",
+      "The lens becomes thicker (more curved), so it refracts light more strongly.",
+      "Distant object (tree): the ciliary muscles relax.",
+      "The suspensory ligaments are pulled tight.",
+      "The lens is pulled thin (flatter), so it refracts light only slightly; this process is called accommodation."
+    ])
+  ]);
+  addTo("Thermoregulation: vasodilation, sweating, shivering", [
+    six("Explain how the body responds to bring its core temperature back to normal when it gets too hot, and when it gets too cold.", [
+      "The thermoregulatory centre in the brain detects the temperature of the blood; receptors in the skin also send information.",
+      "Too hot: blood vessels supplying the skin capillaries dilate (vasodilation), so more blood flows near the surface and more heat is lost.",
+      "Too hot: sweat glands release sweat, which evaporates from the skin, transferring heat away.",
+      "Too cold: the blood vessels constrict (vasoconstriction), so less blood flows near the surface and less heat is lost.",
+      "Too cold: sweating stops.",
+      "Too cold: skeletal muscles contract rapidly (shivering), releasing heat from respiration.",
+      "These responses bring the temperature back to about 37 °C, which keeps enzymes working at their best."
+    ])
+  ]);
+  addTo("Glucagon and insulin: negative feedback", [
+    six("Explain how blood glucose concentration is controlled after a large meal, and after several hours without food.", [
+      "The pancreas monitors the blood glucose concentration.",
+      "After a meal the concentration rises, so the pancreas releases insulin into the blood.",
+      "Insulin makes body cells take in glucose from the blood.",
+      "In the liver and muscles, excess glucose is converted into glycogen for storage.",
+      "Without food the concentration falls, so the pancreas releases glucagon.",
+      "Glucagon makes the liver convert glycogen back into glucose, which is released into the blood.",
+      "This is negative feedback: each change triggers a response that brings the concentration back to normal."
+    ])
+  ]);
+  addTo("Type 1 vs Type 2 diabetes: causes and treatments", [
+    six("Compare Type 1 and Type 2 diabetes. Include their causes and how they are treated.", [
+      "In both types the blood glucose concentration can rise too high.",
+      "Type 1: the pancreas produces too little or no insulin.",
+      "Type 2: the pancreas still makes insulin, but body cells no longer respond to it properly.",
+      "Type 1 usually starts in childhood; Type 2 is more common in older people.",
+      "Obesity (and lack of exercise) is a risk factor for Type 2, but not for Type 1.",
+      "Type 1 is treated with insulin injections (or a pump), as well as a careful diet.",
+      "Type 2 is treated first with a carbohydrate-controlled diet and exercise; drugs may be added later."
+    ], "compare")
+  ]);
+  addTo("How hormones interact to control the menstrual cycle", [
+    six("Describe how the hormones FSH, LH, oestrogen and progesterone interact to control the menstrual cycle.", [
+      "FSH is released by the pituitary gland.",
+      "FSH causes an egg to mature in the ovary and stimulates the ovaries to produce oestrogen.",
+      "Oestrogen makes the lining of the uterus build up, and stops FSH being released.",
+      "Oestrogen stimulates the pituitary gland to release LH.",
+      "LH causes ovulation (release of the mature egg), around day 14.",
+      "Progesterone is released by the ovary after ovulation and keeps the uterus lining thick.",
+      "Progesterone stops FSH and LH being released; when progesterone falls, the lining breaks down (menstruation) and FSH rises again."
+    ])
+  ]);
+  addTo("Contraception: hormonal and non-hormonal", [
+    six("A couple are deciding which method of contraception to use. Evaluate the use of hormonal and non-hormonal methods.", [
+      "Hormonal methods include the pill, implant, injection and patch; they release oestrogen and/or progesterone.",
+      "They work by stopping FSH being released, so no eggs mature, or by thickening mucus so sperm can't get through.",
+      "Hormonal methods are very effective (over 99% if used correctly), and an implant or injection lasts for months or years.",
+      "But they can have side effects (e.g. mood changes, headaches, blood clots), the pill must be taken every day, and they don't protect against STIs.",
+      "Non-hormonal methods include condoms and diaphragms (barriers), spermicide, abstaining around ovulation, and surgery (sterilisation).",
+      "Condoms protect against STIs and have no hormonal side effects, but are less effective and can split; surgery is very effective but usually permanent.",
+      "Conclusion with a reason, e.g. a hormonal method for reliability, plus condoms for protection against STIs."
+    ], "evaluate")
+  ]);
+  addTo("Fertility treatments: IVF, fertility drugs", [
+    six("Describe how IVF treatment is carried out, and give some of the problems with it.", [
+      "The woman is given FSH and LH to make several eggs mature at once.",
+      "The eggs are collected from her ovaries.",
+      "The eggs are fertilised in a lab with sperm from the father (or a sperm is injected directly into an egg).",
+      "The fertilised eggs develop into embryos.",
+      "When they are tiny balls of cells, one or two embryos are inserted into the mother's uterus.",
+      "Problems: the success rate is low, so it can be emotionally and physically stressful, and it is expensive.",
+      "Problems: putting in more than one embryo can lead to multiple births, which are risky for the mother and babies; unused embryos raise ethical issues."
+    ])
+  ]);
+  addTo("Plant hormones: auxin, gravitropism, phototropism", [
+    six("A seedling is placed on a windowsill so it gets light from one side only. Explain how the shoot grows towards the light, and how the root grows downwards.", [
+      "Auxin is a plant hormone made in the tips of shoots and roots.",
+      "Light from one side makes auxin collect on the shaded side of the shoot.",
+      "In shoots, auxin stimulates cell elongation, so the shaded side grows faster.",
+      "The shoot bends towards the light (phototropism), so its leaves get more light for photosynthesis.",
+      "In a root, gravity makes auxin collect on the lower side.",
+      "In roots, auxin inhibits cell elongation, so the upper side grows faster and the root bends downwards (gravitropism).",
+      "Roots growing down anchor the plant and reach water and mineral ions."
+    ])
+  ]);
+
+  // ---------- 4.6 Inheritance, Variation and Evolution ----------
+  addTo("Sexual vs asexual reproduction: advantages", [
+    six("Strawberry plants reproduce sexually using seeds, and asexually using runners. Compare sexual and asexual reproduction, including the advantages of each.", [
+      "Sexual reproduction involves two parents and the fusion of gametes; asexual involves one parent and no gametes.",
+      "Sexual reproduction uses meiosis to make gametes; asexual reproduction uses mitosis.",
+      "Sexual offspring show variation (a mix of genes); asexual offspring are clones, genetically identical to the parent.",
+      "Advantage of sexual: variation means some may survive if the environment changes or a disease spreads, and it drives natural selection.",
+      "Advantage of sexual: humans can use it to selectively breed plants with useful features.",
+      "Advantage of asexual: only one parent is needed, so it is faster and uses less time and energy than finding a mate.",
+      "Advantage of asexual: many identical offspring can be made quickly when conditions are good, e.g. runners spreading over a field."
+    ], "compare")
+  ]);
+  addTo("Meiosis: stages and importance of variation", [
+    six("Compare mitosis and meiosis.", [
+      "Both are types of cell division, and in both the DNA is copied first.",
+      "Mitosis has one division; meiosis has two divisions.",
+      "Mitosis makes two daughter cells; meiosis makes four.",
+      "Mitosis makes cells with the full number of chromosomes (diploid, 46 in humans); meiosis makes cells with half the number (haploid, 23).",
+      "Mitosis makes genetically identical cells; meiosis makes cells that are all genetically different.",
+      "Mitosis happens in body cells for growth, repair and asexual reproduction.",
+      "Meiosis happens in the reproductive organs (testes and ovaries) to make gametes."
+    ], "compare")
+  ]);
+  addTo("Inherited disorders: cystic fibrosis, polydactyly", [
+    six("Embryos made by IVF can be screened for cystic fibrosis before one is chosen to put into the uterus. Evaluate the use of embryo screening.", [
+      "Cystic fibrosis is caused by a recessive allele, so two carrier parents have a 1 in 4 chance of each child having it.",
+      "Screening means only embryos without the disorder are implanted, so the child won't suffer from it.",
+      "It saves the cost of lifelong treatment and care for the disorder.",
+      "Screening is expensive, and removing a cell could damage the embryo.",
+      "Some people think destroying embryos with the disorder is wrong.",
+      "Some worry it could lead to people choosing embryos for other reasons (\"designer babies\"), or suggests that people with disorders are less valued.",
+      "Conclusion with a reason, e.g. it is justified for serious disorders, if strictly regulated."
+    ], "evaluate")
+  ]);
+  addTo("Natural selection and evolution", [
+    six("A species of hare lives in a region that has become much snowier over thousands of years. Most of the hares now have white fur in winter. Explain how this change happened by natural selection.", [
+      "There was variation in fur colour in the original population.",
+      "The variation was caused by different alleles, which came from mutations.",
+      "Hares with whiter fur were better camouflaged in the snow, so predators were less likely to see and catch them.",
+      "Darker hares were more likely to be eaten.",
+      "The white hares were more likely to survive and reproduce.",
+      "They passed the alleles for white fur on to their offspring.",
+      "Over many generations, the allele for white fur became more common in the population."
+    ])
+  ]);
+  addTo("Selective breeding: process and examples", [
+    six("Farmers want a variety of wheat that is resistant to a fungal disease. Compare using selective breeding and genetic engineering to produce this wheat.", [
+      "Both produce plants with a useful characteristic that can be passed on to offspring.",
+      "Selective breeding: choose parent plants that show the most resistance and breed them together.",
+      "Then choose the most resistant offspring and breed them, repeating over many generations.",
+      "Genetic engineering: cut out the gene for resistance from another organism and insert it into the wheat's cells.",
+      "Selective breeding is slow (many generations), but genetic engineering can give the result in one generation.",
+      "Genetic engineering can use genes from a completely different species; selective breeding can only use variation already in the wheat.",
+      "Selective breeding can cause inbreeding and a smaller gene pool; people worry GM crops might affect wild plants and insects, or the health of people who eat them."
+    ], "compare")
+  ]);
+  addTo("The steps of genetic engineering (enzymes, vectors)", [
+    six("Describe how bacteria can be genetically engineered to make human insulin.", [
+      "The gene for insulin is found in human DNA.",
+      "It is cut out using enzymes (restriction enzymes), leaving sticky ends.",
+      "A plasmid is taken from a bacterium and cut open with the same enzyme; the plasmid is the vector.",
+      "The insulin gene is joined into the plasmid using another enzyme (ligase).",
+      "The plasmid is put back into a bacterium.",
+      "The bacterium divides many times, making clones that all contain the gene.",
+      "The bacteria are grown in large vessels (fermenters) and produce insulin, which is collected and purified."
+    ])
+  ]);
+
+  // ---------- 4.7 Ecology ----------
+  addTo("Required practical: sampling using quadrats and transects", [
+    six("A student wants to find out how the distribution of buttercups changes from the edge of a wood out into an open field. Plan an investigation the student could use.", [
+      "Lay a tape measure in a straight line from the edge of the wood out into the field (a transect).",
+      "Place a quadrat at regular intervals along the tape, e.g. every 2 m.",
+      "Count the number of buttercups in each quadrat, or estimate the percentage cover.",
+      "Measure an abiotic factor at each quadrat, e.g. light intensity with a light meter.",
+      "Use the same size quadrat each time.",
+      "Repeat with more transects in different places along the edge of the wood and calculate means.",
+      "Plot the number of buttercups (and light intensity) against distance from the wood to see the pattern."
+    ], "plan")
+  ]);
+  addTo("Carbon cycle", [
+    six("Describe how carbon is recycled in a woodland ecosystem.", [
+      "Plants (producers) take in carbon dioxide from the air for photosynthesis.",
+      "The carbon becomes part of carbohydrates, proteins and fats in the plants.",
+      "Animals eat the plants, so carbon passes along the food chain.",
+      "Plants and animals release carbon dioxide back into the air by respiration.",
+      "When plants and animals die (or produce waste), decomposers such as bacteria and fungi break them down.",
+      "Decomposers release carbon dioxide into the air by respiration.",
+      "Burning wood (combustion) also releases carbon dioxide."
+    ])
+  ]);
+  addTo("Human impact: deforestation, global warming, land use", [
+    six("Large areas of tropical forest are being cut down and burned to make space for cattle farms and crops. Explain the effects this has on the environment.", [
+      "Burning the trees releases carbon dioxide into the atmosphere.",
+      "Microorganisms decomposing the dead wood also release carbon dioxide by respiration.",
+      "Fewer trees means less carbon dioxide is taken from the air by photosynthesis.",
+      "More carbon dioxide (and methane from cattle) increases the greenhouse effect, leading to global warming.",
+      "Habitats are destroyed, so many species lose their food and shelter.",
+      "This reduces biodiversity, and some species may become extinct.",
+      "Lower biodiversity makes ecosystems less stable, and we may lose plants that could be used for medicines or food."
+    ])
+  ]);
+  addTo("Trophic levels and energy transfer", [
+    six("Explain why biomass is lost at each stage of a food chain, and why this means food chains rarely have more than four or five trophic levels.", [
+      "Producers (plants) make biomass by photosynthesis; only about 10% is passed on to each next trophic level.",
+      "Not all of an organism is eaten, e.g. roots or bones.",
+      "Not all the food eaten is digested; some is egested as faeces.",
+      "Much of the glucose is used in respiration, releasing energy for movement and keeping warm, and carbon dioxide is lost.",
+      "Some biomass is lost as waste such as urea in urine.",
+      "So each trophic level has much less biomass than the one below.",
+      "After a few levels there isn't enough biomass left to support another population of consumers."
+    ])
+  ]);
 })();
