@@ -531,6 +531,7 @@ TelaDB.start("tutor").then(() => {
       <div class="s-actions">
         <button type="button" class="btn btn-primary" data-homework="${esc(st.username)}">Set homework</button>
         <button type="button" class="btn btn-ghost" data-chat="${esc(st.username)}">Message</button>
+        <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}">Export data</button>
       </div>
     </article>`;
   }
@@ -959,7 +960,34 @@ TelaDB.start("tutor").then(() => {
     }
     const setHw = e.target.closest("[data-homework]");
     if (setHw) openHomework(setHw.dataset.homework);
+    const exp = e.target.closest("[data-export]");
+    if (exp) exportStudent(exp);
   });
+
+  // ---------- Export ----------
+  // Downloads everything saved for one student as a JSON file (what goes in it, and the format, may change later).
+  async function exportStudent(btn) {
+    const username = btn.dataset.export;
+    btn.disabled = true;
+    btn.textContent = "Exporting…";
+    try {
+      const data = await TelaDB.exportStudent(username);
+      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `tela-${username}-${data.exportedAt.slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast(`Exported ${TelaMessages.properName(data.student.name || username)}'s data.`);
+    } catch (err) {
+      toast("Couldn't export their data: " + (err.message || err));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Export data";
+    }
+  }
 
   // ---------- Homework ----------
   // Each student's homework (saved in Supabase, see db.js), as [{ id, title, subject, grade, setBy, setByName, setAt, due, note, questions }].

@@ -299,6 +299,24 @@ const TelaDB = (() => {
     track(client.from("homework").delete().eq("id", id), () => S.homework.push(old));
   }
 
+  // ---------- Export ----------
+  // Everything saved for one of the tutor's students, for the tutor page's "Export data" button. Their saved
+  // answers and practice times aren't kept on the tutor page, so they're fetched now.
+  async function exportStudent(username) {
+    const id = idOf("student", username), p = S.profiles[id];
+    if (!p) throw new Error("no such student");
+    const kv = await rows(client.from("student_kv").select("key, value, updated_at").eq("student_id", id));
+    return {
+      exportedAt: new Date().toISOString(),
+      student: { username: p.username, name: p.display_name, created: p.created_at,
+        tutors: S.links.filter(l => l.student_id === id).map(l => usernameOf(l.tutor_id)).filter(Boolean) },
+      topics: topicsOf(username) || [],
+      homework: homeworkOf(username),
+      activity: (kv.find(r => r.key === "activity") || {}).value || activityOf(username),
+      saved: Object.fromEntries(kv.filter(r => r.key !== "activity").map(r => [r.key, { value: r.value, updatedAt: r.updated_at }]))
+    };
+  }
+
   // ---------- When each conversation was last read ----------
   const lastRead = convo => S.reads[convo] || 0;
   function markRead(convo) {
@@ -312,6 +330,6 @@ const TelaDB = (() => {
     client, S, track, start, refresh, onChange: fn => listeners.push(fn), onError: fn => errorListeners.push(fn), emit, flush,
     signIn, signOut, signedInRole, me, isAdmin, idOf, usernameOf, profile, studentAccounts, tutorAccounts,
     createAccount, deleteAccount, updateAccount, setTutors, topicsOf, saveMyTopics, kvGet, kvSet, kvKeys, kvRemove, activityOf,
-    homeworkOf, addHomework, removeHomework, lastRead, markRead
+    homeworkOf, addHomework, removeHomework, exportStudent, lastRead, markRead
   };
 })();
