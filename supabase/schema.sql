@@ -261,7 +261,7 @@ drop trigger if exists guard_account_changes on auth.users;
 create trigger guard_account_changes before update on auth.users for each row execute function public.guard_account_changes();
 
 -- Admins change an account's name, username and (when new_password isn't empty) password. A new password needs at least
--- 8 characters and can't contain the username.
+-- 8 characters.
 -- A new password also signs the account out everywhere. Admins' own usernames can't change, since they
 -- decide who is an admin (see is_admin).
 create or replace function public.admin_update_account(target uuid, new_username text, new_name text, new_password text)
@@ -281,7 +281,6 @@ begin
   end if;
   if coalesce(new_password, '') <> '' then
     if length(new_password) < 8 then raise exception 'password too short'; end if;
-    if position(new_username in lower(new_password)) > 0 then raise exception 'password contains the username'; end if;
   end if;
 
   perform set_config('tela.admin_edit', 'on', true);
