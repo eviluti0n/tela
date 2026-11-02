@@ -1127,6 +1127,52 @@ TelaDB.start("tutor").then(() => {
       doc.setFontSize(7.5); color(MUTED);
       doc.text(doc.splitTextToSize("* From before daily records began: shown on the day the topic was last practised, with its current status.", W - 2 * M), M, y);
     }
+    // Progress by subject: a pie chart for each subject the student has, split into Confident, In progress and Not started
+    const subjects = ["Maths", "Biology", "Physics", "Chemistry"].filter(isShownSubject)
+      .map(subject => ({ subject, list: data.topics.filter(t => t.subject === subject) })).filter(s => s.list.length);
+    if (subjects.length) {
+      const R = 17, perRow = Math.min(3, subjects.length), rowH = 2 * R + 34, colW = (W - 2 * M) / perRow;
+      y += 8;
+      if (y + 10 + rowH > H - M) newPage();
+      doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Progress by subject", M, y);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(8); color(MUTED);
+      doc.text("All topics in each subject, as they stand now", W - M, y, { align: "right" });
+      y += 6;
+      const PARTS = [["done", "Confident", GREEN], ["doing", "In progress", AMBER], ["todo", "Not started", TRACK]];
+      subjects.forEach(({ subject, list }, i) => {
+        if (i % perRow === 0 && i) y += rowH;
+        if (i % perRow === 0 && y + rowH > H - M) newPage();
+        const cx = M + (i % perRow) * colW + colW / 2, cy = y + 8 + R;
+        const counts = PARTS.map(([status]) => list.filter(t => (t.status || "todo") === status).length);
+        // Whole percentages that add up to 100 (largest remainders get the leftover points)
+        const raw = counts.map(c => c / list.length * 100), pct = raw.map(Math.floor);
+        raw.map((r, k) => [r - pct[k], k]).sort((a, b) => b[0] - a[0]).slice(0, 100 - pct.reduce((a, b) => a + b, 0)).forEach(([, k]) => pct[k]++);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); color(INK);
+        doc.text(clean(subject), cx, y + 4, { align: "center" });
+        let start = -Math.PI / 2;
+        counts.forEach((c, k) => {
+          if (!c) return;
+          color(PARTS[k][2], "fill");
+          if (c === list.length) { doc.circle(cx, cy, R, "F"); return; }
+          const end = start + c / list.length * 2 * Math.PI, steps = Math.max(2, Math.ceil((end - start) / 0.05));
+          const pts = [[cx, cy]];
+          for (let s = 0; s <= steps; s++) { const a = start + (end - start) * s / steps; pts.push([cx + R * Math.cos(a), cy + R * Math.sin(a)]); }
+          doc.lines(pts.slice(1).map((p, j) => [p[0] - pts[j][0], p[1] - pts[j][1]]), cx, cy, [1, 1], "F", true);
+          start = end;
+        });
+        // Legend underneath
+        doc.setFontSize(8);
+        PARTS.forEach(([, label, c], k) => {
+          const ly = cy + R + 6 + k * 4.4, lx = cx - 20;
+          color(c, "fill"); doc.circle(lx, ly - 1, 1.3, "F");
+          doc.setFont("helvetica", "normal"); color(INK); doc.text(label, lx + 3, ly);
+          doc.setFont("helvetica", "bold"); doc.text(`${pct[k]}%`, cx + 13, ly, { align: "right" });
+          doc.setFont("helvetica", "normal"); color(MUTED); doc.text(`(${counts[k]})`, cx + 14, ly);
+        });
+      });
+      y += rowH;
+    }
+
     // Page numbers
     const pages = doc.getNumberOfPages();
     for (let p = 1; p <= pages; p++) {
