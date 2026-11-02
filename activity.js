@@ -74,5 +74,5 @@ const TelaActivity = (() => {
     addEventListener("pagehide", () => { save(); TelaDB.flush(); });
   }
 
-  return { KEY, totals, format, tilesHTML, mine, save, track };
+  return { KEY, dayKey, totals, format, tilesHTML, mine, save, track };
 })();

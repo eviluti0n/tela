@@ -965,28 +965,175 @@ TelaDB.start("tutor").then(() => {
   });
 
   // ---------- Export ----------
-  // Downloads everything saved for one student as a JSON file (what goes in it, and the format, may change later).
+  // Downloads a PDF weekly report for one student (this week, Monday to Sunday): a graph of their time active each
+  // day, then the topics they worked on each day and whether each was In progress or Confident.
+  // jsPDF is only loaded the first time a report is made.
+  const JSPDF = { src: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+    integrity: "sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" };
+  let jspdfLoading = null;
+  function loadJsPDF() {
+    if (window.jspdf) return Promise.resolve(window.jspdf);
+    return jspdfLoading = jspdfLoading || new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = JSPDF.src; s.integrity = JSPDF.integrity; s.crossOrigin = "anonymous";
+      s.onload = () => resolve(window.jspdf);
+      s.onerror = () => { jspdfLoading = null; reject(new Error("the PDF maker didn't load")); };
+      document.head.appendChild(s);
+    });
+  }
+
   async function exportStudent(btn) {
     const username = btn.dataset.export;
     btn.disabled = true;
     btn.textContent = "Exporting…";
     try {
-      const data = await TelaDB.exportStudent(username);
-      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `tela-${username}-${data.exportedAt.slice(0, 10)}.json`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-      toast(`Exported ${TelaMessages.properName(data.student.name || username)}'s data.`);
+      const [data, { jsPDF }] = await Promise.all([TelaDB.exportStudent(username), loadJsPDF()]);
+      const week = weekReport(data, new Date());
+      weeklyPDF(jsPDF, data, week).save(`tela-${username}-week-${week.days[0].key}.pdf`);
+      toast(`Downloaded ${TelaMessages.properName(data.student.name || username)}'s weekly report.`);
     } catch (err) {
-      toast("Couldn't export their data: " + (err.message || err));
+      toast("Couldn't make their report: " + (err.message || err));
     } finally {
       btn.disabled = false;
       btn.textContent = "Export data";
     }
+  }
+
+  // The week containing `now`, Monday first: each day's time active and the topics worked on.
+  // Topics come from the student's day log; for days before the log existed, a topic's practice counts on the
+  // day it was last saved, with the status the topic has now (those are flagged `approx`).
+  function weekReport(data, now) {
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (now.getDay() + 6) % 7);
+    const log = (data.saved.daylog || {}).value || {};
+    const logStart = Object.keys(log).sort()[0] || null;
+    const slug = title => title.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const byslug = Object.fromEntries(data.topics.map(t => [slug(t.title), t]));
+    const prefix = `tela.topics.${data.student.username}.`;
+    const lastSaved = {};   // day -> { title: status }
+    Object.entries(data.saved).forEach(([key, { updatedAt }]) => {
+      const m = key.startsWith(prefix) && key.slice(prefix.length).match(/^(practice|marathon|time|maratime)\.(.+)$/);
+      const t = m && byslug[m[2]];
+      if (!t || !updatedAt || (t.status !== "doing" && t.status !== "done")) return;
+      const day = TelaActivity.dayKey(new Date(updatedAt));
+      if (logStart && day >= logStart) return;
+      (lastSaved[day] = lastSaved[day] || {})[t.title] = t.status;
+    });
+    const days = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i), key = TelaActivity.dayKey(d);
+      const logged = log[key] || {}, approx = lastSaved[key] || {};
+      const topics = [
+        ...Object.entries(logged).map(([title, status]) => ({ title, status })),
+        ...Object.entries(approx).filter(([title]) => !(title in logged)).map(([title, status]) => ({ title, status, approx: true }))
+      ].sort((a, b) => (a.status === b.status ? a.title.localeCompare(b.title) : a.status === "done" ? -1 : 1));
+      return { date: d, key, seconds: Number(data.activity[key]) || 0, topics };
+    });
+    return { days, approx: days.some(d => d.topics.some(t => t.approx)) };
+  }
+
+  function weeklyPDF(jsPDF, data, week) {
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const W = 210, H = 297, M = 18;
+    const GREEN = [20, 108, 67], AMBER = [224, 164, 58], INK = [19, 38, 30], MUTED = [111, 98, 86], LINE = [230, 217, 200], TRACK = [236, 226, 212];
+    // The built-in PDF font only has basic Latin characters.
+    const clean = s => String(s).replace(/→/g, "->").replace(/[₀-₉]/g, c => String(c.charCodeAt(0) - 0x2080))
+      .replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/[–—]/g, "-").replace(/…/g, "...").replace(/[^\x20-\x7E\xA0-\xFF]/g, "");
+    const fmt = s => s ? TelaActivity.format(s) : "0 min";
+    const long = d => d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+    const short = d => d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    const color = (c, kind = "text") => kind === "text" ? doc.setTextColor(...c) : kind === "fill" ? doc.setFillColor(...c) : doc.setDrawColor(...c);
+    const name = TelaMessages.properName(data.student.name || data.student.username);
+    const first = week.days[0].date, last = week.days[6].date;
+
+    // Header
+    color(GREEN, "fill"); doc.rect(0, 0, W, 34, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(20); color([255, 255, 255]);
+    doc.text(clean(name), M, 16);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+    doc.text(clean(`Weekly report  ·  ${short(first)} - ${short(last)} ${last.getFullYear()}`), M, 25);
+    doc.setFontSize(9);
+    doc.text(clean(`@${data.student.username}  ·  Exported ${new Date(data.exportedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`), W - M, 25, { align: "right" });
+
+    // Summary tiles
+    const total = week.days.reduce((a, d) => a + d.seconds, 0);
+    const worked = new Map();
+    week.days.forEach(d => d.topics.forEach(t => { if (worked.get(t.title) !== "done") worked.set(t.title, t.status); }));
+    const tiles = [[fmt(total), "Time this week"], [String(week.days.filter(d => d.seconds || d.topics.length).length), "Days active"],
+      [String(worked.size), "Topics worked on"], [String([...worked.values()].filter(s => s === "done").length), "Reached Confident"]];
+    const tw = (W - 2 * M - 3 * 4) / 4;
+    tiles.forEach(([value, label], i) => {
+      const x = M + i * (tw + 4), y = 42;
+      color(LINE, "draw"); doc.setLineWidth(0.3); doc.roundedRect(x, y, tw, 18, 2.5, 2.5, "S");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(13); color(INK); doc.text(clean(value), x + 4, y + 8.5);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(8); color(MUTED); doc.text(label, x + 4, y + 14);
+    });
+
+    // Bar chart: time active each day
+    let y = 72;
+    doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Time active each day", M, y);
+    const chartTop = y + 6, chartH = 46, chartBottom = chartTop + chartH, axisX = M + 14, chartW = W - M - axisX;
+    const maxMin = Math.max(...week.days.map(d => d.seconds / 60), 1);
+    const step = [5, 10, 15, 30, 60, 120, 240].find(s => maxMin / s <= 4) || 480;
+    const top = Math.ceil(maxMin / step) * step;
+    doc.setFontSize(7.5); doc.setFont("helvetica", "normal");
+    for (let v = 0; v <= top; v += step) {
+      const gy = chartBottom - v / top * chartH;
+      color(v ? TRACK : LINE, "draw"); doc.setLineWidth(v ? 0.2 : 0.4); doc.line(axisX, gy, W - M, gy);
+      color(MUTED); doc.text(v < 60 ? `${v} min` : `${+(v / 60).toFixed(1)} h`, axisX - 2, gy + 1, { align: "right" });
+    }
+    const slot = chartW / 7, bw = slot * 0.56;
+    week.days.forEach((d, i) => {
+      const x = axisX + i * slot + (slot - bw) / 2, h = d.seconds / 60 / top * chartH;
+      if (h > 0) { color(GREEN, "fill"); doc.roundedRect(x, chartBottom - h, bw, h, 1, 1, "F"); doc.rect(x, chartBottom - Math.min(h, 1), bw, Math.min(h, 1), "F"); }
+      color(INK); doc.setFont("helvetica", "bold"); doc.setFontSize(8);
+      if (d.seconds) doc.text(clean(fmt(d.seconds)), x + bw / 2, chartBottom - h - 1.5, { align: "center" });
+      doc.text(d.date.toLocaleDateString("en-GB", { weekday: "short" }), x + bw / 2, chartBottom + 5, { align: "center" });
+      doc.setFont("helvetica", "normal"); color(MUTED); doc.setFontSize(7);
+      doc.text(short(d.date), x + bw / 2, chartBottom + 9, { align: "center" });
+    });
+
+    // Topics, day by day
+    y = chartBottom + 20;
+    doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Topics worked on", M, y);
+    // Key
+    doc.setFontSize(8); doc.setFont("helvetica", "normal");
+    [[GREEN, "Confident"], [AMBER, "In progress"]].forEach(([c, label], i) => {
+      const kx = W - M - 52 + i * 26;
+      color(c, "fill"); doc.circle(kx, y - 1.2, 1.4, "F"); color(MUTED); doc.text(label, kx + 3, y);
+    });
+    y += 7;
+    const newPage = () => { doc.addPage(); y = M; };
+    week.days.forEach(d => {
+      if (y > H - M - 16) newPage();
+      color(LINE, "draw"); doc.setLineWidth(0.3); doc.line(M, y - 4, W - M, y - 4);
+      doc.setFont("helvetica", "bold"); doc.setFontSize(10); color(INK); doc.text(clean(long(d.date)), M, y + 1);
+      doc.setFont("helvetica", "normal"); color(MUTED); doc.text(clean(fmt(d.seconds)), W - M, y + 1, { align: "right" });
+      y += 6;
+      if (!d.topics.length) { doc.setFontSize(9); doc.text("No topics recorded.", M + 4, y); y += 6; return; }
+      d.topics.forEach(t => {
+        const lines = doc.setFontSize(9.5).splitTextToSize(clean(t.title) + (t.approx ? " *" : ""), W - 2 * M - 40);
+        if (y + lines.length * 4.5 > H - M) newPage();
+        color(t.status === "done" ? GREEN : AMBER, "fill"); doc.circle(M + 5, y - 1.2, 1.4, "F");
+        color(INK); doc.text(lines, M + 9, y);
+        color(t.status === "done" ? GREEN : [168, 112, 20]); doc.setFont("helvetica", "bold"); doc.setFontSize(8.5);
+        doc.text(t.status === "done" ? "Confident" : "In progress", W - M, y, { align: "right" });
+        doc.setFont("helvetica", "normal");
+        y += lines.length * 4.3 + 1.2;
+      });
+      y += 4;
+    });
+
+    if (week.approx) {
+      if (y > H - M - 8) newPage();
+      doc.setFontSize(7.5); color(MUTED);
+      doc.text(doc.splitTextToSize("* From before daily records began: shown on the day the topic was last practised, with its current status.", W - 2 * M), M, y);
+    }
+    // Page numbers
+    const pages = doc.getNumberOfPages();
+    for (let p = 1; p <= pages; p++) {
+      doc.setPage(p); doc.setFontSize(7.5); color(MUTED);
+      doc.text(`Tutors Elevate  ·  Page ${p} of ${pages}`, W / 2, H - 8, { align: "center" });
+    }
+    return doc;
   }
 
   // ---------- Homework ----------

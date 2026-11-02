@@ -3491,10 +3491,25 @@ TelaDB.start("student").then(() => {
     return { parts, correct, answered };
   }
 
+  // What the student worked on each day, for the tutor's weekly report: { "YYYY-MM-DD": { "<topic title>": "doing" | "done" } }.
+  // A topic keeps the best status it reached that day. Days more than about a year old are dropped.
+  const DAYLOG_KEY = "daylog";
+  function logTopicDay(topic, status) {
+    if (status !== "doing" && status !== "done") return;
+    const log = { ...(TelaDB.kvGet(DAYLOG_KEY) || {}) }, day = TelaActivity.dayKey(new Date());
+    const was = (log[day] || {})[topic.title];
+    if (was === status || was === "done") return;
+    log[day] = { ...(log[day] || {}), [topic.title]: status };
+    const cutoff = TelaActivity.dayKey(new Date(Date.now() - 400 * 864e5));
+    Object.keys(log).forEach(d => { if (d < cutoff) delete log[d]; });
+    TelaDB.kvSet(DAYLOG_KEY, log);
+  }
+
   // Attempting any question marks the topic In progress; getting every one right marks it Confident.
   function syncPracticeStatus({ parts, correct, answered }) {
     const topic = topics.find(t => t.id === practiceTopicId);
     const status = correct === parts ? "done" : answered ? "doing" : null;
+    if (topic && status) logTopicDay(topic, status);
     if (!topic || !status || topic.status === status) return;
     topic.status = status;
     save();
@@ -4456,6 +4471,7 @@ TelaDB.start("student").then(() => {
     const action = btn.dataset.action;
     if (action === "status") {
       topic.status = STATUS[topic.status].next;
+      logTopicDay(topic, topic.status);
       save(); render();
     }
   });
