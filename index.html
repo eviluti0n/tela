@@ -1105,22 +1105,25 @@ TelaDB.start("student").then(() => {
     TelaDB.saveMyTopics(topics.concat(hiddenTopics));
   }
 
-  // Every student has the whole Biology list from catalog.js, even if their dashboard was made before it existed:
-  // any missing Biology topics are added, and the ten old sample Biology topics it replaced are taken out.
+  // Every student has the whole Maths and Biology lists from catalog.js, even if their dashboard was made before
+  // they existed or by an admin (who starts it empty): any missing topics are added, and the ten old sample
+  // Biology topics the full list replaced are taken out.
+  const SYNCED_SUBJECTS = ["Maths", "Biology"];
   const OLD_BIOLOGY = ["Cell structure", "Mitosis & stem cells", "Diffusion, osmosis & active transport", "Enzymes & digestion",
     "The heart & circulation", "Communicable diseases", "Photosynthesis & respiration", "Hormones & homeostasis", "DNA & inheritance", "Ecosystems"];
-  function syncBiology() {
+  function syncSubjects() {
     const before = topics.length;
     topics = topics.filter(t => !(t.subject === "Biology" && OLD_BIOLOGY.includes(t.title)));
     let changed = topics.length !== before;
-    if (!isShownSubject("Biology")) return changed;
-    const have = new Set(topics.filter(t => t.subject === "Biology").map(t => t.title.trim().toLowerCase()));
     const now = Date.now();
-    SAMPLE_TOPICS.Biology.forEach(([title, category, tier, description, , grade = ""], i) => {
-      if (have.has(title.trim().toLowerCase())) return;
-      topics.push({ id: "bio" + i + "-" + now.toString(36), title, subject: "Biology", category, tier, description,
-        status: "todo", grade, boards: [...BOARDS], created: now + i });
-      changed = true;
+    SYNCED_SUBJECTS.filter(isShownSubject).forEach(subject => {
+      const have = new Set(topics.filter(t => t.subject === subject).map(t => t.title.trim().toLowerCase()));
+      SAMPLE_TOPICS[subject].forEach(([title, category, tier, description, , grade = ""], i) => {
+        if (have.has(title.trim().toLowerCase())) return;
+        topics.push({ id: subject.slice(0, 3).toLowerCase() + i + "-" + now.toString(36), title, subject, category, tier, description,
+          status: "todo", grade, boards: [...BOARDS], created: now + i });
+        changed = true;
+      });
     });
     return changed;
   }
@@ -1128,7 +1131,7 @@ TelaDB.start("student").then(() => {
   // Topics in hidden subjects are set aside (and saved back unchanged) so they come back if the subject does.
   const firstVisit = !TelaDB.topicsOf(currentUser);
   let topics = load();
-  const synced = syncBiology();
+  const synced = syncSubjects();
   const hiddenTopics = topics.filter(t => !isShownSubject(t.subject));
   topics = topics.filter(t => isShownSubject(t.subject));
   if (firstVisit || synced) save();
