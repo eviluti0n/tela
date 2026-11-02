@@ -9450,3 +9450,820 @@ QUESTION_BANK.add({
       answer: "Biomass and energy are lost at each level (through respiration, movement, heat and waste), so only about 10% passes on. After a few levels there isn't enough to support another population." }
   ]
 });
+
+
+
+/* =====================================================================
+   MORE PRACTICE (November 2026)
+   Five extra questions for each Grade 3+ Maths topic, added as a second
+   block for the topic (the dashboard combines blocks for the same topic).
+   ===================================================================== */
+(function () {
+  const more = (topic, type, questions) =>
+    QUESTION_BANK.add({ topic, title: topic, type, questions: questions.map(q => ({ section: "More practice", ...q })) });
+
+  // ---------- Grade 3 ----------
+  more("Error intervals", "interval", [
+    { question: "A mass, m, is 12 kg to the nearest kg. Write down the error interval for m.", marks: 2, answer: "11.5 ≤ m < 12.5" },
+    { question: "y = 600 to the nearest 100. Write down the error interval for y.", marks: 2, answer: "550 ≤ y < 650" },
+    { question: "t = 4.7 correct to 1 decimal place. Write down the error interval for t.", marks: 2, answer: "4.65 ≤ t < 4.75" },
+    { question: "w = 8.3, truncated to 1 decimal place. Write down the error interval for w.", marks: 2, answer: "8.3 ≤ w < 8.4" },
+    { question: "d = 2.46 correct to 2 decimal places. Write down the error interval for d.", marks: 2, answer: "2.455 ≤ d < 2.465" }
+  ]);
+  more("Fractions: arithmetic", "fraction", [
+    { question: "Work out 2/7 + 1/4", marks: 2, answer: "15/28" },
+    { question: "Work out 5/6 − 1/4", marks: 2, answer: "7/12" },
+    { question: "Work out 3/4 × 2/9. Give your answer in its simplest form.", marks: 2, answer: "1/6", simplest: true },
+    { question: "Work out 4/7 ÷ 2/3. Give your answer in its simplest form.", marks: 2, answer: "6/7", simplest: true },
+    { question: "Work out 1 1/2 + 2 2/3. Give your answer as an improper fraction.", marks: 3, answer: "25/6" }
+  ]);
+  more("Ratio: as a fraction and simplifying", "ratio", [
+    { question: "Write 18 : 24 in its simplest form.", marks: 1, answer: "3:4", simplest: true },
+    { question: "Write 45 : 30 : 15 in its simplest form.", marks: 1, answer: "3:2:1", simplest: true },
+    { question: "Write 2.5 : 4 in its simplest form, using whole numbers.", marks: 2, answer: "5:8", simplest: true },
+    { question: "Red and blue counters are in the ratio 3 : 5. What fraction of the counters are red?", type: "fraction", marks: 1, answer: "3/8" },
+    { question: "Write 60 cm : 3 m in its simplest form.", marks: 2, answer: "1:5", simplest: true }
+  ]);
+  more("Proportion: recipes and ingredients", "number", [
+    { question: "A recipe for 4 people uses 300 g of flour. How much flour is needed for 10 people?", marks: 2, answer: "750" },
+    { question: "A recipe for 6 people uses 9 eggs. How many eggs are needed for 4 people?", marks: 2, answer: "6" },
+    { question: "A recipe for 8 biscuits uses 120 g of butter. How much butter is needed for 20 biscuits?", marks: 2, answer: "300" },
+    { question: "Soup for 5 people needs 750 ml of stock. How much stock is needed for 3 people?", marks: 2, answer: "450" },
+    { question: "A recipe for 12 cakes uses 180 g of sugar. Sam has 300 g of sugar. What is the greatest number of cakes Sam can make?", marks: 2, answer: "20" }
+  ]);
+  more("Ratio: sharing", "number", [
+    { question: "Share £60 in the ratio 2 : 3. How much is the larger share?", marks: 2, answer: "36" },
+    { question: "Share 84 sweets in the ratio 3 : 4. How many sweets are in the smaller share?", marks: 2, answer: "36" },
+    { question: "Share £150 in the ratio 1 : 2 : 3. How much is the largest share?", marks: 2, answer: "75" },
+    { question: "Amy and Ben share some money in the ratio 5 : 3. Amy gets £40. How much does Ben get?", marks: 2, answer: "24" },
+    { question: "The ratio of boys to girls in a club is 4 : 5. There are 12 more girls than boys. How many people are in the club?", marks: 3, answer: "108" }
+  ]);
+  more("Percentages: percentages of amounts", "number", [
+    { question: "Work out 15% of 240.", marks: 2, answer: "36" },
+    { question: "Work out 35% of £80.", marks: 2, answer: "28" },
+    { question: "Work out 2.5% of 400.", marks: 2, answer: "10" },
+    { question: "Work out 120% of 65.", marks: 2, answer: "78" },
+    { question: "A school has 650 students. 42% of them walk to school. How many students walk to school?", marks: 2, answer: "273" }
+  ]);
+  more("Percentages: increase/decrease", "number", [
+    { question: "Increase £80 by 15%.", marks: 2, answer: "92" },
+    { question: "Decrease 250 by 12%.", marks: 2, answer: "220" },
+    { question: "A coat costs £45. In a sale it is reduced by 20%. What is the sale price?", marks: 2, answer: "36" },
+    { question: "Increase 360 kg by 5%.", marks: 2, answer: "378" },
+    { question: "A phone costs £240 plus VAT at 20%. What is the total cost?", marks: 2, answer: "288" }
+  ]);
+  more("Percentage change", "number", [
+    { question: "A price rises from £50 to £62. Work out the percentage increase.", marks: 2, answer: "24" },
+    { question: "A population falls from 800 to 680. Work out the percentage decrease.", marks: 2, answer: "15" },
+    { question: "A plant grows from 40 cm to 46 cm. Work out the percentage increase.", marks: 2, answer: "15" },
+    { question: "A car is bought for £12 000 and sold for £9000. Work out the percentage loss.", marks: 2, answer: "25" },
+    { question: "A shop buys a jumper for £16 and sells it for £28. Work out the percentage profit.", marks: 2, answer: "75" }
+  ]);
+  more("Exchange rate", "number", [
+    { question: "£1 = €1.15. Change £340 into euros.", marks: 2, answer: "391" },
+    { question: "£1 = $1.25. Change $75 into pounds.", marks: 2, answer: "60" },
+    { question: "£1 = €1.20. Change €54 into pounds.", marks: 2, answer: "45" },
+    { question: "£1 = ¥180. How many yen do you get for £35?", marks: 2, answer: "6300" },
+    { question: "A watch costs $96 in New York and £80 in London. £1 = $1.28. How much cheaper, in pounds, is the watch in New York?", marks: 3, answer: "5" }
+  ]);
+  more("Conversions and units", "number", [
+    { question: "Change 3.4 km into metres.", marks: 1, answer: "3400" },
+    { question: "Change 2500 g into kilograms.", marks: 1, answer: "2.5" },
+    { question: "Change 4.2 litres into millilitres.", marks: 1, answer: "4200" },
+    { question: "Change 3.5 hours into minutes.", marks: 1, answer: "210" },
+    { question: "Change 3 m² into cm².", marks: 2, answer: "30000" }
+  ]);
+  more("Scale drawings", "number", [
+    { question: "A map has a scale of 1 : 50 000. Two villages are 4 cm apart on the map. How far apart are they in real life, in km?", marks: 2, answer: "2" },
+    { question: "A plan has a scale of 1 cm to 5 m. A wall is 3.6 cm long on the plan. How long is the real wall, in metres?", marks: 2, answer: "18" },
+    { question: "A drawing has a scale of 1 : 200. A real building is 30 m long. How long is it on the drawing, in cm?", marks: 2, answer: "15" },
+    { question: "A map has a scale of 1 cm to 4 km. Two towns are 22 km apart. How far apart are they on the map, in cm?", marks: 2, answer: "5.5" },
+    { question: "A map has a scale of 1 : 25 000. A path is 3 km long. How long is it on the map, in cm?", marks: 2, answer: "12" }
+  ]);
+  more("Best buy questions", "choice", [
+    { question: "Which bag of rice is better value?", marks: 2, options: ["500 g for £2.40", "750 g for £3.45"], answer: "750 g for £3.45" },
+    { question: "Which pack of cans is better value?", marks: 2, options: ["6 cans for £3.30", "10 cans for £5.20"], answer: "10 cans for £5.20" },
+    { question: "Which bottle of juice is better value?", marks: 2, options: ["2 litres for £1.80", "3 litres for £2.85"], answer: "2 litres for £1.80" },
+    { question: "A 400 g jar of jam costs £2.60. What is the cost per 100 g, in pence?", type: "number", marks: 1, answer: "65" },
+    { question: "Shop A sells pens at 3 for £2.40. Shop B sells the same pens at 75p each. Which shop is cheaper per pen?", marks: 2, options: ["Shop A", "Shop B"], answer: "Shop B" }
+  ]);
+  more("Number substitution", "number", [
+    { question: "Work out 4a + 3b when a = 3 and b = −2.", marks: 2, answer: "6" },
+    { question: "Work out a² − b when a = 3 and b = −2.", marks: 2, answer: "11" },
+    { question: "Work out ab + 10 when a = 3 and b = −2.", marks: 2, answer: "4" },
+    { question: "v = u + at. Work out v when u = 5, a = 3 and t = 4.", marks: 2, answer: "17" },
+    { question: "A = ½bh. Work out A when b = 9 and h = 6.", marks: 2, answer: "27" }
+  ]);
+  more("Solving linear equations", "number", [
+    { question: "Solve 6x − 5 = 31", marks: 2, answer: "6" },
+    { question: "Solve 3(x + 4) = 33", marks: 2, answer: "7" },
+    { question: "Solve 7x + 2 = 3x + 18", marks: 3, answer: "4" },
+    { question: "Solve (x − 5)/3 = 4", marks: 2, answer: "17" },
+    { question: "Solve 2(3x − 1) = 4x + 9", marks: 3, answer: "5.5" }
+  ]);
+  more("Drawing graphs", "number", [
+    { question: "y = 2x + 3. Work out the value of y when x = 4.", marks: 1, answer: "11" },
+    { question: "y = 3x − 1. Work out the value of y when x = −2.", marks: 1, answer: "−7" },
+    { question: "Write down the coordinates of the point on the line y = 4 − x where x = 1.", type: "coordinates", marks: 1, answer: "(1, 3)" },
+    { question: "Write down the coordinates of the point where y = 2x − 6 crosses the x-axis.", type: "coordinates", marks: 2, answer: "(3, 0)" },
+    { question: "Write down the coordinates of the point where y = 5x + 2 crosses the y-axis.", type: "coordinates", marks: 1, answer: "(0, 2)" }
+  ]);
+  more("Area and circumference of circles", "number", [
+    { question: "Work out the area of a circle with radius 6 cm. Give your answer to 1 decimal place.", marks: 2, answer: "113.1", tolerance: 0.1 },
+    { question: "Work out the circumference of a circle with diameter 10 cm. Give your answer to 1 decimal place.", marks: 2, answer: "31.4", tolerance: 0.1 },
+    { question: "Work out the circumference of a circle with radius 4.5 cm. Give your answer to 1 decimal place.", marks: 2, answer: "28.3", tolerance: 0.1 },
+    { question: "Work out the area of a circle with diameter 14 cm. Give your answer to 1 decimal place.", marks: 2, answer: "153.9", tolerance: 0.1 },
+    { question: "A circle has a circumference of 50 cm. Work out its diameter. Give your answer to 1 decimal place.", marks: 2, answer: "15.9", tolerance: 0.1 }
+  ]);
+  more("Area of compound shapes", "number", [
+    { question: "An L-shape is made from a 10 cm by 4 cm rectangle and a 6 cm by 3 cm rectangle. Work out its total area, in cm².", marks: 2, answer: "58" },
+    { question: "A 3 m by 2 m rectangle is cut out of a 12 m by 8 m rectangle. Work out the area that is left, in m².", marks: 2, answer: "90" },
+    { question: "A shape is an 8 cm by 5 cm rectangle with a triangle on top. The triangle has base 8 cm and height 3 cm. Work out the total area, in cm².", marks: 3, answer: "52" },
+    { question: "A shape is a square of side 10 cm with a semicircle of diameter 10 cm on one side. Work out the total area, in cm², to 1 decimal place.", marks: 3, answer: "139.3", tolerance: 0.1 },
+    { question: "A trapezium with parallel sides 6 cm and 10 cm and height 4 cm sits on top of a 10 cm by 5 cm rectangle. Work out the total area, in cm².", marks: 3, answer: "82" }
+  ]);
+  const goals = "Goals scored in 20 matches: 0 goals in 4 matches, 1 goal in 7 matches, 2 goals in 5 matches and 3 goals in 4 matches.";
+  more("Frequency tables", "number", [
+    { text: goals, question: "How many goals were scored altogether?", marks: 2, answer: "29" },
+    { text: goals, question: "What is the mode number of goals?", marks: 1, answer: "1" },
+    { text: goals, question: "Work out the mean number of goals per match.", marks: 2, answer: "1.45" },
+    { text: goals, question: "What is the median number of goals?", marks: 2, answer: "1" },
+    { text: goals, question: "What is the range of the number of goals?", marks: 1, answer: "3" }
+  ]);
+  const sport = "60 students each chose football or tennis. 32 of the students are boys. 14 boys chose football and 18 girls chose football.";
+  more("Two-way tables", "number", [
+    { text: sport, question: "How many girls are there?", marks: 1, answer: "28" },
+    { text: sport, question: "How many girls chose tennis?", marks: 1, answer: "10" },
+    { text: sport, question: "How many boys chose tennis?", marks: 1, answer: "18" },
+    { text: sport, question: "How many students chose football?", marks: 1, answer: "32" },
+    { text: sport, question: "A student is picked at random. What is the probability that they are a girl who chose tennis?", type: "fraction", marks: 2, answer: "1/6" }
+  ]);
+  more("Transformations of shapes", "coordinates", [
+    { question: "The point (3, 2) is reflected in the x-axis. Write down the coordinates of its image.", marks: 1, answer: "(3, −2)" },
+    { question: "The point (−4, 1) is translated by the vector (5, −3). Write down the coordinates of its image.", marks: 1, answer: "(1, −2)" },
+    { question: "The point (2, 5) is reflected in the y-axis. Write down the coordinates of its image.", marks: 1, answer: "(−2, 5)" },
+    { question: "The point (4, 1) is rotated 180° about the origin. Write down the coordinates of its image.", marks: 1, answer: "(−4, −1)" },
+    { question: "The point (3, 1) is enlarged by scale factor 2, centre the origin. Write down the coordinates of its image.", marks: 1, answer: "(6, 2)" }
+  ]);
+
+  // ---------- Grade 4 ----------
+  more("Compound interest and depreciation", "number", [
+    { question: "£2000 is invested at 3% compound interest per year. Work out its value after 2 years.", marks: 2, answer: "2121.80" },
+    { question: "£500 is invested at 4% compound interest per year. Work out its value after 3 years, to the nearest penny.", marks: 3, answer: "562.43" },
+    { question: "A car is worth £15 000. Its value depreciates by 10% each year. Work out its value after 2 years.", marks: 2, answer: "12150" },
+    { question: "£1200 is invested at 5% compound interest per year for 2 years. How much interest is earned?", marks: 3, answer: "123" },
+    { question: "A laptop costs £900. It loses 20% of its value each year. Work out its value after 3 years.", marks: 3, answer: "460.80" }
+  ]);
+  more("Indices: basics", "algebra", [
+    { question: "Work out 3⁴ − 2⁴", type: "number", marks: 1, answer: "65" },
+    { question: "Simplify a⁴ × a³", marks: 1, answer: "a^7" },
+    { question: "Simplify b⁹ ÷ b⁴", marks: 1, answer: "b^5" },
+    { question: "Simplify (c³)⁴", marks: 1, answer: "c^12" },
+    { question: "Work out 2⁵ × 2³ ÷ 2⁶", type: "number", marks: 2, answer: "4" }
+  ]);
+  more("HCF and LCM", "number", [
+    { question: "Find the highest common factor (HCF) of 36 and 60.", marks: 2, answer: "12" },
+    { question: "Find the lowest common multiple (LCM) of 8 and 12.", marks: 2, answer: "24" },
+    { question: "Find the HCF of 42 and 70.", marks: 2, answer: "14" },
+    { question: "Find the LCM of 6, 8 and 10.", marks: 2, answer: "120" },
+    { question: "One bus leaves every 12 minutes and another every 18 minutes. They both leave at 9:00 am. At what time do they next leave together?", type: "time", marks: 3, answer: "9:36 am" }
+  ]);
+  more("Prime factor trees", "primes", [
+    { question: "Write 60 as a product of its prime factors.", marks: 2, answer: "2^2 × 3 × 5" },
+    { question: "Write 234 as a product of its prime factors.", marks: 2, answer: "2 × 3^2 × 13" },
+    { question: "Write 342 as a product of its prime factors.", marks: 2, answer: "2 × 3^2 × 19" },
+    { question: "Write 280 as a product of its prime factors.", marks: 2, answer: "2^3 × 5 × 7" },
+    { question: "Write 495 as a product of its prime factors.", marks: 2, answer: "3^2 × 5 × 11" }
+  ]);
+  more("Real life graphs", "number", [
+    { question: "A plumber charges a £40 call-out fee plus £30 per hour. How much does a 3-hour job cost, in pounds?", marks: 2, answer: "130" },
+    { question: "A taxi charges £3 plus £1.50 per mile. A journey costs £15. How many miles long was it?", marks: 2, answer: "8" },
+    { question: "Water drains from a 200-litre tank at 8 litres per minute. How many minutes does it take to empty?", marks: 2, answer: "25" },
+    { question: "The graph of a phone bill against minutes used is a straight line through (0, £5) and (100, £15). What is the cost per minute, in pence?", marks: 2, answer: "10" },
+    { question: "A conversion graph shows that 5 miles = 8 km. How many km is 30 miles?", marks: 2, answer: "48" }
+  ]);
+  more("Distance time graphs", "number", [
+    { question: "A cyclist travels 24 km in 1.5 hours. Work out the average speed in km/h.", marks: 2, answer: "16" },
+    { question: "On a distance–time graph (time in hours, distance in km), a straight line goes from (0, 0) to (2, 90). What speed does it show, in km/h?", marks: 2, answer: "45" },
+    { question: "What does a horizontal line on a distance–time graph show?", type: "choice", marks: 1, options: ["The object is stationary", "The object is speeding up", "The object is slowing down", "The object is going backwards"], answer: "The object is stationary" },
+    { question: "A walker goes 6 km in 1 hour 30 minutes. Work out the average speed in km/h.", marks: 2, answer: "4" },
+    { question: "A train travels at 80 km/h for 45 minutes. How far does it travel, in km?", marks: 2, answer: "60" }
+  ]);
+  more("Inequalities: representing on a number line", "interval", [
+    { question: "A number line shows an open circle at 3 with an arrow pointing right. Write down the inequality.", marks: 1, answer: "x > 3" },
+    { question: "A number line shows a filled circle at −2 with an arrow pointing left. Write down the inequality.", marks: 1, answer: "x ≤ −2" },
+    { question: "A number line shows a filled circle at 1 and an open circle at 5, joined by a line. Write down the inequality.", marks: 2, answer: "1 ≤ x < 5" },
+    { question: "List all the integers that satisfy −2 < x ≤ 2.", type: "solutions", marks: 2, answer: "−1, 0, 1, 2" },
+    { question: "List all the integers that satisfy 3 ≤ x < 7.", type: "solutions", marks: 2, answer: "3, 4, 5, 6" }
+  ]);
+  more("Inequalities: solving equations", "interval", [
+    { question: "Solve 4x + 3 > 19", marks: 2, answer: "x > 4" },
+    { question: "Solve 5x − 2 ≤ 23", marks: 2, answer: "x ≤ 5" },
+    { question: "Solve 3(x − 1) < 15", marks: 2, answer: "x < 6" },
+    { question: "Solve 7 − 2x ≥ 1", marks: 2, answer: "x ≤ 3" },
+    { question: "Solve −3 < 2x + 1 ≤ 9", marks: 3, answer: "−2 < x ≤ 4" }
+  ]);
+  more("Forming and solving equations", "number", [
+    { question: "I think of a number, multiply it by 4 and subtract 7. The answer is 29. What was my number?", marks: 2, answer: "9" },
+    { question: "The angles in a triangle are x°, 2x° and 3x°. Find x.", marks: 2, answer: "30" },
+    { question: "A rectangle has length (2x + 3) cm and width x cm. Its perimeter is 36 cm. Find x.", marks: 3, answer: "5" },
+    { question: "Ali is 3 years older than Ben. Their ages add up to 41. How old is Ben?", marks: 2, answer: "19" },
+    { question: "A pen costs x pence and a ruler costs 20p more than a pen. 3 pens and 2 rulers cost £1.90. Find x.", marks: 3, answer: "30" }
+  ]);
+  more("Sequences: generating", "number", [
+    { question: "A sequence starts at 5 and the rule is add 7. Work out the 6th term.", marks: 1, answer: "40" },
+    { question: "The nth term of a sequence is 4n − 3. Work out the 10th term.", marks: 1, answer: "37" },
+    { question: "The nth term of a sequence is n² + 2. Work out the 5th term.", marks: 1, answer: "27" },
+    { question: "A sequence starts at 2 and the rule is multiply by 3. Work out the 5th term.", marks: 2, answer: "162" },
+    { question: "Each term is the sum of the two terms before it: 1, 3, 4, 7, 11, ... Work out the next term.", marks: 1, answer: "18" }
+  ]);
+  more("Sequences: nth term", "algebra", [
+    { question: "Find the nth term of the sequence 7, 11, 15, 19, ...", marks: 2, answer: "4n + 3" },
+    { question: "Find the nth term of the sequence 20, 17, 14, 11, ...", marks: 2, answer: "23 − 3n" },
+    { question: "Find the nth term of the sequence 2, 7, 12, 17, ...", marks: 2, answer: "5n − 3" },
+    { question: "The nth term of a sequence is 3n + 4. Is 100 a term in the sequence?", type: "choice", marks: 2, options: ["Yes", "No"], answer: "Yes" },
+    { question: "The nth term of a sequence is 6n − 1. Which term is equal to 83?", type: "number", marks: 2, answer: "14" }
+  ]);
+  more("Expanding single and double brackets", "algebra", [
+    { question: "Expand 5(2x − 3)", marks: 1, answer: "10x − 15" },
+    { question: "Expand and simplify (x + 4)(x + 6)", marks: 2, answer: "x^2 + 10x + 24" },
+    { question: "Expand and simplify (x − 5)(x + 2)", marks: 2, answer: "x^2 − 3x − 10" },
+    { question: "Expand and simplify (2x + 1)(x − 3)", marks: 2, answer: "2x^2 − 5x − 3" },
+    { question: "Expand and simplify 3(x + 2) − 2(x − 4)", marks: 2, answer: "x + 14" }
+  ]);
+  more("Factorising", "factorise", [
+    { question: "Factorise 6x + 15", marks: 1, answer: "3(2x + 5)" },
+    { question: "Factorise x² + 11x", marks: 1, answer: "x(x + 11)" },
+    { question: "Factorise fully 8xy − 12x", marks: 2, answer: "4x(2y − 3)" },
+    { question: "Factorise x² + 9x + 14", marks: 2, answer: "(x + 2)(x + 7)" },
+    { question: "Factorise x² − 3x − 28", marks: 2, answer: "(x − 7)(x + 4)" }
+  ]);
+  more("Angles in parallel lines", "number", [
+    { question: "Two parallel lines are crossed by a straight line. One of a pair of alternate angles is 64°. What is the other angle, in degrees?", marks: 1, answer: "64" },
+    { question: "One of a pair of co-interior angles is 112°. What is the other angle, in degrees?", marks: 1, answer: "68" },
+    { question: "One of a pair of corresponding angles is 47°. What is the other angle, in degrees?", marks: 1, answer: "47" },
+    { question: "Two parallel lines are crossed by a straight line. One angle is 75°. What is the angle next to it on the same straight line, in degrees?", marks: 1, answer: "105" },
+    { question: "Corresponding angles are...", type: "choice", marks: 1, options: ["equal", "add up to 180°", "add up to 90°", "add up to 360°"], answer: "equal" }
+  ]);
+  more("Angles in polygons", "number", [
+    { question: "Work out the sum of the interior angles of a hexagon, in degrees.", marks: 2, answer: "720" },
+    { question: "Work out the size of each exterior angle of a regular decagon, in degrees.", marks: 2, answer: "36" },
+    { question: "Work out the size of each interior angle of a regular octagon, in degrees.", marks: 2, answer: "135" },
+    { question: "Each exterior angle of a regular polygon is 18°. How many sides does it have?", marks: 2, answer: "20" },
+    { question: "A pentagon has four angles of 100°, 110°, 120° and 95°. Work out the fifth angle, in degrees.", marks: 3, answer: "115" }
+  ]);
+  more("Surface area (prisms and cylinders)", "number", [
+    { question: "Work out the surface area of a cuboid 5 cm by 4 cm by 3 cm, in cm².", marks: 2, answer: "94" },
+    { question: "Work out the surface area of a cube of side 6 cm, in cm².", marks: 2, answer: "216" },
+    { question: "A cylinder has radius 3 cm and height 10 cm. Work out its total surface area, in cm², to 1 decimal place.", marks: 3, answer: "245.0", tolerance: 0.1 },
+    { question: "A prism has a right-angled triangle as its cross-section, with sides 3 cm, 4 cm and 5 cm. The prism is 10 cm long. Work out its surface area, in cm².", marks: 3, answer: "132" },
+    { question: "A cylinder has radius 5 cm and height 8 cm. Work out its curved surface area, in cm², to 1 decimal place.", marks: 2, answer: "251.3", tolerance: 0.1 }
+  ]);
+  more("Volume (prisms and cylinders)", "number", [
+    { question: "Work out the volume of a cuboid 8 cm by 5 cm by 2.5 cm, in cm³.", marks: 2, answer: "100" },
+    { question: "A cylinder has radius 4 cm and height 9 cm. Work out its volume, in cm³, to 1 decimal place.", marks: 2, answer: "452.4", tolerance: 0.1 },
+    { question: "A prism has a cross-sectional area of 24 cm² and a length of 15 cm. Work out its volume, in cm³.", marks: 1, answer: "360" },
+    { question: "A prism has a triangular cross-section with base 6 cm and height 5 cm. The prism is 12 cm long. Work out its volume, in cm³.", marks: 2, answer: "180" },
+    { question: "A cylinder has a volume of 1000 cm³ and a radius of 5 cm. Work out its height, in cm, to 1 decimal place.", marks: 3, answer: "12.7", tolerance: 0.1 }
+  ]);
+  more("Loci and construction", "choice", [
+    { question: "What is the locus of points that are exactly 3 cm from a point P?", marks: 1, options: ["A circle of radius 3 cm centred on P", "A straight line through P", "A square around P", "Two parallel lines"], answer: "A circle of radius 3 cm centred on P" },
+    { question: "What is the locus of points that are the same distance from two points A and B?", marks: 1, options: ["The perpendicular bisector of AB", "The angle bisector", "A circle through A and B", "The line AB"], answer: "The perpendicular bisector of AB" },
+    { question: "What is the locus of points that are the same distance from two lines that meet at an angle?", marks: 1, options: ["The bisector of the angle", "The perpendicular bisector", "A circle", "A line parallel to one of them"], answer: "The bisector of the angle" },
+    { question: "What is the locus of points exactly 2 cm from a straight line segment?", marks: 1, options: ["A racetrack shape: two parallel lines joined by semicircles", "A circle", "One parallel line", "A rectangle with square corners"], answer: "A racetrack shape: two parallel lines joined by semicircles" },
+    { question: "To construct a 60° angle with a ruler and compasses, you draw part of...", marks: 1, options: ["an equilateral triangle", "a square", "a perpendicular bisector", "a right-angled triangle"], answer: "an equilateral triangle" }
+  ]);
+  more("Bearings", "number", [
+    { question: "The bearing of D from C is 065°. Work out the bearing of C from D.", marks: 2, answer: "245" },
+    { question: "The bearing of Q from P is 215°. Work out the bearing of P from Q.", marks: 2, answer: "35" },
+    { question: "A ship sails due south. What is its bearing?", marks: 1, answer: "180" },
+    { question: "A plane flies on a bearing of 090°, then turns 45° clockwise. What is its new bearing?", marks: 1, answer: "135" },
+    { question: "A boat sails on a bearing of 290°, then turns 100° clockwise. What is its new bearing?", marks: 1, answer: "30" }
+  ]);
+  more("Plans and elevations", "number", [
+    { question: "A cuboid is 4 cm long, 3 cm wide and 2 cm high. Work out the area of its plan (the view from above), in cm².", marks: 1, answer: "12" },
+    { question: "A cuboid is 4 cm long, 3 cm wide and 2 cm high. Work out the area of its front elevation (length × height), in cm².", marks: 1, answer: "8" },
+    { question: "A cylinder stands upright on a table. What shape is its plan view?", type: "choice", marks: 1, options: ["Circle", "Rectangle", "Square", "Triangle"], answer: "Circle" },
+    { question: "What shape is the side elevation of a cone standing on its base?", type: "choice", marks: 1, options: ["Triangle", "Square", "Circle", "Rectangle"], answer: "Triangle" },
+    { question: "Five 1 cm cubes are joined in a straight row. Work out the area of the view from one end, in cm².", marks: 1, answer: "1" }
+  ]);
+  const pets = "20 people were asked how many pets they have: 6 have 0 pets, 8 have 1 pet, 4 have 2 pets and 2 have 3 pets.";
+  const heights = "The heights of 20 plants: 5 are from 150 to 160 mm, 9 are from 160 to 170 mm and 6 are from 170 to 180 mm.";
+  more("Averages: frequency tables (mean and median)", "number", [
+    { text: pets, question: "Work out the mean number of pets.", marks: 2, answer: "1.1" },
+    { text: pets, question: "Work out the median number of pets.", marks: 2, answer: "1" },
+    { text: pets, question: "What is the mode number of pets?", marks: 1, answer: "1" },
+    { text: heights, question: "Work out an estimate for the mean height, in mm.", marks: 3, answer: "165.5" },
+    { text: heights, question: "Which class contains the median?", type: "choice", marks: 1, options: ["150 to 160 mm", "160 to 170 mm", "170 to 180 mm"], answer: "160 to 170 mm" }
+  ]);
+  more("Probability basics", "fraction", [
+    { question: "A bag has 3 red, 5 blue and 2 green counters. One is taken at random. What is the probability it is blue?", marks: 1, answer: "1/2" },
+    { question: "A bag has 3 red, 5 blue and 2 green counters. One is taken at random. What is the probability it is not green?", marks: 1, answer: "4/5" },
+    { question: "A fair dice is rolled. What is the probability of getting a number greater than 4?", marks: 1, answer: "1/3" },
+    { question: "The probability that it rains tomorrow is 0.35. What is the probability that it does not rain?", type: "number", marks: 1, answer: "0.65" },
+    { question: "The probability that a spinner lands on red is 0.2. It is spun 150 times. How many times would you expect it to land on red?", type: "number", marks: 2, answer: "30" }
+  ]);
+  more("Scatter graphs", "choice", [
+    { question: "As the temperature rises, ice cream sales rise. What type of correlation is this?", marks: 1, options: ["Positive", "Negative", "No correlation"], answer: "Positive" },
+    { question: "As a car gets older, its value falls. What type of correlation is this?", marks: 1, options: ["Positive", "Negative", "No correlation"], answer: "Negative" },
+    { question: "What type of correlation would you expect between shoe size and score in a maths test?", marks: 1, options: ["Positive", "Negative", "No correlation"], answer: "No correlation" },
+    { question: "Using a line of best fit to estimate a value outside the range of the data is called...", marks: 1, options: ["extrapolation", "interpolation", "correlation", "an outlier"], answer: "extrapolation" },
+    { question: "A point that doesn't fit the pattern of the rest of the data is called...", marks: 1, options: ["an outlier", "the mode", "the median", "a trend"], answer: "an outlier" }
+  ]);
+  more("Pythagoras", "number", [
+    { question: "A right-angled triangle has shorter sides of 6 cm and 8 cm. Work out the length of the hypotenuse, in cm.", marks: 2, answer: "10" },
+    { question: "A right-angled triangle has a hypotenuse of 13 cm and one side of 5 cm. Work out the length of the other side, in cm.", marks: 2, answer: "12" },
+    { question: "A right-angled triangle has shorter sides of 7 cm and 9 cm. Work out the length of the hypotenuse, in cm, to 1 decimal place.", marks: 2, answer: "11.4", tolerance: 0.05 },
+    { question: "A 5 m ladder leans against a wall. Its foot is 1.5 m from the wall. How far up the wall does it reach, in m, to 1 decimal place?", marks: 3, answer: "4.8", tolerance: 0.05 },
+    { question: "Work out the distance between the points (1, 2) and (7, 10).", marks: 3, answer: "10" }
+  ]);
+})();
+
+
+(function () {
+  const more = (topic, type, questions) =>
+    QUESTION_BANK.add({ topic, title: topic, type, questions: questions.map(q => ({ section: "More practice", ...q })) });
+
+  // ---------- Grade 5 ----------
+  more("Ratio: writing ratios as fractions", "fraction", [
+    { question: "A : B = 2 : 7. What fraction of the total is A?", marks: 1, answer: "2/9" },
+    { question: "The ratio of cats to dogs is 3 : 5. Write the number of cats as a fraction of the number of dogs.", marks: 1, answer: "3/5" },
+    { question: "A is 3/8 of the total and the rest is B. Write the ratio A : B.", type: "ratio", marks: 2, answer: "3:5" },
+    { question: "x : y = 4 : 9. Write x as a fraction of y.", marks: 1, answer: "4/9" },
+    { question: "In a class, 2/5 of the students are boys and the rest are girls. Write the ratio boys : girls.", type: "ratio", marks: 2, answer: "2:3" }
+  ]);
+  more("Ratio: writing ratios as linear functions", "expression", [
+    { question: "y : x = 5 : 2. Write y in terms of x.", marks: 2, answer: "5x/2" },
+    { question: "m : n = 7 : 3. Write n in terms of m.", marks: 2, answer: "3m/7" },
+    { question: "The cost, C, of n tickets is in the ratio C : n = 12 : 1. Write C in terms of n.", marks: 1, answer: "12n" },
+    { question: "y is directly proportional to x, and y = 20 when x = 4. Work out y when x = 7.", type: "number", marks: 2, answer: "35" },
+    { question: "p : q = 3 : 4 and q = 28. Work out p.", type: "number", marks: 1, answer: "21" }
+  ]);
+  more("Reverse percentages", "number", [
+    { question: "After a 20% increase, a price is £84. What was the original price?", marks: 2, answer: "70" },
+    { question: "After a 15% decrease, a price is £68. What was the original price?", marks: 2, answer: "80" },
+    { question: "A TV costs £150 including VAT at 20%. What was the price before VAT?", marks: 2, answer: "125" },
+    { question: "A town's population increased by 8% to 3240. What was the population before the increase?", marks: 2, answer: "3000" },
+    { question: "A car has lost 35% of its value and is now worth £7800. What was it worth when new?", marks: 3, answer: "12000" }
+  ]);
+  more("Standard form", "stdform", [
+    { question: "Write 68 000 in standard form.", marks: 1, answer: "6.8 × 10^4" },
+    { question: "Write 0.0045 in standard form.", marks: 1, answer: "4.5 × 10^-3" },
+    { question: "Work out (4 × 10³) × (2 × 10⁶). Give your answer in standard form.", marks: 2, answer: "8 × 10^9" },
+    { question: "Work out (8 × 10⁷) ÷ (4 × 10²). Give your answer in standard form.", marks: 2, answer: "2 × 10^5" },
+    { question: "Work out (5 × 10³) × (4 × 10⁶). Give your answer in standard form.", marks: 2, answer: "2 × 10^10" }
+  ]);
+  more("Speed and density", "number", [
+    { question: "A car travels 150 km in 2.5 hours. Work out its average speed in km/h.", marks: 2, answer: "60" },
+    { question: "An object has a mass of 240 g and a volume of 30 cm³. Work out its density in g/cm³.", marks: 2, answer: "8" },
+    { question: "Aluminium has a density of 2.7 g/cm³. Work out the mass of 50 cm³ of aluminium, in grams.", marks: 2, answer: "135" },
+    { question: "A runner travels at 6 m/s for 45 seconds. How far do they run, in metres?", marks: 2, answer: "270" },
+    { question: "Change 72 km/h into m/s.", marks: 2, answer: "20" }
+  ]);
+  more("Changing the subject of a formula", "expression", [
+    { question: "Make x the subject of y = 5x − 4", marks: 2, answer: "(y + 4)/5" },
+    { question: "Make h the subject of V = bh", marks: 1, answer: "V/b" },
+    { question: "Make a the subject of P = 2(a + b)", marks: 2, answer: "(P − 2b)/2" },
+    { question: "Make x the subject of y = x/3 + 2", marks: 2, answer: "3(y − 2)" },
+    { question: "Make s the subject of v² = u² + 2as", marks: 2, answer: "(v² − u²)/(2a)" }
+  ]);
+  more("Factorising quadratics", "factorise", [
+    { question: "Factorise x² + 11x + 24", marks: 2, answer: "(x + 3)(x + 8)" },
+    { question: "Factorise x² − 7x + 12", marks: 2, answer: "(x − 3)(x − 4)" },
+    { question: "Factorise x² + 3x − 28", marks: 2, answer: "(x + 7)(x − 4)" },
+    { question: "Factorise x² − 81", marks: 2, answer: "(x + 9)(x − 9)" },
+    { question: "Factorise x² − 10x + 25", marks: 2, answer: "(x − 5)²" }
+  ]);
+  more("Solving quadratics", "solutions", [
+    { question: "Solve x² + 7x + 10 = 0", marks: 3, answer: "−2, −5" },
+    { question: "Solve x² − 3x − 18 = 0", marks: 3, answer: "6, −3" },
+    { question: "Solve x² − 36 = 0", marks: 2, answer: "6, −6" },
+    { question: "Solve x² − 8x = 0", marks: 2, answer: "0, 8" },
+    { question: "Solve 2x² + 3x − 2 = 0", marks: 3, answer: "1/2, −2" }
+  ]);
+  more("Drawing quadratic graphs", "number", [
+    { question: "y = x² − 3. Work out the value of y when x = −2.", marks: 1, answer: "1" },
+    { question: "y = x² + 2x. Work out the value of y when x = 3.", marks: 1, answer: "15" },
+    { question: "Write down the coordinates of the turning point of y = x² − 4.", type: "coordinates", marks: 1, answer: "(0, −4)" },
+    { question: "The graph of y = x² − 9 crosses the x-axis twice. Write down both x values.", type: "solutions", marks: 2, answer: "3, −3" },
+    { question: "The graph of y = x² − 6x + 5 has a vertical line of symmetry x = k. Find k.", marks: 2, answer: "3" }
+  ]);
+  more("Other graphs: cubic, reciprocal", "number", [
+    { question: "y = x³ − 2. Work out the value of y when x = 2.", marks: 1, answer: "6" },
+    { question: "y = 12/x. Work out the value of y when x = −4.", marks: 1, answer: "−3" },
+    { question: "Which equation has a graph made of two separate curves that never touch the axes?", type: "choice", marks: 1, options: ["y = 1/x", "y = x³", "y = x²", "y = 2x + 1"], answer: "y = 1/x" },
+    { question: "What shape is the graph of y = x³?", type: "choice", marks: 1, options: ["An S-shaped curve", "A U-shaped curve", "A straight line", "A circle"], answer: "An S-shaped curve" },
+    { question: "y = x³ + 1. Work out the value of y when x = −3.", marks: 1, answer: "−26" }
+  ]);
+  more("Using graphs to solve equations", "solutions", [
+    { question: "You have the graph of y = x² − 4x. Which line should you draw to solve x² − 4x + 1 = 0?", type: "choice", marks: 1, options: ["y = −1", "y = 1", "y = 4", "y = x"], answer: "y = −1" },
+    { question: "The graphs of y = 2x + 1 and y = 7 − x cross. At what value of x do they cross?", type: "number", marks: 2, answer: "2" },
+    { question: "The graph of y = x² meets the line y = 9 at two points. Write down their x values.", marks: 2, answer: "3, −3" },
+    { question: "The graphs of y = x² and y = x + 6 cross at two points. Find their x values.", marks: 3, answer: "3, −2" },
+    { question: "The graph of y = x² − 5x + 4 crosses the x-axis twice. Use this to solve x² − 5x + 4 = 0.", marks: 2, answer: "1, 4" }
+  ]);
+  more("Simultaneous equations", "solutions", [
+    { question: "Solve: x + y = 15 and x − y = 3", marks: 3, answer: "x = 9, y = 6" },
+    { question: "Solve: 2x + 3y = 13 and x + y = 5", marks: 3, answer: "x = 2, y = 3" },
+    { question: "Solve: 3x − y = 10 and x + y = 6", marks: 3, answer: "x = 4, y = 2" },
+    { question: "Solve: 4x + 2y = 22 and 3x − 2y = 6", marks: 3, answer: "x = 4, y = 3" },
+    { question: "2 adult tickets and 3 child tickets cost £36. 1 adult ticket and 2 child tickets cost £21. How much is one adult ticket, in pounds?", type: "number", marks: 4, answer: "9" }
+  ]);
+  more("Using graphs to solve simultaneous equations", "solutions", [
+    { question: "The lines y = x + 1 and y = 3x − 3 cross. Find the solution of the simultaneous equations.", marks: 2, answer: "x = 2, y = 3" },
+    { question: "The lines y = 2x and y = 6 − x cross. Find the solution of the simultaneous equations.", marks: 2, answer: "x = 2, y = 4" },
+    { question: "The lines y = 5 − x and y = x − 1 cross. Find the solution of the simultaneous equations.", marks: 2, answer: "x = 3, y = 2" },
+    { question: "Two straight lines are parallel. How many solutions do their simultaneous equations have?", type: "choice", marks: 1, options: ["None", "One", "Two", "Infinitely many"], answer: "None" },
+    { question: "The lines y = 4x − 2 and y = 2x + 4 cross. Find the solution of the simultaneous equations.", marks: 2, answer: "x = 3, y = 10" }
+  ]);
+  more("Straight line graphs: everything", "number", [
+    { question: "What is the gradient of y = 6 − 4x?", marks: 1, answer: "−4" },
+    { question: "What is the y-intercept of y = 3x − 8?", marks: 1, answer: "−8" },
+    { question: "Find the gradient of the line through (−1, 5) and (3, −3).", marks: 2, answer: "−2" },
+    { question: "A line has gradient 3 and passes through (2, 1). Find its y-intercept.", marks: 2, answer: "−5" },
+    { question: "A line has gradient 4 and passes through (2, 7). Find its y-intercept.", marks: 2, answer: "−1" }
+  ]);
+  more("Surface area and volume of cone & sphere", "number", [
+    { question: "Work out the volume of a sphere with radius 3 cm, in cm³, to 1 decimal place.", marks: 2, answer: "113.1", tolerance: 0.1 },
+    { question: "Work out the surface area of a sphere with radius 5 cm, in cm², to 1 decimal place.", marks: 2, answer: "314.2", tolerance: 0.1 },
+    { question: "Work out the volume of a cone with radius 4 cm and height 9 cm, in cm³, to 1 decimal place.", marks: 2, answer: "150.8", tolerance: 0.1 },
+    { question: "A cone has radius 3 cm and slant height 7 cm. Work out its curved surface area, in cm², to 1 decimal place.", marks: 2, answer: "66.0", tolerance: 0.1 },
+    { question: "Work out the volume of a hemisphere with radius 6 cm, in cm³, to 1 decimal place.", marks: 3, answer: "452.4", tolerance: 0.1 }
+  ]);
+  more("Sectors: area and arc length", "number", [
+    { question: "A sector has radius 10 cm and angle 72°. Work out its area, in cm², to 1 decimal place.", marks: 2, answer: "62.8", tolerance: 0.1 },
+    { question: "A sector has radius 9 cm and angle 120°. Work out its arc length, in cm, to 1 decimal place.", marks: 2, answer: "18.8", tolerance: 0.1 },
+    { question: "Work out the area of a quarter circle with radius 8 cm, in cm², to 1 decimal place.", marks: 2, answer: "50.3", tolerance: 0.1 },
+    { question: "A sector has radius 6 cm and angle 90°. Work out its perimeter, in cm, to 1 decimal place.", marks: 3, answer: "21.4", tolerance: 0.1 },
+    { question: "A sector has radius 12 cm and angle 150°. Work out its arc length, in cm, to 1 decimal place.", marks: 2, answer: "31.4", tolerance: 0.1 }
+  ]);
+  more("Similar shapes (lengths)", "number", [
+    { question: "A triangle has sides 4 cm, 6 cm and 8 cm. A similar triangle has shortest side 10 cm. How long is its longest side, in cm?", marks: 2, answer: "20" },
+    { question: "Two rectangles are similar. One is 3 cm by 5 cm. The other has a short side of 9 cm. How long is its long side, in cm?", marks: 2, answer: "15" },
+    { question: "Shape B is an enlargement of shape A with scale factor 1.5. A side of B is 12 cm. How long is the matching side of A, in cm?", marks: 2, answer: "8" },
+    { question: "A model car is made to a scale of 1 : 40. The model is 11 cm long. How long is the real car, in metres?", marks: 2, answer: "4.4" },
+    { question: "Two triangles are similar. Matching sides are 5 cm and 7.5 cm. Another side of the smaller triangle is 8 cm. How long is the matching side of the larger one, in cm?", marks: 2, answer: "12" }
+  ]);
+  more("SOHCAHTOA", "number", [
+    { question: "A right-angled triangle has hypotenuse 10 cm and an angle of 30°. Work out the side opposite the 30° angle, in cm.", marks: 2, answer: "5" },
+    { question: "A right-angled triangle has an angle of 40°. The side adjacent to it is 8 cm. Work out the opposite side, in cm, to 1 decimal place.", marks: 2, answer: "6.7", tolerance: 0.05 },
+    { question: "A right-angled triangle has opposite side 5 cm and hypotenuse 13 cm. Work out the angle, in degrees, to 1 decimal place.", marks: 2, answer: "22.6", tolerance: 0.05 },
+    { question: "A right-angled triangle has adjacent side 12 cm and hypotenuse 15 cm. Work out the angle, in degrees, to 1 decimal place.", marks: 2, answer: "36.9", tolerance: 0.05 },
+    { question: "A right-angled triangle has hypotenuse 20 cm and an angle of 55°. Work out the side adjacent to the 55° angle, in cm, to 1 decimal place.", marks: 2, answer: "11.5", tolerance: 0.05 }
+  ]);
+  more("Congruent shapes", "choice", [
+    { question: "Which of these does NOT prove that two triangles are congruent?", marks: 1, options: ["AAA", "SSS", "SAS", "RHS"], answer: "AAA" },
+    { question: "Two triangles have all three pairs of sides equal. Which condition shows they are congruent?", marks: 1, options: ["SSS", "SAS", "ASA", "RHS"], answer: "SSS" },
+    { question: "Two right-angled triangles have equal hypotenuses and one other pair of equal sides. Which condition shows they are congruent?", marks: 1, options: ["RHS", "SSS", "SAS", "AAS"], answer: "RHS" },
+    { question: "Two triangles have two pairs of equal sides and the angles between them are equal. Which condition shows they are congruent?", marks: 1, options: ["SAS", "SSS", "RHS", "AAA"], answer: "SAS" },
+    { question: "Shape P is a reflection of shape Q. Are P and Q congruent?", marks: 1, options: ["Yes, always", "Only if the mirror line is vertical", "Only if they are triangles", "No, never"], answer: "Yes, always" }
+  ]);
+  more("Exact trig values", "choice", [
+    { question: "Without a calculator, work out sin 30° + cos 60°.", type: "number", marks: 2, answer: "1" },
+    { question: "Without a calculator, work out cos 60° − sin 0°.", type: "number", marks: 2, answer: "0.5" },
+    { question: "Without a calculator, work out 4 × tan 45°.", type: "number", marks: 1, answer: "4" },
+    { question: "x is an acute angle and cos x = √3/2. What is x?", marks: 1, options: ["30°", "45°", "60°", "90°"], answer: "30°" },
+    { question: "x is an acute angle and tan x = 1. What is x?", marks: 1, options: ["45°", "30°", "60°", "90°"], answer: "45°" }
+  ]);
+  more("Probability trees", "fraction", [
+    { question: "The probability that Jo is late on any day is 0.3, independently. What is the probability that Jo is late on two days in a row?", type: "number", marks: 2, answer: "0.09" },
+    { question: "A bag has 4 red and 6 blue counters. One is taken, replaced, and another is taken. What is the probability that both are red?", marks: 2, answer: "4/25" },
+    { question: "A bag has 4 red and 6 blue counters. One is taken, replaced, and another is taken. What is the probability of getting one of each colour?", marks: 3, answer: "12/25" },
+    { question: "The probability of passing each of two tests is 0.8, independently. What is the probability of passing neither?", type: "number", marks: 2, answer: "0.04" },
+    { question: "A fair coin is flipped 3 times. What is the probability of getting three heads?", marks: 2, answer: "1/8" }
+  ]);
+  const langs = "In a class of 30 students, 18 study French, 12 study Spanish and 5 study both.";
+  more("Venn diagrams", "number", [
+    { text: langs, question: "How many students study French only?", marks: 1, answer: "13" },
+    { text: langs, question: "How many students study neither language?", marks: 2, answer: "5" },
+    { text: langs, question: "A student is picked at random. What is the probability they study Spanish only?", type: "fraction", marks: 2, answer: "7/30" },
+    { text: langs, question: "How many students study at least one of the languages?", marks: 2, answer: "25" },
+    { text: langs, question: "A student is picked at random. What is the probability they study both languages?", type: "fraction", marks: 1, answer: "1/6" }
+  ]);
+  more("Vectors", "coordinates", [
+    { text: "a = (3, −1) and b = (−2, 4).", question: "Work out a + b.", marks: 1, answer: "(1, 3)" },
+    { text: "a = (3, −1) and b = (−2, 4).", question: "Work out 2a − b.", marks: 2, answer: "(8, −6)" },
+    { text: "a = (3, −1) and b = (−2, 4).", question: "Work out 3b.", marks: 1, answer: "(−6, 12)" },
+    { text: "a = (3, −1) and b = (−2, 4).", question: "Work out a − 2b.", marks: 2, answer: "(7, −9)" },
+    { question: "Work out the magnitude (length) of the vector (6, 8).", type: "number", marks: 2, answer: "10" }
+  ]);
+
+  // ---------- Grade 6 ----------
+  more("Recurring decimals to fractions", "fraction", [
+    { question: "Write 0.555… (0.5̇) as a fraction in its simplest form.", simplest: true, marks: 2, answer: "5/9" },
+    { question: "Write 0.4545… (0.4̇5̇) as a fraction in its simplest form.", simplest: true, marks: 2, answer: "5/11" },
+    { question: "Write 0.7222… (0.72̇) as a fraction in its simplest form.", simplest: true, marks: 3, answer: "13/18" },
+    { question: "Write 0.1212… (0.1̇2̇) as a fraction in its simplest form.", simplest: true, marks: 2, answer: "4/33" },
+    { question: "Write 0.2777… (0.27̇) as a fraction in its simplest form.", simplest: true, marks: 3, answer: "5/18" }
+  ]);
+  more("Product rule for counting", "number", [
+    { question: "A code is 3 letters (A–Z) followed by 2 digits (0–9). Letters and digits can repeat. How many different codes are possible?", marks: 2, answer: "1757600" },
+    { question: "How many 3-digit numbers can be made from the digits 1 to 9 if no digit is used more than once?", marks: 2, answer: "504" },
+    { question: "In how many different orders can 7 runners finish a race, if there are no ties?", marks: 2, answer: "5040" },
+    { question: "A café meal deal is one of 5 sandwiches and one of 3 drinks. How many different meal deals are there?", marks: 1, answer: "15" },
+    { question: "How many different arrangements are there of the letters in the word MATH?", marks: 2, answer: "24" }
+  ]);
+  more("Repeated percentage change", "number", [
+    { question: "£5000 is invested at 2% compound interest per year. Work out its value after 4 years, to the nearest penny.", marks: 3, answer: "5412.16" },
+    { question: "A population of 20 000 falls by 4% each year. Work out the population after 3 years, to the nearest whole number.", marks: 3, answer: "17695" },
+    { question: "A price rises by 10% and then falls by 10%. What is the overall percentage decrease?", marks: 2, answer: "1" },
+    { question: "An investment is multiplied by 1.03 each year. After how many whole years will it first be worth more than double its starting value?", marks: 3, answer: "24" },
+    { question: "A car worth £18 000 loses 15% of its value in the first year and 10% each year after that. Work out its value after 3 years.", marks: 3, answer: "12393" }
+  ]);
+  more("Indices: fractions and negative powers", "number", [
+    { question: "Work out 121^(1/2)", marks: 1, answer: "11" },
+    { question: "Work out 64^(2/3)", marks: 2, answer: "16" },
+    { question: "Work out 2⁻³. Give your answer as a fraction.", type: "fraction", marks: 1, answer: "1/8" },
+    { question: "Work out 16^(−1/2). Give your answer as a fraction.", type: "fraction", marks: 2, answer: "1/4" },
+    { question: "Work out (27/8)^(2/3). Give your answer as a fraction.", type: "fraction", marks: 3, answer: "9/4" }
+  ]);
+  more("Expanding triple brackets", "algebra", [
+    { question: "Expand and simplify (x + 1)(x + 4)(x + 5)", marks: 3, answer: "x^3 + 10x^2 + 29x + 20" },
+    { question: "Expand and simplify (x − 2)(x + 1)(x + 5)", marks: 3, answer: "x^3 + 4x^2 − 7x − 10" },
+    { question: "Expand and simplify (x + 4)³", marks: 3, answer: "x^3 + 12x^2 + 48x + 64" },
+    { question: "Expand and simplify (x − 2)(x − 3)(x + 1)", marks: 3, answer: "x^3 − 4x^2 + x + 6" },
+    { question: "Expand and simplify (2x + 1)(x + 1)(x − 1)", marks: 3, answer: "2x^3 + x^2 − 2x − 1" }
+  ]);
+  more("Straight line graphs: parallel & perpendicular", "number", [
+    { question: "What is the gradient of a line parallel to y = 5x − 2?", marks: 1, answer: "5" },
+    { question: "What is the gradient of a line perpendicular to y = 4x + 1? Give your answer as a fraction.", type: "fraction", marks: 1, answer: "−1/4" },
+    { question: "What is the gradient of a line perpendicular to y = −(2/3)x + 5? Give your answer as a fraction.", type: "fraction", marks: 2, answer: "3/2" },
+    { question: "A line is parallel to y = 3x + 1 and passes through (2, 10). Find its y-intercept.", marks: 2, answer: "4" },
+    { question: "A line is perpendicular to y = 2x + 7 and passes through (4, 1). Find its y-intercept.", marks: 3, answer: "3" }
+  ]);
+  more("Straight line graphs: finding areas under graph", "number", [
+    { question: "Work out the area between the line y = 4, the x-axis, x = 0 and x = 5.", marks: 1, answer: "20" },
+    { question: "Work out the area under the line y = 2x between x = 0 and x = 6.", marks: 2, answer: "36" },
+    { question: "Work out the area under the line y = x + 1 between x = 0 and x = 4.", marks: 2, answer: "12" },
+    { question: "Work out the area of the triangle made by the line y = 6 − 2x and the two axes.", marks: 3, answer: "9" },
+    { question: "Work out the area under the line y = 3x + 2 between x = 1 and x = 3.", marks: 3, answer: "16" }
+  ]);
+  more("Inequalities on graphs: shading", "choice", [
+    { question: "Is the point (2, 1) in the region y > x?", marks: 1, options: ["Yes", "No"], answer: "No" },
+    { question: "Is the point (1, 4) in the region y ≥ 2x + 1?", marks: 1, options: ["Yes", "No"], answer: "Yes" },
+    { question: "Is the point (3, 2) in the region x + y < 6?", marks: 1, options: ["Yes", "No"], answer: "Yes" },
+    { question: "A region is shaded above a dashed line y = 3. Which inequality does it show?", marks: 1, options: ["y > 3", "y ≥ 3", "y ≤ 3", "x > 3"], answer: "y > 3" },
+    { question: "How many points with whole-number coordinates satisfy x > 0, y > 0 and x + y < 4?", type: "number", marks: 2, answer: "3" }
+  ]);
+  more("Similar shapes (area and volume)", "number", [
+    { question: "Two similar shapes have a length scale factor of 3. The smaller shape has an area of 5 cm². Work out the area of the larger shape, in cm².", marks: 2, answer: "45" },
+    { question: "Two similar solids have a length scale factor of 2. The smaller has a volume of 12 cm³. Work out the volume of the larger, in cm³.", marks: 2, answer: "96" },
+    { question: "Two similar shapes have areas of 16 cm² and 25 cm². Work out the length scale factor from the smaller to the larger.", marks: 2, answer: "1.25" },
+    { question: "Two similar solids have volumes of 8 cm³ and 27 cm³. The smaller has a surface area of 20 cm². Work out the surface area of the larger, in cm².", marks: 3, answer: "45" },
+    { question: "Two similar bottles are 10 cm and 15 cm tall. The smaller holds 400 ml. How much does the larger hold, in ml?", marks: 3, answer: "1350" }
+  ]);
+  more("Enlargements: negative scale factor", "coordinates", [
+    { question: "The point (2, 3) is enlarged by scale factor −1, centre the origin. Write down the coordinates of its image.", marks: 1, answer: "(−2, −3)" },
+    { question: "The point (1, −2) is enlarged by scale factor −2, centre the origin. Write down the coordinates of its image.", marks: 2, answer: "(−2, 4)" },
+    { question: "The point (4, 2) is enlarged by scale factor −½, centre the origin. Write down the coordinates of its image.", marks: 2, answer: "(−2, −1)" },
+    { question: "The point (3, 3) is enlarged by scale factor −2, centre (1, 1). Write down the coordinates of its image.", marks: 2, answer: "(−3, −3)" },
+    { question: "The point (5, 1) is enlarged by scale factor −1, centre (2, 0). Write down the coordinates of its image.", marks: 2, answer: "(−1, −1)" }
+  ]);
+  more("Circle theorems", "number", [
+    { question: "The angle at the centre of a circle is 140°. What is the angle at the circumference standing on the same arc, in degrees?", marks: 2, answer: "70" },
+    { question: "One angle of a cyclic quadrilateral is 98°. What is the opposite angle, in degrees?", marks: 2, answer: "82" },
+    { question: "What is the angle between a tangent and the radius at the point where they meet, in degrees?", marks: 1, answer: "90" },
+    { question: "Two angles stand on the same arc in the same segment of a circle. One is 37°. What is the other, in degrees?", marks: 1, answer: "37" },
+    { question: "A tangent and a chord meet at an angle of 64°. What is the angle in the alternate segment, in degrees?", marks: 2, answer: "64" }
+  ]);
+  const scores = "Cumulative frequencies for 80 test scores: up to 20 marks: 6; up to 40: 22; up to 60: 50; up to 80: 72; up to 100: 80.";
+  more("Cumulative frequency", "number", [
+    { text: scores, question: "How many students scored more than 60 marks?", marks: 1, answer: "30" },
+    { text: scores, question: "How many students scored more than 40 but no more than 60 marks?", marks: 1, answer: "28" },
+    { text: scores, question: "Which class contains the median?", type: "choice", marks: 1, options: ["0 to 20", "20 to 40", "40 to 60", "60 to 80", "80 to 100"], answer: "40 to 60" },
+    { text: scores, question: "What percentage of students scored more than 80 marks?", marks: 2, answer: "10" },
+    { text: scores, question: "Which class has the highest frequency?", type: "choice", marks: 2, options: ["0 to 20", "20 to 40", "40 to 60", "60 to 80", "80 to 100"], answer: "40 to 60" }
+  ]);
+  const boxplot = "A box plot shows: minimum 12, lower quartile 18, median 25, upper quartile 31, maximum 40.";
+  more("Box plots", "number", [
+    { text: boxplot, question: "Work out the range.", marks: 1, answer: "28" },
+    { text: boxplot, question: "Work out the interquartile range.", marks: 1, answer: "13" },
+    { text: boxplot, question: "What is the median?", marks: 1, answer: "25" },
+    { text: boxplot, question: "What fraction of the data is above the upper quartile?", type: "fraction", marks: 1, answer: "1/4" },
+    { text: boxplot, question: "Another class has a median of 22 and an interquartile range of 9. Whose scores are more consistent?", type: "choice", marks: 2, options: ["The other class: its IQR is smaller", "This class: its IQR is larger"], answer: "The other class: its IQR is smaller" }
+  ]);
+  more("Ratio: capture recapture", "number", [
+    { question: "50 fish are caught, tagged and released. Later 40 fish are caught and 8 are tagged. Estimate the number of fish in the lake.", marks: 2, answer: "250" },
+    { question: "30 birds are ringed and released. Later 60 birds are caught and 5 have rings. Estimate the number of birds.", marks: 2, answer: "360" },
+    { question: "120 beetles are marked and released. Later 90 are caught and 15 are marked. Estimate the population.", marks: 2, answer: "720" },
+    { question: "A pond has about 200 frogs. 25 are marked. In a second sample of 40 frogs, how many would you expect to be marked?", marks: 2, answer: "5" },
+    { question: "Which of these is an assumption of the capture–recapture method?", type: "choice", marks: 1, options: ["The population doesn't change between the two samples", "Every animal is caught in the first sample", "Marked animals are easier to catch", "The second sample is bigger than the first"], answer: "The population doesn't change between the two samples" }
+  ]);
+
+  // ---------- Grade 7 ----------
+  more("Tree diagrams: conditional probability", "fraction", [
+    { question: "A bag has 5 red and 3 blue counters. Two are taken without replacement. What is the probability that both are red?", marks: 3, answer: "5/14" },
+    { question: "A bag has 5 red and 3 blue counters. Two are taken without replacement. What is the probability that both are blue?", marks: 3, answer: "3/28" },
+    { question: "A bag has 5 red and 3 blue counters. Two are taken without replacement. What is the probability of one of each colour?", marks: 3, answer: "15/28" },
+    { question: "A box has 4 milk and 6 dark chocolates. Two are eaten at random. What is the probability that both are dark?", marks: 3, answer: "1/3" },
+    { question: "A box has 4 milk and 6 dark chocolates. Two are eaten at random. What is the probability that at least one is milk?", marks: 3, answer: "2/3" }
+  ]);
+  more("Probability: conditional probability algebra", "number", [
+    { question: "P(A) = 0.4 and P(B given A) = 0.5. Work out P(A and B).", marks: 2, answer: "0.2" },
+    { question: "P(A and B) = 0.12 and P(A) = 0.3. Work out P(B given A).", marks: 2, answer: "0.4" },
+    { question: "In a group, 12 of the 20 girls and 6 of the 10 boys wear glasses. A student who wears glasses is picked at random. What is the probability it is a girl?", type: "fraction", marks: 2, answer: "2/3" },
+    { question: "A bag has n red counters and 4 blue counters. The probability of picking red is 3/5. Find n.", marks: 3, answer: "6" },
+    { question: "A bag has x counters and 3 of them are red. Two are taken without replacement. The probability that both are red is 1/15. Find x.", marks: 4, answer: "10" }
+  ]);
+  const drinks = "40 people were asked about drinks: 22 like tea, 18 like coffee and 7 like both.";
+  more("Venn diagrams: \"given that\" questions", "fraction", [
+    { text: drinks, question: "A person who likes tea is picked. What is the probability they also like coffee?", marks: 2, answer: "7/22" },
+    { text: drinks, question: "A person who likes coffee is picked. What is the probability they also like tea?", marks: 2, answer: "7/18" },
+    { text: drinks, question: "How many people like neither tea nor coffee?", type: "number", marks: 2, answer: "7" },
+    { text: drinks, question: "A person who doesn't like coffee is picked. What is the probability they like tea?", marks: 3, answer: "15/22" },
+    { text: drinks, question: "A person who likes at least one of the drinks is picked. What is the probability they like both?", marks: 3, answer: "7/33" }
+  ]);
+  more("Surds", "expression", [
+    { question: "Simplify √45", simplest: true, marks: 1, answer: "3√5" },
+    { question: "Simplify √8 × √2", simplest: true, marks: 1, answer: "4" },
+    { question: "Simplify 2√3 + 5√3", simplest: true, marks: 1, answer: "7√3" },
+    { question: "Expand and simplify (3 + √2)(3 − √2)", simplest: true, marks: 2, answer: "7" },
+    { question: "Rationalise the denominator of 6/√3. Give your answer in its simplest form.", simplest: true, marks: 2, answer: "2√3" }
+  ]);
+  more("Factorising harder quadratics", "factorise", [
+    { question: "Factorise 2x² + 9x + 10", marks: 2, answer: "(2x + 5)(x + 2)" },
+    { question: "Factorise 3x² − 10x + 8", marks: 3, answer: "(3x − 4)(x − 2)" },
+    { question: "Factorise 6x² + x − 2", marks: 3, answer: "(3x + 2)(2x − 1)" },
+    { question: "Factorise 9x² − 16", marks: 2, answer: "(3x + 4)(3x − 4)" },
+    { question: "Factorise 5x² + 13x − 6", marks: 3, answer: "(5x − 2)(x + 3)" }
+  ]);
+  more("Direct and inverse proportion", "number", [
+    { question: "y is directly proportional to x. y = 12 when x = 3. Work out y when x = 10.", marks: 2, answer: "40" },
+    { question: "y is directly proportional to x². y = 50 when x = 5. Work out y when x = 3.", marks: 3, answer: "18" },
+    { question: "y is inversely proportional to x. y = 6 when x = 4. Work out y when x = 8.", marks: 3, answer: "3" },
+    { question: "y is inversely proportional to x². y = 9 when x = 2. Work out y when x = 3.", marks: 3, answer: "4" },
+    { question: "5 workers take 12 days to build a wall. How many days would 6 workers take, working at the same rate?", marks: 2, answer: "10" }
+  ]);
+  more("Bounds", "number", [
+    { question: "A length is 25 cm to the nearest cm. What is its lower bound, in cm?", marks: 1, answer: "24.5" },
+    { question: "A mass is 7.2 kg to 1 decimal place. What is its upper bound, in kg?", marks: 1, answer: "7.25" },
+    { question: "A rectangle is 8 cm by 5 cm, each to the nearest cm. Work out the upper bound of its area, in cm².", marks: 2, answer: "46.75" },
+    { question: "A distance is 100 m to the nearest metre and a time is 12.5 s to 1 decimal place. Work out the upper bound of the speed, in m/s, to 2 decimal places.", marks: 3, answer: "8.07", tolerance: 0.005 },
+    { question: "a = 9 and b = 4, both to the nearest whole number. Work out the lower bound of a − b.", marks: 2, answer: "4" }
+  ]);
+  more("Other graphs: trig and exponential", "number", [
+    { question: "y = sin x. Work out y when x = 90°.", marks: 1, answer: "1" },
+    { question: "y = cos x. Work out y when x = 180°.", marks: 1, answer: "−1" },
+    { question: "y = 2^x. Work out y when x = 5.", marks: 1, answer: "32" },
+    { question: "The graph of y = sin x repeats itself. How many degrees long is one complete cycle?", marks: 1, answer: "360" },
+    { question: "At what value of y does the graph of y = 3^x cross the y-axis?", marks: 1, answer: "1" }
+  ]);
+  more("Exponential functions and exponential growth", "number", [
+    { question: "A colony of 50 bacteria doubles every hour. How many bacteria are there after 5 hours?", marks: 2, answer: "1600" },
+    { question: "y = 200 × 1.5^t. Work out y when t = 2.", marks: 2, answer: "450" },
+    { question: "A value of £8000 halves every 3 years. What is it worth after 9 years, in pounds?", marks: 2, answer: "1000" },
+    { question: "The curve y = ab^x passes through (0, 4) and (1, 12). Find b.", marks: 2, answer: "3" },
+    { question: "A population of 1200 grows by 25% each year. What is the population after 2 years?", marks: 2, answer: "1875" }
+  ]);
+  more("Algebraic fractions", "expression", [
+    { question: "Simplify (x² − 25)/(x + 5)", simplest: true, marks: 2, answer: "x − 5" },
+    { question: "Simplify (x² + 7x + 12)/(x + 4)", simplest: true, marks: 2, answer: "x + 3" },
+    { question: "Write 2/x + 3/(x + 2) as a single fraction.", marks: 3, answer: "(5x + 4)/(x(x + 2))" },
+    { question: "Simplify (4x + 8)/(x² + 2x)", simplest: true, marks: 2, answer: "4/x" },
+    { question: "Simplify (x² + x − 12)/(x² − 16)", simplest: true, marks: 3, answer: "(x − 3)/(x − 4)" }
+  ]);
+  more("Re-arranging harder formulae", "expression", [
+    { question: "Make x the subject of px − q = rx + s", marks: 3, answer: "(s + q)/(p − r)" },
+    { question: "Make y the subject of x = (y + 2)/(y − 1)", marks: 4, answer: "(x + 2)/(x − 1)" },
+    { question: "Make r the subject of A = πr², where r is positive.", marks: 2, answer: "√(A/π)" },
+    { question: "Make h the subject of A = (a + b)h/2", marks: 2, answer: "2A/(a + b)" },
+    { question: "Make a the subject of b = √(a + c)", marks: 2, answer: "b² − c" }
+  ]);
+  const fg = "f(x) = 3x + 2 and g(x) = x − 4.";
+  more("Functions: inverse and composite", "expression", [
+    { text: fg, question: "Find f(5).", marks: 1, answer: "17" },
+    { text: fg, question: "Find fg(6).", marks: 2, answer: "8" },
+    { text: fg, question: "Find gf(x).", marks: 2, answer: "3x − 2" },
+    { text: fg, question: "Find f⁻¹(x).", marks: 2, answer: "(x − 2)/3" },
+    { text: fg, question: "Solve f(x) = g(x).", type: "number", marks: 2, answer: "−3" }
+  ]);
+  more("Iteration", "number", [
+    { text: "Use the iteration formula xₙ₊₁ = √(xₙ + 6), starting with x₀ = 2.", question: "Find x₁, to 3 decimal places.", tolerance: 0.0005, marks: 1, answer: "2.828" },
+    { text: "Use the iteration formula xₙ₊₁ = √(xₙ + 6), starting with x₀ = 2.", question: "Find x₂, to 3 decimal places.", tolerance: 0.0005, marks: 2, answer: "2.971" },
+    { text: "Use the iteration formula xₙ₊₁ = 2 + 1/xₙ, starting with x₀ = 2.", question: "Find x₂.", marks: 2, answer: "2.4" },
+    { text: "Use the iteration formula xₙ₊₁ = (xₙ³ + 3)/5, starting with x₀ = 1.", question: "Find x₁.", marks: 1, answer: "0.8" },
+    { question: "The equation x³ + x − 5 = 0 has a root between 1 and 2. Work out the value of x³ + x − 5 when x = 1.5.", marks: 2, answer: "−0.125" }
+  ]);
+  more("Sine & cosine rule", "number", [
+    { question: "In triangle ABC, a = 8 cm, angle A = 40° and angle B = 65°. Work out b, in cm, to 1 decimal place.", marks: 3, answer: "11.3", tolerance: 0.05 },
+    { question: "In triangle ABC, b = 7 cm, c = 9 cm and angle A = 50°. Work out a, in cm, to 1 decimal place.", marks: 3, answer: "7.0", tolerance: 0.05 },
+    { question: "A triangle has sides 5 cm, 7 cm and 9 cm. Work out the largest angle, in degrees, to 1 decimal place.", marks: 3, answer: "95.7", tolerance: 0.05 },
+    { question: "In triangle ABC, angle A = 30°, a = 6 cm and b = 10 cm. Angle B is acute. Work out angle B, in degrees, to 1 decimal place.", marks: 3, answer: "56.4", tolerance: 0.05 },
+    { question: "In triangle ABC, a = 12 cm, b = 15 cm and angle C = 120°. Work out c, in cm, to 1 decimal place.", marks: 3, answer: "23.4", tolerance: 0.05 }
+  ]);
+  more("Area of any triangle", "number", [
+    { question: "A triangle has sides of 6 cm and 8 cm with an angle of 30° between them. Work out its area, in cm².", marks: 2, answer: "12" },
+    { question: "A triangle has sides of 10 cm and 7 cm with an angle of 72° between them. Work out its area, in cm², to 1 decimal place.", marks: 2, answer: "33.3", tolerance: 0.05 },
+    { question: "Work out the area of an equilateral triangle with sides of 4 cm, in cm², to 1 decimal place.", marks: 2, answer: "6.9", tolerance: 0.05 },
+    { question: "A triangle has sides of 8 cm and 10 cm and an area of 20 cm². The angle between those sides is acute. Work out the angle, in degrees.", marks: 3, answer: "30" },
+    { question: "A triangle has two sides of 9 cm with an angle of 150° between them. Work out its area, in cm².", marks: 2, answer: "20.25" }
+  ]);
+  more("3D Pythagoras", "number", [
+    { question: "A cuboid is 3 cm by 4 cm by 12 cm. Work out the length of its longest diagonal, in cm.", marks: 3, answer: "13" },
+    { question: "A cube has sides of 5 cm. Work out the length of its longest diagonal, in cm, to 1 decimal place.", marks: 3, answer: "8.7", tolerance: 0.05 },
+    { question: "A cuboid is 2 cm by 3 cm by 6 cm. Work out the length of its longest diagonal, in cm.", marks: 3, answer: "7" },
+    { question: "A cuboid is 6 cm by 8 cm by 5 cm. Work out the length of its longest diagonal, in cm, to 1 decimal place.", marks: 3, answer: "11.2", tolerance: 0.05 },
+    { question: "Work out the distance from the point (0, 0, 0) to the point (1, 4, 8).", marks: 3, answer: "9" }
+  ]);
+  more("Rates of change and tangents to curves", "number", [
+    { question: "A tangent to a curve passes through (1, 3) and (4, 12). What is the gradient of the curve at that point?", marks: 2, answer: "3" },
+    { question: "A tangent to a distance–time curve passes through (2 s, 10 m) and (6 s, 30 m). Estimate the speed at that point, in m/s.", marks: 2, answer: "5" },
+    { question: "Work out the average rate of change of y = x² between x = 1 and x = 4.", marks: 2, answer: "5" },
+    { question: "The gradient of a tangent to a velocity–time graph gives the...", type: "choice", marks: 1, options: ["acceleration", "distance travelled", "average speed", "time taken"], answer: "acceleration" },
+    { question: "A distance–time curve goes through (0 s, 0 m) and (8 s, 96 m). Work out the average speed between these points, in m/s.", marks: 2, answer: "12" }
+  ]);
+  more("Histograms", "number", [
+    { question: "The class 10 < t ≤ 30 has a frequency of 24. Work out its frequency density.", marks: 1, answer: "1.2" },
+    { question: "A class has width 5 and frequency density 3.2. Work out its frequency.", marks: 1, answer: "16" },
+    { question: "The class 0 < h ≤ 4 has a frequency density of 7.5. Work out its frequency.", marks: 1, answer: "30" },
+    { question: "A histogram bar goes from 20 to 50 and has a height of 0.8. Work out the frequency it shows.", marks: 2, answer: "24" },
+    { question: "The class 40 < m ≤ 45 has a frequency of 18. Work out its frequency density.", marks: 1, answer: "3.6" }
+  ]);
+
+  // ---------- Grade 8/9 ----------
+  more("Quadratic simultaneous equations", "solutions", [
+    { question: "The line y = x + 2 meets the curve y = x². Find the x-coordinates of the points where they meet.", marks: 3, answer: "2, −1" },
+    { question: "The line y = x + 1 meets the circle x² + y² = 25. Find the x-coordinates of the points where they meet.", marks: 4, answer: "3, −4" },
+    { question: "The line y = 2x meets the curve y = x² − 3. Find the x-coordinates of the points where they meet.", marks: 3, answer: "3, −1" },
+    { question: "The line y = 5x − 2 meets the curve y = 2x². Find the x-coordinates of the points where they meet.", marks: 4, answer: "1/2, 2" },
+    { question: "The line y = 3x meets the circle x² + y² = 10. Find the x-coordinates of the points where they meet.", marks: 3, answer: "1, −1" }
+  ]);
+  more("Area of shapes with algebra", "algebra", [
+    { question: "A rectangle has sides (x + 3) cm and (x − 1) cm. Write an expression for its area, expanded and simplified.", marks: 2, answer: "x^2 + 2x − 3" },
+    { question: "A square has sides of (2x + 1) cm. Write an expression for its area, expanded and simplified.", marks: 2, answer: "4x^2 + 4x + 1" },
+    { question: "A rectangle is (x + 5) cm by x cm and has an area of 36 cm². Find x.", type: "number", marks: 3, answer: "4" },
+    { question: "A triangle has base 2x cm and height (x + 4) cm. Its area is 12 cm². Find x.", type: "number", marks: 4, answer: "2" },
+    { question: "A right-angled triangle has shorter sides x cm and (x + 2) cm, and a hypotenuse of 10 cm. Find x.", type: "number", marks: 4, answer: "6" }
+  ]);
+  more("Sine/cosine rule with algebra", "number", [
+    { question: "A triangle has sides x cm and 2x cm with an angle of 30° between them. Its area is 18 cm². Find x.", marks: 3, answer: "6" },
+    { question: "A triangle has sides of 5 cm and 8 cm with an angle of 60° between them. The third side is x cm. Find x.", marks: 3, answer: "7" },
+    { question: "A triangle has two sides of x cm with an angle of 60° between them. The third side is 9 cm. Find x.", marks: 2, answer: "9" },
+    { question: "In triangle ABC, AB = x cm, AC = 2x cm and angle BAC = 120°. BC = √63 cm. Find x.", marks: 4, answer: "3" },
+    { question: "A triangle has sides 2x cm and 3x cm with an angle of 30° between them. Its area is 54 cm². Find x.", marks: 3, answer: "6" }
+  ]);
+  more("Ratio with algebra", "number", [
+    { question: "x : 12 = 3 : 4. Find x.", marks: 1, answer: "9" },
+    { question: "(x + 2) : 3 = 5 : 1. Find x.", marks: 2, answer: "13" },
+    { question: "a : b = 2 : 3 and b : c = 4 : 5. Write a : c in its simplest form.", type: "ratio", simplest: true, marks: 3, answer: "8:15" },
+    { question: "The ratio of red to blue beads in a bag is 3 : 5. 6 red beads are added and the ratio becomes 1 : 1. How many blue beads are there?", marks: 3, answer: "15" },
+    { question: "x : y = 5 : 2 and x − y = 21. Find x.", marks: 3, answer: "35" }
+  ]);
+  more("Transforming curves", "choice", [
+    { question: "Describe the transformation that maps y = f(x) onto y = f(x) + 5.", marks: 1, options: ["Translation 5 units up", "Translation 5 units right", "Translation 5 units left", "Stretch by scale factor 5"], answer: "Translation 5 units up" },
+    { question: "Describe the transformation that maps y = f(x) onto y = f(x + 6).", marks: 1, options: ["Translation 6 units left", "Translation 6 units right", "Translation 6 units up", "Translation 6 units down"], answer: "Translation 6 units left" },
+    { question: "Describe the transformation that maps y = f(x) onto y = f(x) − 7.", marks: 1, options: ["Translation 7 units down", "Translation 7 units left", "Translation 7 units right", "Stretch by scale factor 7"], answer: "Translation 7 units down" },
+    { question: "Describe the transformation that maps y = f(x) onto y = f(x − 1) − 2.", marks: 2, options: ["Translation 1 right and 2 down", "Translation 1 left and 2 down", "Translation 1 right and 2 up", "Translation 1 left and 2 up"], answer: "Translation 1 right and 2 down" },
+    { question: "The point (3, 7) is on the curve y = f(x). Which point must be on y = f(x) − 3?", type: "coordinates", marks: 1, answer: "(3, 4)" }
+  ]);
+  more("Proof: circle theorems, sine & cosine rule", "choice", [
+    { question: "In the proof that the angle at the centre is twice the angle at the circumference, which fact is used?", marks: 1, options: ["Base angles of an isosceles triangle are equal", "Opposite angles of a parallelogram are equal", "Alternate angles are equal", "Angles in a quadrilateral add up to 180°"], answer: "Base angles of an isosceles triangle are equal" },
+    { question: "In a circle with centre O, why is OA = OB?", marks: 1, options: ["They are both radii", "They are both chords", "They are both tangents", "They are both diameters"], answer: "They are both radii" },
+    { question: "The cosine rule a² = b² + c² − 2bc cos A becomes Pythagoras' theorem when angle A is how many degrees?", type: "number", marks: 1, answer: "90" },
+    { question: "In a cyclic quadrilateral ABCD, angle A = 3x and angle C = x + 40. Find x.", type: "number", marks: 3, answer: "35" },
+    { question: "On the same arc, the angle at the centre is 4y and the angle at the circumference is y + 30. Find y.", type: "number", marks: 3, answer: "30" }
+  ]);
+  more("Completing the square", "expression", [
+    { question: "Write x² + 12x + 5 in the form (x + p)² + q.", simplest: "square", marks: 2, answer: "(x + 6)² − 31" },
+    { question: "Write x² − 6x + 11 in the form (x + p)² + q.", simplest: "square", marks: 2, answer: "(x − 3)² + 2" },
+    { question: "Write x² + 4x − 1 in the form (x + p)² + q.", simplest: "square", marks: 2, answer: "(x + 2)² − 5" },
+    { question: "Write down the coordinates of the turning point of y = x² − 8x + 3.", type: "coordinates", marks: 3, answer: "(4, −13)" },
+    { question: "Write x² − 3x + 1 in the form (x + p)² + q.", simplest: "square", marks: 3, answer: "(x − 3/2)² − 5/4" }
+  ]);
+  more("nth term of a quadratic sequence", "algebra", [
+    { question: "Find the nth term of the sequence 3, 6, 11, 18, 27, ...", marks: 3, answer: "n^2 + 2" },
+    { question: "Find the nth term of the sequence 2, 8, 18, 32, ...", marks: 2, answer: "2n^2" },
+    { question: "Find the nth term of the sequence 4, 9, 16, 25, ... Give your answer expanded.", marks: 3, answer: "n^2 + 2n + 1" },
+    { question: "Find the nth term of the sequence 1, 5, 11, 19, 29, ...", marks: 3, answer: "n^2 + n − 1" },
+    { question: "Find the nth term of the sequence 6, 14, 26, 42, ...", marks: 3, answer: "2n^2 + 2n + 2" }
+  ]);
+  more("Quadratic inequalities", "interval", [
+    { question: "Solve x² − 16 < 0", marks: 2, answer: "−4 < x < 4" },
+    { question: "Solve x² − 7x + 10 ≤ 0", marks: 3, answer: "2 ≤ x ≤ 5" },
+    { question: "Solve x² − 4x − 12 < 0", marks: 3, answer: "−2 < x < 6" },
+    { question: "Solve x² + 3x − 10 ≤ 0", marks: 3, answer: "−5 ≤ x ≤ 2" },
+    { question: "Solve x² − x − 20 < 0", marks: 3, answer: "−4 < x < 5" }
+  ]);
+  more("Velocity time graphs", "number", [
+    { question: "A car accelerates from rest to 20 m/s in 8 seconds. Work out its acceleration, in m/s².", marks: 2, answer: "2.5" },
+    { question: "A cyclist travels at a constant 15 m/s for 12 seconds. How far do they travel, in metres?", marks: 2, answer: "180" },
+    { question: "A train accelerates steadily from rest to 12 m/s in 6 seconds. How far does it travel in that time, in metres?", marks: 2, answer: "36" },
+    { question: "A car slows down steadily from 24 m/s to rest in 4 seconds. Work out its deceleration, in m/s².", marks: 2, answer: "6" },
+    { question: "A runner speeds up steadily from 10 m/s to 30 m/s over 5 seconds. How far do they travel in that time, in metres?", marks: 3, answer: "100" }
+  ]);
+  more("Equation of a tangent", "expression", [
+    { question: "What is the radius of the circle x² + y² = 100?", type: "number", marks: 1, answer: "10" },
+    { text: "The point P(6, 8) lies on the circle x² + y² = 100.", question: "Find the gradient of the radius OP.", marks: 1, answer: "4/3" },
+    { text: "The point P(6, 8) lies on the circle x² + y² = 100.", question: "Find the gradient of the tangent at P.", marks: 2, answer: "−3/4" },
+    { text: "The point P(6, 8) lies on the circle x² + y² = 100.", question: "Find the y-intercept of the tangent at P.", type: "number", marks: 3, answer: "12.5" },
+    { text: "The point Q(2, 3) lies on the circle x² + y² = 13.", question: "Find the gradient of the tangent at Q.", marks: 2, answer: "−2/3" }
+  ]);
+  const vec = "OA = a and OB = b.";
+  more("Vector proof questions", "expression", [
+    { text: vec, question: "Write AB in terms of a and b.", marks: 1, answer: "b − a" },
+    { text: vec, question: "M is the midpoint of AB. Write AM in terms of a and b.", marks: 2, answer: "b/2 − a/2" },
+    { text: vec, question: "P lies on AB with AP : PB = 1 : 3. Write OP in terms of a and b.", marks: 3, answer: "3a/4 + b/4" },
+    { text: vec, question: "OC = 3a. Write BC in terms of a and b.", marks: 1, answer: "3a − b" },
+    { text: vec, question: "Q lies on OB with OQ : QB = 2 : 1. Write AQ in terms of a and b.", marks: 2, answer: "2b/3 − a" }
+  ]);
+})();
