@@ -4519,7 +4519,9 @@ TelaDB.start("student").then(() => {
     location.href = "login.html";
   });
 
-  let toastTimer;
+  // var, not let: the "questions skipped" toast is scheduled near the top, and must still work if
+  // something between there and here fails during start-up.
+  var toastTimer;
   function toast(msg) {
     const el = $("toast");
     el.textContent = msg;
