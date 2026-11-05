@@ -1105,15 +1105,19 @@ TelaDB.start("student").then(() => {
     TelaDB.saveMyTopics(topics.concat(hiddenTopics));
   }
 
-  // Every student has the whole Maths and Biology lists from catalog.js, even if their dashboard was made before
-  // they existed or by an admin (who starts it empty): any missing topics are added, and the ten old sample
-  // Biology topics the full list replaced are taken out.
-  const SYNCED_SUBJECTS = ["Maths", "Biology"];
-  const OLD_BIOLOGY = ["Cell structure", "Mitosis & stem cells", "Diffusion, osmosis & active transport", "Enzymes & digestion",
-    "The heart & circulation", "Communicable diseases", "Photosynthesis & respiration", "Hormones & homeostasis", "DNA & inheritance", "Ecosystems"];
+  // Every student has the whole Maths, Biology and Chemistry lists from catalog.js, even if their dashboard was made
+  // before they existed or by an admin (who starts it empty): any missing topics are added, and the old sample
+  // Biology and Chemistry topics the full lists replaced are taken out.
+  const SYNCED_SUBJECTS = ["Maths", "Biology", "Chemistry"];
+  const OLD_SAMPLES = {
+    Biology: ["Cell structure", "Mitosis & stem cells", "Diffusion, osmosis & active transport", "Enzymes & digestion",
+      "The heart & circulation", "Communicable diseases", "Photosynthesis & respiration", "Hormones & homeostasis", "DNA & inheritance", "Ecosystems"],
+    Chemistry: ["Atomic structure & isotopes", "The periodic table", "Ionic, covalent & metallic bonding", "Moles & reacting masses",
+      "Acids, alkalis & salts", "Electrolysis", "Exothermic & endothermic reactions", "Rates of reaction", "Crude oil & alkanes"]
+  };
   function syncSubjects() {
     const before = topics.length;
-    topics = topics.filter(t => !(t.subject === "Biology" && OLD_BIOLOGY.includes(t.title)));
+    topics = topics.filter(t => !(OLD_SAMPLES[t.subject] || []).includes(t.title));
     let changed = topics.length !== before;
     const now = Date.now();
     SYNCED_SUBJECTS.filter(isShownSubject).forEach(subject => {
@@ -1141,13 +1145,15 @@ TelaDB.start("student").then(() => {
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const uniq = arr => [...new Set(arr)].sort((a, b) => a.localeCompare(b));
-  // Biology categories go in AQA spec order (4.1 Cell Biology to 4.7 Ecology); any others go alphabetically after them.
-  const SPEC_ORDER = Object.values(BIOLOGY_BY_PAPER).flatMap(Object.keys);
+  // Biology and Chemistry categories go in spec order (Biology 4.1 to 4.7, then Chemistry Topic 1 to 9); any others
+  // go alphabetically after them.
+  const SPEC_ORDER = [BIOLOGY_BY_PAPER, CHEMISTRY_BY_PAPER].flatMap(byPaper => Object.values(byPaper).flatMap(Object.keys));
   const specRank = c => SPEC_ORDER.indexOf(c) + 1 || 99;
   const byCategory = (a, b) => specRank(a) - specRank(b) || a.localeCompare(b);
-  // Within a category, Biology topics keep their place in the spec.
-  const BIO_INDEX = new Map(SAMPLE_TOPICS.Biology.map(([title], i) => [title, i]));
-  const specIndex = t => t.subject === "Biology" ? BIO_INDEX.get(t.title) ?? 999 : 0;
+  // Within a category, Biology and Chemistry topics keep their place in the spec.
+  const SPEC_INDEX = { Biology: new Map(SAMPLE_TOPICS.Biology.map(([title], i) => [title, i])),
+    Chemistry: new Map(SAMPLE_TOPICS.Chemistry.map(([title], i) => [title, i])) };
+  const specIndex = t => SPEC_INDEX[t.subject] ? SPEC_INDEX[t.subject].get(t.title) ?? 999 : 0;
 
   function countBy(list, key) {
     return list.reduce((m, t) => (m[t[key]] = (m[t[key]] || 0) + 1, m), {});

@@ -1,6 +1,6 @@
 // The full list of topics, shared by the student dashboard (index.html) and the tutor page (tutor.html).
-// SAMPLE_TOPICS rows are [title, category, tier, description, status, grade]; Maths is built from MATHS_BY_GRADE
-// and Biology from BIOLOGY_BY_PAPER.
+// SAMPLE_TOPICS rows are [title, category, tier, description, status, grade]; Maths is built from MATHS_BY_GRADE,
+// Biology from BIOLOGY_BY_PAPER and Chemistry from CHEMISTRY_BY_PAPER.
 const SAMPLE_TOPICS = {
  Physics: [
   ["Energy stores & transfers", "Energy", "Both", "Kinetic, gravitational and elastic energy stores; conservation of energy and efficiency.", "done"],
@@ -13,17 +13,7 @@ const SAMPLE_TOPICS = {
   ["Wave properties", "Waves", "Both", "Transverse and longitudinal waves, v = fλ and the EM spectrum.", "todo"],
   ["Magnetism & electromagnetism", "Magnetism", "Both", "Magnetic fields, the motor effect and F = BIl.", "todo"]
  ],
- Chemistry: [
-  ["Atomic structure & isotopes", "Atomic Structure", "Both", "Protons, neutrons and electrons, relative atomic mass and the history of the atom.", "done"],
-  ["The periodic table", "Atomic Structure", "Both", "Groups 1, 7 and 0, and trends down a group.", "doing"],
-  ["Ionic, covalent & metallic bonding", "Bonding", "Both", "How each bond forms and the properties of the resulting structures.", "doing"],
-  ["Moles & reacting masses", "Quantitative Chemistry", "Higher", "Avogadro's constant, moles = mass ÷ Mr and limiting reactants.", "todo"],
-  ["Acids, alkalis & salts", "Chemical Changes", "Both", "Neutralisation, pH and making soluble salts.", "doing"],
-  ["Electrolysis", "Chemical Changes", "Both", "Electrolysis of molten and aqueous compounds and half equations.", "todo"],
-  ["Exothermic & endothermic reactions", "Energy Changes", "Both", "Reaction profiles and bond energy calculations.", "todo"],
-  ["Rates of reaction", "Rates of Reaction", "Both", "Collision theory, factors affecting rate, and catalysts.", "todo"],
-  ["Crude oil & alkanes", "Organic Chemistry", "Both", "Fractional distillation, cracking and hydrocarbons.", "todo"]
- ],
+ Chemistry: [], // built from CHEMISTRY_BY_PAPER below
  Biology: [],   // built from BIOLOGY_BY_PAPER below
  Maths: []
 };
@@ -185,6 +175,83 @@ SAMPLE_TOPICS.Biology = Object.entries(BIOLOGY_BY_PAPER).flatMap(([paper, topics
   Object.entries(topicsIn).flatMap(([category, items]) => items.map(item =>
     item.startsWith("H: ") ? [item.slice(3), category, "Higher", "Higher tier only", "todo", paper]
     : item.startsWith("★ ") ? ["Required practical: " + item[2].toLowerCase() + item.slice(3), category, "Both", "Required practical", "todo", paper]
+    : [item, category, "Both", "", "todo", paper])));
+
+// GCSE Chemistry (Pearson Edexcel 1CH0) topics, by paper and then by spec topic (Topic 1 Key concepts to Topic 9
+// Separate chemistry 2), each list in spec order. Topic 1 (and the formulae and equations in 0.1–0.6) is examined in
+// both papers. "H: " marks content that is Higher tier only (bold in the spec), and "★ " a Core Practical.
+const CHEMISTRY_BY_PAPER = {
+  "Paper 1 & 2": {
+    "Key Concepts in Chemistry": [
+      "Formulae, equations and hazard symbols", "H: Balanced ionic equations",
+      "Atomic structure: protons, neutrons, electrons and models of the atom", "Isotopes and relative atomic mass",
+      "H: Calculating relative atomic mass from isotope abundances", "The periodic table: Mendeleev, groups and periods",
+      "Electronic configuration", "Ionic bonding, ions and formulae of ionic compounds",
+      "Covalent bonding and simple molecules", "Types of substance: ionic, simple molecular, giant covalent and metallic",
+      "Carbon: diamond, graphite, fullerenes, graphene and polymers", "Relative formula mass and percentage by mass",
+      "Empirical and molecular formulae", "Conservation of mass and reacting masses", "Concentration in g dm⁻³",
+      "H: Moles and the Avogadro constant", "H: Limiting reactants and stoichiometry"
+    ]
+  },
+  "Paper 1": {
+    "States of Matter and Mixtures": [
+      "States of matter and changes of state", "Pure substances and mixtures",
+      "Separating mixtures: filtration, crystallisation and distillation", "Paper chromatography and Rf values",
+      "★ Investigating inks: distillation and chromatography", "Making water potable"
+    ],
+    "Chemical Changes": [
+      "Acids, alkalis, pH and indicators", "H: pH and hydrogen ion concentration",
+      "★ pH change when calcium hydroxide is added to hydrochloric acid", "H: Strong and weak, dilute and concentrated acids",
+      "Bases, neutralisation and reactions of acids", "Making soluble salts", "★ Preparing pure, dry copper sulfate crystals",
+      "Solubility rules, precipitates and insoluble salts", "Electrolysis: electrolytes, ions and products",
+      "H: Half equations, oxidation and reduction in electrolysis", "Electrolysis of copper sulfate and purifying copper",
+      "★ Electrolysis of copper sulfate solution"
+    ],
+    "Extracting Metals and Equilibria": [
+      "The reactivity series and displacement reactions", "H: Displacement reactions as redox reactions",
+      "Extracting metals: ores, oxidation and reduction", "H: Biological methods of metal extraction",
+      "Recycling metals and life-cycle assessments", "Reversible reactions, dynamic equilibrium and the Haber process",
+      "H: Changing the position of equilibrium"
+    ],
+    "Separate Chemistry 1": [
+      "Transition metals, corrosion and rusting", "Alloys and the uses of metals", "H: Concentration in mol dm⁻³",
+      "★ Acid-alkali titration", "H: Titration calculations", "Percentage yield and atom economy",
+      "H: Choosing a reaction pathway", "H: Molar volume of gases and Avogadro's law", "The Haber process and fertilisers",
+      "H: Rate of reaching equilibrium and industrial conditions", "Chemical cells and fuel cells"
+    ]
+  },
+  "Paper 2": {
+    "Groups in the Periodic Table": [
+      "Group 1: the alkali metals", "Group 7: the halogens and their reactions", "Halogen displacement reactions",
+      "H: Halogen displacement as redox reactions", "Group 0: the noble gases"
+    ],
+    "Rates of Reaction and Energy Changes": [
+      "★ Investigating rates of reaction", "Measuring rates and interpreting rate graphs",
+      "Collision theory and factors affecting rate", "Catalysts and enzymes", "Exothermic and endothermic reactions",
+      "Bond breaking and bond making", "H: Calculating energy changes from bond energies",
+      "Activation energy and reaction profiles"
+    ],
+    "Fuels and Earth Science": [
+      "Crude oil, hydrocarbons and fractional distillation", "Alkanes and homologous series",
+      "Complete and incomplete combustion", "Pollutants: sulfur dioxide, acid rain and oxides of nitrogen",
+      "Fossil fuels and hydrogen as a fuel for cars", "Cracking", "The Earth's early atmosphere and how it changed",
+      "The greenhouse effect and climate change"
+    ],
+    "Separate Chemistry 2": [
+      "Flame tests and tests for metal ions", "Tests for negative ions (anions)", "★ Identifying the ions in unknown salts",
+      "Instrumental analysis and flame photometry", "Alkanes and alkenes", "Reactions of alkenes and the bromine water test",
+      "Addition polymers", "H: Condensation polymers", "Problems with polymers, recycling and natural polymers",
+      "Alcohols", "★ Temperature rise from burning alcohols", "Carboxylic acids", "Fermentation and making ethanol",
+      "Nanoparticles: sizes, uses and risks", "Comparing materials: ceramics, polymers, composites and metals"
+    ]
+  }
+};
+// Like Biology, the paper goes where Maths keeps its grade ("Chemistry · Paper 2"). Edexcel calls its required
+// practicals Core Practicals, so their tiles say so.
+SAMPLE_TOPICS.Chemistry = Object.entries(CHEMISTRY_BY_PAPER).flatMap(([paper, topicsIn]) =>
+  Object.entries(topicsIn).flatMap(([category, items]) => items.map(item =>
+    item.startsWith("H: ") ? [item.slice(3), category, "Higher", "Higher tier only", "todo", paper]
+    : item.startsWith("★ ") ? ["Core practical: " + item[2].toLowerCase() + item.slice(3), category, "Both", "Core practical", "todo", paper]
     : [item, category, "Both", "", "todo", paper])));
 
 // Subjects switched off for now: they don't show anywhere in the app (dashboard, filters, homework picker,
