@@ -152,6 +152,18 @@
   .hw-remove { border: none; background: none; color: #b42318; font-size: 13px; font-weight: 600; padding: 2px 4px; border-radius: 6px; }
   .hw-remove:hover { background: #fdecea; }
   .s-actions { margin-top: auto; }
+  .tag-more { cursor: pointer; font: inherit; font-size: 13px; color: var(--green-700); font-weight: 600; }
+  .tag-more:hover { background: var(--green-100); }
+  .tp-search { margin: 12px 0; }
+  .tp-list { list-style: none; display: flex; flex-direction: column; gap: 6px; min-height: 120px; max-height: 50vh; overflow-y: auto; margin-bottom: 14px; }
+  .tp-list li { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 14px; }
+  .tp-list li > div:first-child { flex: 1; min-width: 0; }
+  .tp-list li small { display: block; color: var(--muted); font-size: 12px; }
+  .tp-list .empty-row { justify-content: center; color: var(--muted); border-style: dashed; }
+  .tp-pct { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .tp-pct strong { font-size: 13px; min-width: 36px; text-align: right; }
+  .tp-bar { width: 72px; height: 7px; border-radius: 99px; background: var(--track); overflow: hidden; }
+  .tp-bar i { display: block; height: 100%; background: var(--amber); border-radius: 99px; }
   .field .input-wrap { position: relative; display: flex; flex-direction: column; }
   .field .input-wrap input { padding-right: 60px; }
   .toggle-pw {
@@ -441,6 +453,23 @@
   </form>
 </div>
 
+<!-- One student's In progress and Confident topics, with a search -->
+<div class="overlay" id="tpOverlay">
+  <div class="modal" id="tpModal" role="dialog" aria-modal="true" aria-labelledby="tpTitle">
+    <h2 id="tpTitle">Topics</h2>
+    <div class="mode-tabs" id="tpTabs" role="tablist">
+      <button type="button" class="mode-tab active" data-tptab="doing" role="tab">Working on</button>
+      <button type="button" class="mode-tab" data-tptab="done" role="tab">Completed</button>
+    </div>
+    <label class="search tp-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="tpSearch" placeholder="Search topics…" autocomplete="off" aria-label="Search topics">
+    </label>
+    <ul class="tp-list" id="tpList"></ul>
+    <div class="modal-actions"><button type="button" class="btn btn-ghost" id="tpClose">Close</button></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -477,6 +506,7 @@ TelaDB.start("tutor").then(() => {
       username, name: TelaMessages.properName(acc.displayName || username), opened: Array.isArray(topics), total: list.length,
       done: count("done"), doing: count("doing"), todo: count("todo"),
       working: list.filter(t => t.status === "doing").map(t => t.title),
+      list, progress: TelaDB.progressOf(username),
       lastMessage: TelaMessages.last(username, tutorUser), unread: TelaMessages.unread(username, tutorUser, "tutor"),
       homework: TelaDB.homeworkOf(username).filter(hw => isShownSubject(hw.subject)),
       activity: TelaDB.activityOf(username),
@@ -516,7 +546,7 @@ TelaDB.start("tutor").then(() => {
           <li><i style="background:var(--green-600)"></i><span>Confident</span><strong>${st.done}</strong></li>
           <li><i style="background:var(--amber)"></i><span>In progress</span><strong>${st.doing}</strong></li>
           <li><i style="background:var(--track)"></i><span>Not started</span><strong>${st.todo}</strong></li></ul></div>`;
-    const more = st.working.length > 8 ? `<span class="tag">+${st.working.length - 8} more</span>` : "";
+    const more = st.working.length > 8 ? `<button type="button" class="tag tag-more" data-topics="${esc(st.username)}">+${st.working.length - 8} more</button>` : "";
     return `<article class="student">
       <div class="s-head"><span class="avatar">${esc(st.name.charAt(0).toUpperCase())}</span>
         <div><h2>${esc(st.name)}</h2><small>@${esc(st.username)}</small></div></div>
@@ -531,7 +561,9 @@ TelaDB.start("tutor").then(() => {
       <div class="s-actions">
         <button type="button" class="btn btn-primary" data-homework="${esc(st.username)}">Set homework</button>
         <button type="button" class="btn btn-ghost" data-chat="${esc(st.username)}">Message</button>
+        ${st.done || st.doing ? `<button type="button" class="btn btn-ghost" data-topics="${esc(st.username)}">Topics</button>` : ""}
         <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}">Export data</button>
+        <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}" data-week="last">Export last week</button>
       </div>
     </article>`;
   }
@@ -551,6 +583,7 @@ TelaDB.start("tutor").then(() => {
     $("statAverage").textContent = (withTopics.length ? Math.round(withTopics.reduce((a, s) => a + s.done / s.total, 0) / withTopics.length * 100) : 0) + "%";
     $("statUnread").textContent = totalUnread();
     render();
+    if (tpStudent) { tpStudent = students.find(s => s.username === tpStudent.username); if (tpStudent) renderTopics(); else closeTopics(); }
     renderMsgBadge();
     if (messagesOpen() && panelMode === "messages" && !chatStudent && !chatGroup && !groupEdit) $("drawerBody").innerHTML = conversationsHTML();
   }
@@ -962,7 +995,52 @@ TelaDB.start("tutor").then(() => {
     if (setHw) openHomework(setHw.dataset.homework);
     const exp = e.target.closest("[data-export]");
     if (exp) exportStudent(exp);
+    const tp = e.target.closest("[data-topics]");
+    if (tp) openTopics(tp.dataset.topics);
   });
+
+  // ---------- Topics pop-up ----------
+  // A student's In progress topics (with how far through their current set they are) or Confident ones, searchable.
+  let tpStudent = null, tpTab = "doing";
+  function openTopics(username) {
+    tpStudent = students.find(s => s.username === username);
+    if (!tpStudent) return;
+    tpTab = tpStudent.doing || !tpStudent.done ? "doing" : "done";
+    $("tpSearch").value = "";
+    $("tpTitle").textContent = `${tpStudent.name}'s topics`;
+    renderTopics();
+    $("tpOverlay").classList.add("open");
+    $("tpSearch").focus();
+  }
+  function renderTopics() {
+    const q = $("tpSearch").value.trim().toLowerCase();
+    const match = t => !q || t.title.toLowerCase().includes(q) || [t.subject, t.grade, t.category].some(x => x && String(x).toLowerCase().includes(q));
+    const of = status => tpStudent.list.filter(t => t.status === status && match(t)).sort((a, b) => a.title.localeCompare(b.title));
+    const lists = { doing: of("doing"), done: of("done") };
+    document.querySelectorAll("#tpTabs [data-tptab]").forEach(b => {
+      const tab = b.dataset.tptab;
+      b.classList.toggle("active", tab === tpTab);
+      b.setAttribute("aria-selected", String(tab === tpTab));
+      b.textContent = `${tab === "doing" ? "Working on" : "Completed"} (${lists[tab].length})`;
+    });
+    const meta = t => esc([t.subject, t.grade].filter(Boolean).join(" · "));
+    const row = t => {
+      if (t.status === "done") return `<li><div>${esc(t.title)}<small>${meta(t)}</small></div><span class="pill done">Confident</span></li>`;
+      const p = tpStudent.progress[t.title];
+      const pct = p && p.parts ? Math.round(p.answered / p.parts * 100) : null;
+      return `<li><div>${esc(t.title)}<small>${meta(t)}</small></div>${pct === null
+        ? `<small title="Shows once ${esc(tpStudent.name)} next opens their dashboard">Not known yet</small>`
+        : `<span class="tp-pct" title="${p.answered} of ${p.parts} answered, ${p.correct} correct"><span class="tp-bar"><i style="width:${pct}%"></i></span><strong>${pct}%</strong></span>`}</li>`;
+    };
+    const shown = lists[tpTab];
+    $("tpList").innerHTML = shown.length ? shown.map(row).join("")
+      : `<li class="empty-row">${q ? "No topics match your search." : tpTab === "doing" ? "Nothing in progress right now." : "No topics completed yet."}</li>`;
+  }
+  const closeTopics = () => { $("tpOverlay").classList.remove("open"); tpStudent = null; };
+  $("tpSearch").addEventListener("input", renderTopics);
+  $("tpTabs").addEventListener("click", e => { const b = e.target.closest("[data-tptab]"); if (b) { tpTab = b.dataset.tptab; renderTopics(); } });
+  $("tpClose").addEventListener("click", closeTopics);
+  $("tpOverlay").addEventListener("click", e => { if (e.target === $("tpOverlay")) closeTopics(); });
 
   // ---------- Export ----------
   // Downloads a PDF weekly report for one student (this week, Monday to Sunday): a graph of their time active each
@@ -982,27 +1060,31 @@ TelaDB.start("tutor").then(() => {
     });
   }
 
+  // "Export last week" (data-week="last") reports on the previous Monday to Sunday and only uses what was recorded
+  // in that week: no topics guessed from before the day log began, and no current-progress pie charts.
   async function exportStudent(btn) {
-    const username = btn.dataset.export;
+    const username = btn.dataset.export, lastWeek = btn.dataset.week === "last", label = btn.textContent;
     btn.disabled = true;
     btn.textContent = "Exporting…";
     try {
       const [data, { jsPDF }] = await Promise.all([TelaDB.exportStudent(username), loadJsPDF()]);
-      const week = weekReport(data, new Date());
-      weeklyPDF(jsPDF, data, week).save(`tela-${username}-week-${week.days[0].key}.pdf`);
-      toast(`Downloaded ${TelaMessages.properName(data.student.name || username)}'s weekly report.`);
+      const now = new Date();
+      const week = weekReport(data, lastWeek ? new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7) : now, lastWeek);
+      weeklyPDF(jsPDF, data, week).save(`tela-${username}-${lastWeek ? "last-" : ""}week-${week.days[0].key}.pdf`);
+      toast(`Downloaded ${TelaMessages.properName(data.student.name || username)}'s ${lastWeek ? "last week" : "weekly"} report.`);
     } catch (err) {
       toast("Couldn't make their report: " + (err.message || err));
     } finally {
       btn.disabled = false;
-      btn.textContent = "Export data";
+      btn.textContent = label;
     }
   }
 
   // The week containing `now`, Monday first: each day's time active and the topics worked on.
   // Topics come from the student's day log; for days before the log existed, a topic's practice counts on the
-  // day it was last saved, with the status the topic has now (those are flagged `approx`).
-  function weekReport(data, now) {
+  // day it was last saved, with the status the topic has now (those are flagged `approx`). `onlyThatWeek` skips
+  // those guesses, since their status is today's, not that week's.
+  function weekReport(data, now, onlyThatWeek = false) {
     const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (now.getDay() + 6) % 7);
     const log = (data.saved.daylog || {}).value || {};
     const logStart = Object.keys(log).sort()[0] || null;
@@ -1015,7 +1097,7 @@ TelaDB.start("tutor").then(() => {
       const t = m && byslug[m[2]];
       if (!t || !updatedAt || (t.status !== "doing" && t.status !== "done")) return;
       const day = TelaActivity.dayKey(new Date(updatedAt));
-      if (logStart && day >= logStart) return;
+      if (onlyThatWeek || (logStart && day >= logStart)) return;
       (lastSaved[day] = lastSaved[day] || {})[t.title] = t.status;
     });
     const days = Array.from({ length: 7 }, (_, i) => {
@@ -1027,7 +1109,7 @@ TelaDB.start("tutor").then(() => {
       ].sort((a, b) => (a.status === b.status ? a.title.localeCompare(b.title) : a.status === "done" ? -1 : 1));
       return { date: d, key, seconds: Number(data.activity[key]) || 0, topics };
     });
-    return { days, approx: days.some(d => d.topics.some(t => t.approx)) };
+    return { days, approx: days.some(d => d.topics.some(t => t.approx)), lastWeek: onlyThatWeek };
   }
 
   function weeklyPDF(jsPDF, data, week) {
@@ -1049,7 +1131,7 @@ TelaDB.start("tutor").then(() => {
     doc.setFont("helvetica", "bold"); doc.setFontSize(20); color([255, 255, 255]);
     doc.text(clean(name), M, 16);
     doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
-    doc.text(clean(`Weekly report  ·  ${short(first)} - ${short(last)} ${last.getFullYear()}`), M, 25);
+    doc.text(clean(`${week.lastWeek ? "Last week's report" : "Weekly report"}  ·  ${short(first)} - ${short(last)} ${last.getFullYear()}`), M, 25);
     doc.setFontSize(9);
     doc.text(clean(`@${data.student.username}  ·  Exported ${new Date(data.exportedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`), W - M, 25, { align: "right" });
 
@@ -1057,7 +1139,7 @@ TelaDB.start("tutor").then(() => {
     const total = week.days.reduce((a, d) => a + d.seconds, 0);
     const worked = new Map();
     week.days.forEach(d => d.topics.forEach(t => { if (worked.get(t.title) !== "done") worked.set(t.title, t.status); }));
-    const tiles = [[fmt(total), "Time this week"], [String(week.days.filter(d => d.seconds || d.topics.length).length), "Days active"],
+    const tiles = [[fmt(total), week.lastWeek ? "Time last week" : "Time this week"], [String(week.days.filter(d => d.seconds || d.topics.length).length), "Days active"],
       [String(worked.size), "Topics worked on"], [String([...worked.values()].filter(s => s === "done").length), "Reached Confident"]];
     const tw = (W - 2 * M - 3 * 4) / 4;
     tiles.forEach(([value, label], i) => {
@@ -1130,7 +1212,7 @@ TelaDB.start("tutor").then(() => {
     // Progress by subject: a pie chart for each subject the student has, split into Confident, In progress and Not started
     const subjects = ["Maths", "Biology", "Physics", "Chemistry"].filter(isShownSubject)
       .map(subject => ({ subject, list: data.topics.filter(t => t.subject === subject) })).filter(s => s.list.length);
-    if (subjects.length) {
+    if (subjects.length && !week.lastWeek) {
       const R = 17, perRow = Math.min(3, subjects.length), rowH = 2 * R + 34, colW = (W - 2 * M) / perRow;
       y += 8;
       if (y + 10 + rowH > H - M) newPage();
@@ -1308,7 +1390,8 @@ TelaDB.start("tutor").then(() => {
 
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
-    if (["hwOverlay", "accOverlay"].some(id => $(id).classList.contains("open"))) { closeHomework(); closeAccountForm(); }
+    if ($("tpOverlay").classList.contains("open")) closeTopics();
+    else if (["hwOverlay", "accOverlay"].some(id => $(id).classList.contains("open"))) { closeHomework(); closeAccountForm(); }
     else if (messagesOpen()) closeMessages();
   });
   document.querySelectorAll("#accForm input").forEach(el => el.addEventListener("input", () => el.classList.remove("invalid")));

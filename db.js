@@ -27,8 +27,9 @@ const TelaDB = (() => {
 
   // ---------- What the signed-in person can see ----------
   // Rows as Supabase returns them. profiles is by id; the rest are arrays (topics and kv are by student / key).
-  // activity is each student's time active (activity.js), by student id; only loaded for tutors.
-  const S = { me: null, profiles: {}, links: [], topics: {}, kv: {}, activity: {}, homework: [], messages: [], groups: [], members: [], groupMessages: [], reads: {} };
+  // activity is each student's time active (activity.js) and progress how far through each topic's set they are, by
+  // student id; both only loaded for tutors.
+  const S = { me: null, profiles: {}, links: [], topics: {}, kv: {}, activity: {}, progress: {}, homework: [], messages: [], groups: [], members: [], groupMessages: [], reads: {} };
   const listeners = [], errorListeners = [];
   const emit = what => listeners.forEach(fn => { try { fn(what); } catch (e) { console.error(e); } });
   function report(error) {
@@ -60,8 +61,8 @@ const TelaDB = (() => {
     const [links, data, homework, messages, groups, members, groupMessages, reads, kv] = await Promise.all([
       rows(t("tutor_students")), rows(t("student_data")), rows(t("homework")), rows(t("messages")),
       rows(t("groups")), rows(t("group_members")), rows(t("group_messages")), rows(t("reads")),
-      // A tutor only needs their students' time active (the access rules give them their own students' rows).
-      me.role === "student" ? rows(t("student_kv")) : rows(t("student_kv").eq("key", "activity"))
+      // A tutor only needs their students' time active and topic progress (the access rules give them their own students' rows).
+      me.role === "student" ? rows(t("student_kv")) : rows(t("student_kv").in("key", ["activity", "progress"]))
     ]);
     // Profiles of everyone mentioned (an admin sees everyone).
     const ids = new Set([me.id]);
@@ -83,7 +84,10 @@ const TelaDB = (() => {
     // page's copy is the newest and the server's isn't read again.
     if (first || !isStudent()) S.topics = Object.fromEntries(f.data.map(r => [r.student_id, r.topics]));
     if (first && isStudent()) S.kv = Object.fromEntries(f.kv.map(r => [r.key, r.value]));
-    if (!isStudent()) S.activity = Object.fromEntries(f.kv.map(r => [r.student_id, r.value]));
+    if (!isStudent()) {
+      const byStudent = key => Object.fromEntries(f.kv.filter(r => r.key === key).map(r => [r.student_id, r.value]));
+      S.activity = byStudent("activity"); S.progress = byStudent("progress");
+    }
     const reads = Object.fromEntries(f.reads.map(r => [r.convo, r.read_at]));
     Object.keys(S.reads).forEach(k => { if ((S.reads[k] || 0) > (reads[k] || 0)) reads[k] = S.reads[k]; });
     S.reads = reads;
@@ -271,6 +275,8 @@ const TelaDB = (() => {
   const kvKeys = () => Object.keys(S.kv);
   // A tutor's view of a student's time active: { "YYYY-MM-DD": seconds }.
   const activityOf = username => S.activity[idOf("student", username)] || {};
+  // A tutor's view of how far through each topic's current set a student is: { "<topic title>": { parts, answered, correct } }.
+  const progressOf = username => S.progress[idOf("student", username)] || {};
   function kvSet(key, value) {
     S.kv[key] = JSON.parse(JSON.stringify(value));
     later("kv:" + key, () => track(client.from("student_kv").upsert({ student_id: S.me.id, key, value: S.kv[key], updated_at: Date.now() })));
@@ -329,7 +335,7 @@ const TelaDB = (() => {
   return {
     client, S, track, start, refresh, onChange: fn => listeners.push(fn), onError: fn => errorListeners.push(fn), emit, flush,
     signIn, signOut, signedInRole, me, isAdmin, idOf, usernameOf, profile, studentAccounts, tutorAccounts,
-    createAccount, deleteAccount, updateAccount, setTutors, topicsOf, saveMyTopics, kvGet, kvSet, kvKeys, kvRemove, activityOf,
+    createAccount, deleteAccount, updateAccount, setTutors, topicsOf, saveMyTopics, kvGet, kvSet, kvKeys, kvRemove, activityOf, progressOf,
     homeworkOf, addHomework, removeHomework, exportStudent, lastRead, markRead
   };
 })();

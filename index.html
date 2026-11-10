@@ -3494,7 +3494,33 @@ TelaDB.start("student").then(() => {
       : answered === parts
       ? `Finished: ${correct} of ${parts} correct (${Math.round(correct / parts * 100)}%). Click ${$("practiceNew").textContent} to have another go.`
       : `You've answered ${answered} of ${parts}.`;
+    const topic = !practiceMarathon && topics.find(t => t.id === practiceTopicId);
+    if (topic) noteProgress(topic.title, { parts, answered, correct });
     return { parts, correct, answered };
+  }
+
+  // How far through their current set the student is on each topic, for their tutor's topics pop-up:
+  // { "<topic title>": { answered, parts, correct } }. Marathons aren't counted.
+  const PROGRESS_KEY = "progress";
+  function noteProgress(title, { parts, answered, correct }) {
+    const all = TelaDB.kvGet(PROGRESS_KEY) || {}, was = all[title] || {};
+    if (was.parts === parts && was.answered === answered && was.correct === correct) return;
+    TelaDB.kvSet(PROGRESS_KEY, { ...all, [title]: { parts, answered, correct } });
+  }
+  // The same count for a topic's saved set, worked out from its saved answers (for sets saved before progress was kept).
+  function setState(t) {
+    const set = PRACTICE[practiceKey(t)];
+    const data = TelaDB.kvGet(STORAGE_KEY + ".practice." + practiceKey(t).replace(/[^a-z0-9]+/g, "-"));
+    if (!set || !data || !Array.isArray(data.picked)) return null;
+    const answers = data.answers || {};
+    let parts = 0, answered = 0, correct = 0;
+    data.picked.map(id => set.items.find(it => it.id === id)).filter(Boolean).forEach(item => item.parts.forEach(p => {
+      parts++;
+      const result = answers[p.id] ? markPart(p, answers[p.id]) : null;
+      if (isFinal(result)) answered++;
+      if (isFinal(result) && result.correct) correct++;
+    }));
+    return parts ? { parts, answered, correct } : null;
   }
 
   // What the student worked on each day, for the tutor's weekly report: { "YYYY-MM-DD": { "<topic title>": "doing" | "done" } }.
@@ -4542,6 +4568,10 @@ TelaDB.start("student").then(() => {
     onTick: ms => { if (practiceOpen && practiceTime.doneIn === null) practiceTime.ms += ms; },
     onSave: saveTopicTime
   });
+
+  // Fill in progress for In progress topics whose sets were saved before it was kept.
+  const progress = TelaDB.kvGet(PROGRESS_KEY) || {};
+  topics.filter(t => t.status === "doing" && !progress[t.title]).forEach(t => { const s = setState(t); if (s) noteProgress(t.title, s); });
 
   render();
 });
