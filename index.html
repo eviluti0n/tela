@@ -255,7 +255,7 @@
   .status.todo { background: var(--grey-bg); color: var(--muted); }
   .status.doing { background: var(--amber-bg); color: var(--amber); }
   .status.done { background: var(--green-100); color: var(--green-700); }
-  .status:hover { filter: brightness(.96); }
+  button.status:hover { filter: brightness(.96); }
 
   .icon-btn {
     border: none; background: transparent; color: var(--muted);
@@ -1268,7 +1268,7 @@ TelaDB.start("student").then(() => {
           ${bestScoreHTML(t)}
         </div>
         <div class="card-foot">
-          <button class="status ${t.status}" data-action="status" title="Click to change status">${STATUS[t.status].label}</button>
+          <span class="status ${t.status}" title="Changes as you answer this topic's questions">${STATUS[t.status].label}</span>
           ${questionCount(t)}
         </div>
       </article>`;
@@ -4513,18 +4513,9 @@ TelaDB.start("student").then(() => {
     const id = card.dataset.id;
     const topic = topics.find(t => t.id === id);
     if (!topic) return;
-    const btn = e.target.closest("[data-action]");
-    // Clicking anywhere else on a tile with practice questions opens them.
-    if (!btn) {
-      if (card.classList.contains("has-practice")) openPractice(topic);
-      return;
-    }
-    const action = btn.dataset.action;
-    if (action === "status") {
-      topic.status = STATUS[topic.status].next;
-      logTopicDay(topic, topic.status);
-      save(); render();
-    }
+    // Clicking a tile with practice questions opens them. Students can't set a status by hand: it changes as they
+    // answer the questions (syncPracticeStatus).
+    if (card.classList.contains("has-practice")) openPractice(topic);
   });
 
   $("grid").addEventListener("keydown", e => {
