@@ -1055,14 +1055,14 @@
     if (/questions\.js/.test(e.filename || "")) window.QUESTION_BANK.loadError = e.message;
   });
 </script>
-<script src="questions.js?v=20261110"></script>
-<script src="questions-biology.js?v=20261110"></script>
+<script src="questions.js?v=20261110b"></script>
+<script src="questions-biology.js?v=20261110b"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js?v=20261110"></script>
-<script src="activity.js?v=20261110"></script>
-<script src="catalog.js?v=20261110"></script>
-<script src="messages.js?v=20261110"></script>
-<script src="dropdown.js?v=20261110"></script>
+<script src="db.js?v=20261110b"></script>
+<script src="activity.js?v=20261110b"></script>
+<script src="catalog.js?v=20261110b"></script>
+<script src="messages.js?v=20261110b"></script>
+<script src="dropdown.js?v=20261110b"></script>
 <script>
 // The page starts once the signed-in student's topics, answers, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("student").then(() => {
@@ -1501,7 +1501,9 @@ TelaDB.start("student").then(() => {
         (p.kind === "match" && !(p.pairs && p.pairs.length > 1)) ||
         (p.kind === "select" && (!p.options || !answerList(p.answer).every(a => p.options.some(o => normText(o) === normText(a))))));
       if (!parts.length || unreadable) { bankProblems.push(`"${t.topic}" question ${i + 1} was skipped: check its question and answer`); return; }
-      let id = hashText([q.text || "", ...parts.map(p => p.text)].join("|"));
+      // A reworded single-part question keeps its old wording in `was`, so it keeps the id (and the students'
+      // saved answers) it had before.
+      let id = hashText((q.was && !grouped ? [q.text || "", String(q.was)] : [q.text || "", ...parts.map(p => p.text)]).join("|"));
       while (items.some(it => it.id === id)) id += "x";
       parts.forEach((p, pi) => { p.id = id + "-" + pi; });
       // A graph on a grouped question, or on a non-plot question, is shown above the parts for reading from.
