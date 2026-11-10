@@ -271,6 +271,9 @@
   .member-list label:hover { background: var(--brown-50); }
   .member-list input { flex: none; width: 17px; height: 17px; padding: 0; margin: 0; accent-color: var(--green-700); box-shadow: none; }
   .member-list small { color: var(--muted); font-weight: 400; }
+  .member-list.inline { flex-direction: row; flex-wrap: wrap; }
+  .member-list.ex-weeks { max-height: 230px; }
+  .member-list .ex-time { margin-left: auto; white-space: nowrap; }
   .group-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
   .group-actions .btn-danger { margin-right: auto; background: transparent; color: #b42318; }
   .group-actions .btn-danger:hover { background: #fdecea; }
@@ -470,6 +473,50 @@
   </div>
 </div>
 
+<!-- Export one student's PDF report: which weeks, subjects and parts -->
+<div class="overlay" id="exOverlay">
+  <form class="modal" id="exForm" role="dialog" aria-modal="true" aria-labelledby="exTitle" novalidate>
+    <h2 id="exTitle">Export report</h2>
+    <p class="lead">Choose what goes in the PDF. Each week gets its own page.</p>
+    <div class="error" id="exError" role="alert"></div>
+    <div class="field" role="group" aria-labelledby="exWeeksLabel">
+      <span id="exWeeksLabel">Weeks</span>
+      <ul class="member-list ex-weeks" id="exWeeks"></ul>
+    </div>
+    <div class="field" id="exSubjectsField" role="group" aria-labelledby="exSubjectsLabel">
+      <span id="exSubjectsLabel">Subjects</span>
+      <ul class="member-list inline" id="exSubjects"></ul>
+      <small>Picks which topics are listed. Time active always covers every subject.</small>
+    </div>
+    <div class="field" role="group" aria-labelledby="exStatusLabel">
+      <span id="exStatusLabel">Topics to list</span>
+      <ul class="member-list inline">
+        <li><label><input type="checkbox" name="exStatus" value="done" checked><span>Confident</span></label></li>
+        <li><label><input type="checkbox" name="exStatus" value="doing" checked><span>In progress</span></label></li>
+      </ul>
+    </div>
+    <div class="field" role="group" aria-labelledby="exPartsLabel">
+      <span id="exPartsLabel">Include</span>
+      <ul class="member-list">
+        <li><label><input type="checkbox" name="exPart" value="time" checked><span>Time active each day <small>(bar chart)</small></span></label></li>
+        <li><label><input type="checkbox" name="exPart" value="topics" checked><span>Topics worked on each day</span></label></li>
+        <li><label><input type="checkbox" name="exPart" value="progress" checked><span>Progress by subject <small>(pie charts, as things stand now)</small></span></label></li>
+      </ul>
+    </div>
+    <div class="field" role="group" aria-labelledby="exMoreLabel">
+      <span id="exMoreLabel">Other options</span>
+      <ul class="member-list">
+        <li><label><input type="checkbox" id="exSkipEmpty"><span>Leave out days with nothing recorded</span></label></li>
+        <li><label><input type="checkbox" id="exEstimates"><span>Estimate topics for days before daily records began <small>(uses today's status)</small></span></label></li>
+      </ul>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="exCancel">Cancel</button>
+      <button type="submit" class="btn btn-primary" id="exSubmit">Download PDF</button>
+    </div>
+  </form>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -563,8 +610,7 @@ TelaDB.start("tutor").then(() => {
         <button type="button" class="btn btn-primary" data-homework="${esc(st.username)}">Set homework</button>
         <button type="button" class="btn btn-ghost" data-chat="${esc(st.username)}">Message</button>
         ${st.done || st.doing ? `<button type="button" class="btn btn-ghost" data-topics="${esc(st.username)}">Topics</button>` : ""}
-        <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}">Export data</button>
-        <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}" data-week="last">Export last week</button>
+        <button type="button" class="btn btn-ghost" data-export="${esc(st.username)}">Export</button>
       </div>
     </article>`;
   }
@@ -995,7 +1041,7 @@ TelaDB.start("tutor").then(() => {
     const setHw = e.target.closest("[data-homework]");
     if (setHw) openHomework(setHw.dataset.homework);
     const exp = e.target.closest("[data-export]");
-    if (exp) exportStudent(exp);
+    if (exp) openExport(exp.dataset.export);
     const tp = e.target.closest("[data-topics]");
     if (tp) openTopics(tp.dataset.topics);
   });
@@ -1044,8 +1090,8 @@ TelaDB.start("tutor").then(() => {
   $("tpOverlay").addEventListener("click", e => { if (e.target === $("tpOverlay")) closeTopics(); });
 
   // ---------- Export ----------
-  // Downloads a PDF weekly report for one student (this week, Monday to Sunday): a graph of their time active each
-  // day, then the topics they worked on each day and whether each was In progress or Confident.
+  // Downloads a PDF report for one student, a page for each chosen week (Monday to Sunday): a graph of their time
+  // active each day, then the topics they worked on each day and whether each was In progress or Confident.
   // jsPDF is only loaded the first time a report is made.
   const JSPDF = { src: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
     integrity: "sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" };
@@ -1061,59 +1107,107 @@ TelaDB.start("tutor").then(() => {
     });
   }
 
-  // "Export last week" (data-week="last") reports on the previous Monday to Sunday and only uses what was recorded
-  // in that week: no topics guessed from before the day log began, and no current-progress pie charts.
-  async function exportStudent(btn) {
-    const username = btn.dataset.export, lastWeek = btn.dataset.week === "last", label = btn.textContent;
+  // The Export pop-up: pick the weeks (the last EXPORT_WEEKS, Monday to Sunday), subjects, which topics to list and
+  // which parts of the report to include.
+  const EXPORT_WEEKS = 12;
+  const mondayOf = d => new Date(d.getFullYear(), d.getMonth(), d.getDate() - (d.getDay() + 6) % 7);
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const weekName = i => i === 0 ? "This week" : i === 1 ? "Last week" : "";
+  let exStudent = null;
+  function openExport(username) {
+    exStudent = students.find(s => s.username === username);
+    if (!exStudent) return;
+    $("exForm").reset();
+    const thisMon = mondayOf(new Date()), short = d => d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    $("exTitle").textContent = `Export ${exStudent.name}'s report`;
+    $("exWeeks").innerHTML = Array.from({ length: EXPORT_WEEKS }, (_, i) => {
+      const mon = addDays(thisMon, -7 * i), range = `${short(mon)} – ${short(addDays(mon, 6))}`;
+      const secs = Array.from({ length: 7 }, (_, d) => Number(exStudent.activity[TelaActivity.dayKey(addDays(mon, d))]) || 0).reduce((a, b) => a + b, 0);
+      return `<li><label><input type="checkbox" name="exWeek" value="${i}"${i ? "" : " checked"}>
+        <span>${weekName(i) ? `${weekName(i)} <small>${range}</small>` : range}</span>
+        <small class="ex-time">${secs ? TelaActivity.format(secs) : "No time"}</small></label></li>`;
+    }).join("");
+    const subjects = [...new Set(exStudent.list.map(t => t.subject))];
+    $("exSubjects").innerHTML = subjects.map(s => `<li><label><input type="checkbox" name="exSubject" value="${esc(s)}" checked><span>${esc(s)}</span></label></li>`).join("");
+    $("exSubjectsField").hidden = subjects.length < 2;
+    $("exError").classList.remove("show");
+    $("exOverlay").classList.add("open");
+  }
+  const closeExport = () => { $("exOverlay").classList.remove("open"); exStudent = null; };
+  $("exCancel").addEventListener("click", closeExport);
+  $("exOverlay").addEventListener("click", e => { if (e.target === $("exOverlay")) closeExport(); });
+  $("exForm").addEventListener("change", () => $("exError").classList.remove("show"));
+
+  $("exForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!exStudent) return;
+    const checked = name => [...$("exForm").querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value);
+    const weeks = checked("exWeek").map(Number).sort((a, b) => b - a);   // oldest first
+    const opts = {
+      subjects: $("exSubjectsField").hidden ? null : new Set(checked("exSubject")),   // null: every subject
+      statuses: new Set(checked("exStatus")), parts: new Set(checked("exPart")),
+      skipEmpty: $("exSkipEmpty").checked, estimates: $("exEstimates").checked
+    };
+    const fail = msg => { $("exError").textContent = msg; $("exError").classList.add("show"); };
+    if (!weeks.length) return fail("Choose at least one week.");
+    if (opts.subjects && !opts.subjects.size) return fail("Choose at least one subject.");
+    if (!opts.parts.size) return fail("Choose at least one part to include.");
+    if (opts.parts.has("topics") && !opts.statuses.size) return fail("Choose Confident, In progress or both under Topics to list.");
+    const btn = $("exSubmit"), username = exStudent.username;
     btn.disabled = true;
     btn.textContent = "Exporting…";
     try {
       const [data, { jsPDF }] = await Promise.all([TelaDB.exportStudent(username), loadJsPDF()]);
-      const now = new Date();
-      const week = weekReport(data, lastWeek ? new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7) : now, lastWeek);
-      weeklyPDF(jsPDF, data, week).save(`tela-${username}-${lastWeek ? "last-" : ""}week-${week.days[0].key}.pdf`);
-      toast(`Downloaded ${TelaMessages.properName(data.student.name || username)}'s ${lastWeek ? "last week" : "weekly"} report.`);
+      const thisMon = mondayOf(new Date());
+      const reports = weeks.map(i => ({ ...weekReport(data, addDays(thisMon, -7 * i), opts), name: weekName(i) }));
+      const first = reports[0].days[0].key, last = reports[reports.length - 1].days[0].key;
+      weeklyPDF(jsPDF, data, reports, opts).save(`tela-${username}-week-${first}${reports.length > 1 ? "-to-" + last : ""}.pdf`);
+      toast(`Downloaded ${TelaMessages.properName(data.student.name || username)}'s report (${reports.length} week${reports.length === 1 ? "" : "s"}).`);
+      closeExport();
     } catch (err) {
-      toast("Couldn't make their report: " + (err.message || err));
+      fail("Couldn't make their report: " + (err.message || err));
     } finally {
       btn.disabled = false;
-      btn.textContent = label;
+      btn.textContent = "Download PDF";
     }
-  }
+  });
 
   // The week containing `now`, Monday first: each day's time active and the topics worked on.
-  // Topics come from the student's day log; for days before the log existed, a topic's practice counts on the
-  // day it was last saved, with the status the topic has now (those are flagged `approx`). `onlyThatWeek` skips
-  // those guesses, since their status is today's, not that week's.
-  function weekReport(data, now, onlyThatWeek = false) {
-    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (now.getDay() + 6) % 7);
+  // Topics come from the student's day log. With opts.estimates, days before the log existed get a topic's practice
+  // on the day it was last saved, with the status the topic has now (those are flagged `approx`).
+  // Topics are kept only if their subject is in opts.subjects (null: any) and their status in opts.statuses.
+  function weekReport(data, now, opts) {
+    const monday = mondayOf(now);
     const log = (data.saved.daylog || {}).value || {};
     const logStart = Object.keys(log).sort()[0] || null;
     const slug = title => title.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
     const byslug = Object.fromEntries(data.topics.map(t => [slug(t.title), t]));
     const prefix = `tela.topics.${data.student.username}.`;
     const lastSaved = {};   // day -> { title: status }
-    Object.entries(data.saved).forEach(([key, { updatedAt }]) => {
+    if (opts.estimates) Object.entries(data.saved).forEach(([key, { updatedAt }]) => {
       const m = key.startsWith(prefix) && key.slice(prefix.length).match(/^(practice|marathon|time|maratime)\.(.+)$/);
       const t = m && byslug[m[2]];
       if (!t || !updatedAt || (t.status !== "doing" && t.status !== "done")) return;
       const day = TelaActivity.dayKey(new Date(updatedAt));
-      if (onlyThatWeek || (logStart && day >= logStart)) return;
+      if (logStart && day >= logStart) return;
       (lastSaved[day] = lastSaved[day] || {})[t.title] = t.status;
     });
+    const subjectOf = title => (byslug[slug(title)] || {}).subject;
+    const keep = t => opts.statuses.has(t.status) && (!opts.subjects || opts.subjects.has(subjectOf(t.title)));
     const days = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i), key = TelaActivity.dayKey(d);
+      const d = addDays(monday, i), key = TelaActivity.dayKey(d);
       const logged = log[key] || {}, approx = lastSaved[key] || {};
       const topics = [
         ...Object.entries(logged).map(([title, status]) => ({ title, status })),
         ...Object.entries(approx).filter(([title]) => !(title in logged)).map(([title, status]) => ({ title, status, approx: true }))
-      ].sort((a, b) => (a.status === b.status ? a.title.localeCompare(b.title) : a.status === "done" ? -1 : 1));
+      ].filter(keep).sort((a, b) => (a.status === b.status ? a.title.localeCompare(b.title) : a.status === "done" ? -1 : 1));
       return { date: d, key, seconds: Number(data.activity[key]) || 0, topics };
     });
-    return { days, approx: days.some(d => d.topics.some(t => t.approx)), lastWeek: onlyThatWeek };
+    return { days, approx: days.some(d => d.topics.some(t => t.approx)) };
   }
 
-  function weeklyPDF(jsPDF, data, week) {
+  // One page (or more) per week, then the progress pie charts once at the end.
+  function weeklyPDF(jsPDF, data, reports, opts) {
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210, H = 297, M = 18;
     const GREEN = [20, 108, 67], AMBER = [224, 164, 58], INK = [19, 38, 30], MUTED = [111, 98, 86], LINE = [230, 217, 200], TRACK = [236, 226, 212];
@@ -1125,95 +1219,117 @@ TelaDB.start("tutor").then(() => {
     const short = d => d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
     const color = (c, kind = "text") => kind === "text" ? doc.setTextColor(...c) : kind === "fill" ? doc.setFillColor(...c) : doc.setDrawColor(...c);
     const name = TelaMessages.properName(data.student.name || data.student.username);
-    const first = week.days[0].date, last = week.days[6].date;
-
-    // Header
-    color(GREEN, "fill"); doc.rect(0, 0, W, 34, "F");
-    doc.setFont("helvetica", "bold"); doc.setFontSize(20); color([255, 255, 255]);
-    doc.text(clean(name), M, 16);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
-    doc.text(clean(`${week.lastWeek ? "Last week's report" : "Weekly report"}  ·  ${short(first)} - ${short(last)} ${last.getFullYear()}`), M, 25);
-    doc.setFontSize(9);
-    doc.text(clean(`@${data.student.username}  ·  Exported ${new Date(data.exportedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`), W - M, 25, { align: "right" });
-
-    // Summary tiles
-    const total = week.days.reduce((a, d) => a + d.seconds, 0);
-    const worked = new Map();
-    week.days.forEach(d => d.topics.forEach(t => { if (worked.get(t.title) !== "done") worked.set(t.title, t.status); }));
-    const tiles = [[fmt(total), week.lastWeek ? "Time last week" : "Time this week"], [String(week.days.filter(d => d.seconds || d.topics.length).length), "Days active"],
-      [String(worked.size), "Topics worked on"], [String([...worked.values()].filter(s => s === "done").length), "Reached Confident"]];
-    const tw = (W - 2 * M - 3 * 4) / 4;
-    tiles.forEach(([value, label], i) => {
-      const x = M + i * (tw + 4), y = 42;
-      color(LINE, "draw"); doc.setLineWidth(0.3); doc.roundedRect(x, y, tw, 18, 2.5, 2.5, "S");
-      doc.setFont("helvetica", "bold"); doc.setFontSize(13); color(INK); doc.text(clean(value), x + 4, y + 8.5);
-      doc.setFont("helvetica", "normal"); doc.setFontSize(8); color(MUTED); doc.text(label, x + 4, y + 14);
-    });
-
-    // Bar chart: time active each day
-    let y = 72;
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Time active each day", M, y);
-    const chartTop = y + 6, chartH = 46, chartBottom = chartTop + chartH, axisX = M + 14, chartW = W - M - axisX;
-    const maxMin = Math.max(...week.days.map(d => d.seconds / 60), 1);
-    const step = [5, 10, 15, 30, 60, 120, 240].find(s => maxMin / s <= 4) || 480;
-    const top = Math.ceil(maxMin / step) * step;
-    doc.setFontSize(7.5); doc.setFont("helvetica", "normal");
-    for (let v = 0; v <= top; v += step) {
-      const gy = chartBottom - v / top * chartH;
-      color(v ? TRACK : LINE, "draw"); doc.setLineWidth(v ? 0.2 : 0.4); doc.line(axisX, gy, W - M, gy);
-      color(MUTED); doc.text(v < 60 ? `${v} min` : `${+(v / 60).toFixed(1)} h`, axisX - 2, gy + 1, { align: "right" });
-    }
-    const slot = chartW / 7, bw = slot * 0.56;
-    week.days.forEach((d, i) => {
-      const x = axisX + i * slot + (slot - bw) / 2, h = d.seconds / 60 / top * chartH;
-      if (h > 0) { color(GREEN, "fill"); doc.roundedRect(x, chartBottom - h, bw, h, 1, 1, "F"); doc.rect(x, chartBottom - Math.min(h, 1), bw, Math.min(h, 1), "F"); }
-      color(INK); doc.setFont("helvetica", "bold"); doc.setFontSize(8);
-      if (d.seconds) doc.text(clean(fmt(d.seconds)), x + bw / 2, chartBottom - h - 1.5, { align: "center" });
-      doc.text(d.date.toLocaleDateString("en-GB", { weekday: "short" }), x + bw / 2, chartBottom + 5, { align: "center" });
-      doc.setFont("helvetica", "normal"); color(MUTED); doc.setFontSize(7);
-      doc.text(short(d.date), x + bw / 2, chartBottom + 9, { align: "center" });
-    });
-
-    // Topics, day by day
-    y = chartBottom + 20;
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Topics worked on", M, y);
-    // Key
-    doc.setFontSize(8); doc.setFont("helvetica", "normal");
-    [[GREEN, "Confident"], [AMBER, "In progress"]].forEach(([c, label], i) => {
-      const kx = W - M - 52 + i * 26;
-      color(c, "fill"); doc.circle(kx, y - 1.2, 1.4, "F"); color(MUTED); doc.text(label, kx + 3, y);
-    });
-    y += 7;
+    const allSubjects = ["Maths", "Biology", "Physics", "Chemistry"].filter(isShownSubject);
+    const someSubjects = opts.subjects && allSubjects.some(s => !opts.subjects.has(s) && data.topics.some(t => t.subject === s));
+    let y = 0;
     const newPage = () => { doc.addPage(); y = M; };
-    week.days.forEach(d => {
-      if (y > H - M - 16) newPage();
-      color(LINE, "draw"); doc.setLineWidth(0.3); doc.line(M, y - 4, W - M, y - 4);
-      doc.setFont("helvetica", "bold"); doc.setFontSize(10); color(INK); doc.text(clean(long(d.date)), M, y + 1);
-      doc.setFont("helvetica", "normal"); color(MUTED); doc.text(clean(fmt(d.seconds)), W - M, y + 1, { align: "right" });
-      y += 6;
-      if (!d.topics.length) { doc.setFontSize(9); doc.text("No topics recorded.", M + 4, y); y += 6; return; }
-      d.topics.forEach(t => {
-        const lines = doc.setFontSize(9.5).splitTextToSize(clean(t.title) + (t.approx ? " *" : ""), W - 2 * M - 40);
-        if (y + lines.length * 4.5 > H - M) newPage();
-        color(t.status === "done" ? GREEN : AMBER, "fill"); doc.circle(M + 5, y - 1.2, 1.4, "F");
-        color(INK); doc.text(lines, M + 9, y);
-        color(t.status === "done" ? GREEN : [168, 112, 20]); doc.setFont("helvetica", "bold"); doc.setFontSize(8.5);
-        doc.text(t.status === "done" ? "Confident" : "In progress", W - M, y, { align: "right" });
-        doc.setFont("helvetica", "normal");
-        y += lines.length * 4.3 + 1.2;
+
+    reports.forEach((week, wi) => {
+      if (wi) doc.addPage();
+      const first = week.days[0].date, last = week.days[6].date;
+
+      // Header
+      color(GREEN, "fill"); doc.rect(0, 0, W, 34, "F");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(20); color([255, 255, 255]);
+      doc.text(clean(name), M, 16);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+      doc.text(clean(`Weekly report  ·  ${week.name ? week.name + ", " : ""}${short(first)} - ${short(last)} ${last.getFullYear()}`), M, 25);
+      doc.setFontSize(9);
+      doc.text(clean(`@${data.student.username}  ·  Exported ${new Date(data.exportedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`), W - M, 25, { align: "right" });
+
+      // Summary tiles
+      const total = week.days.reduce((a, d) => a + d.seconds, 0);
+      const worked = new Map();
+      week.days.forEach(d => d.topics.forEach(t => { if (worked.get(t.title) !== "done") worked.set(t.title, t.status); }));
+      const tiles = [[fmt(total), week.name ? `Time ${week.name.toLowerCase()}` : "Time that week"], [String(week.days.filter(d => d.seconds || d.topics.length).length), "Days active"],
+        [String(worked.size), "Topics worked on"], [String([...worked.values()].filter(s => s === "done").length), "Reached Confident"]];
+      const tw = (W - 2 * M - 3 * 4) / 4;
+      tiles.forEach(([value, label], i) => {
+        const x = M + i * (tw + 4), ty = 42;
+        color(LINE, "draw"); doc.setLineWidth(0.3); doc.roundedRect(x, ty, tw, 18, 2.5, 2.5, "S");
+        doc.setFont("helvetica", "bold"); doc.setFontSize(13); color(INK); doc.text(clean(value), x + 4, ty + 8.5);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(8); color(MUTED); doc.text(label, x + 4, ty + 14);
       });
-      y += 4;
+      y = 66;
+      if (someSubjects) {
+        doc.setFontSize(7.5); color(MUTED);
+        doc.text(clean(`Topics shown: ${[...opts.subjects].join(", ")} only. Time active covers all subjects.`), M, y);
+        y += 5;
+      }
+
+      // Bar chart: time active each day
+      if (opts.parts.has("time")) {
+        y += 6;
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Time active each day", M, y);
+        const chartTop = y + 6, chartH = 46, chartBottom = chartTop + chartH, axisX = M + 14, chartW = W - M - axisX;
+        const maxMin = Math.max(...week.days.map(d => d.seconds / 60), 1);
+        const step = [5, 10, 15, 30, 60, 120, 240].find(s => maxMin / s <= 4) || 480;
+        const top = Math.ceil(maxMin / step) * step;
+        doc.setFontSize(7.5); doc.setFont("helvetica", "normal");
+        for (let v = 0; v <= top; v += step) {
+          const gy = chartBottom - v / top * chartH;
+          color(v ? TRACK : LINE, "draw"); doc.setLineWidth(v ? 0.2 : 0.4); doc.line(axisX, gy, W - M, gy);
+          color(MUTED); doc.text(v < 60 ? `${v} min` : `${+(v / 60).toFixed(1)} h`, axisX - 2, gy + 1, { align: "right" });
+        }
+        const slot = chartW / 7, bw = slot * 0.56;
+        week.days.forEach((d, i) => {
+          const x = axisX + i * slot + (slot - bw) / 2, h = d.seconds / 60 / top * chartH;
+          if (h > 0) { color(GREEN, "fill"); doc.roundedRect(x, chartBottom - h, bw, h, 1, 1, "F"); doc.rect(x, chartBottom - Math.min(h, 1), bw, Math.min(h, 1), "F"); }
+          color(INK); doc.setFont("helvetica", "bold"); doc.setFontSize(8);
+          if (d.seconds) doc.text(clean(fmt(d.seconds)), x + bw / 2, chartBottom - h - 1.5, { align: "center" });
+          doc.text(d.date.toLocaleDateString("en-GB", { weekday: "short" }), x + bw / 2, chartBottom + 5, { align: "center" });
+          doc.setFont("helvetica", "normal"); color(MUTED); doc.setFontSize(7);
+          doc.text(short(d.date), x + bw / 2, chartBottom + 9, { align: "center" });
+        });
+        y = chartBottom + 14;
+      }
+
+      // Topics, day by day
+      if (opts.parts.has("topics")) {
+        y += 6;
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12); color(INK); doc.text("Topics worked on", M, y);
+        // Key
+        doc.setFontSize(8); doc.setFont("helvetica", "normal");
+        [[GREEN, "Confident", "done"], [AMBER, "In progress", "doing"]].filter(([, , s]) => opts.statuses.has(s)).forEach(([c, label], i) => {
+          const kx = W - M - 52 + i * 26;
+          color(c, "fill"); doc.circle(kx, y - 1.2, 1.4, "F"); color(MUTED); doc.text(label, kx + 3, y);
+        });
+        y += 7;
+        const days = opts.skipEmpty ? week.days.filter(d => d.seconds || d.topics.length) : week.days;
+        if (!days.length) { doc.setFontSize(9); color(MUTED); doc.text("Nothing recorded this week.", M, y); y += 6; }
+        days.forEach(d => {
+          if (y > H - M - 16) newPage();
+          color(LINE, "draw"); doc.setLineWidth(0.3); doc.line(M, y - 4, W - M, y - 4);
+          doc.setFont("helvetica", "bold"); doc.setFontSize(10); color(INK); doc.text(clean(long(d.date)), M, y + 1);
+          doc.setFont("helvetica", "normal"); color(MUTED); doc.text(clean(fmt(d.seconds)), W - M, y + 1, { align: "right" });
+          y += 6;
+          if (!d.topics.length) { doc.setFontSize(9); doc.text("No topics recorded.", M + 4, y); y += 6; return; }
+          d.topics.forEach(t => {
+            const lines = doc.setFontSize(9.5).splitTextToSize(clean(t.title) + (t.approx ? " *" : ""), W - 2 * M - 40);
+            if (y + lines.length * 4.5 > H - M) newPage();
+            color(t.status === "done" ? GREEN : AMBER, "fill"); doc.circle(M + 5, y - 1.2, 1.4, "F");
+            color(INK); doc.text(lines, M + 9, y);
+            color(t.status === "done" ? GREEN : [168, 112, 20]); doc.setFont("helvetica", "bold"); doc.setFontSize(8.5);
+            doc.text(t.status === "done" ? "Confident" : "In progress", W - M, y, { align: "right" });
+            doc.setFont("helvetica", "normal");
+            y += lines.length * 4.3 + 1.2;
+          });
+          y += 4;
+        });
+
+        if (week.approx) {
+          if (y > H - M - 8) newPage();
+          doc.setFontSize(7.5); color(MUTED);
+          doc.text(doc.splitTextToSize("* From before daily records began: shown on the day the topic was last practised, with its current status.", W - 2 * M), M, y);
+          y += 6;
+        }
+      }
     });
 
-    if (week.approx) {
-      if (y > H - M - 8) newPage();
-      doc.setFontSize(7.5); color(MUTED);
-      doc.text(doc.splitTextToSize("* From before daily records began: shown on the day the topic was last practised, with its current status.", W - 2 * M), M, y);
-    }
-    // Progress by subject: a pie chart for each subject the student has, split into Confident, In progress and Not started
-    const subjects = ["Maths", "Biology", "Physics", "Chemistry"].filter(isShownSubject)
+    // Progress by subject: a pie chart for each chosen subject the student has, split into Confident, In progress and Not started
+    const subjects = allSubjects.filter(s => !opts.subjects || opts.subjects.has(s))
       .map(subject => ({ subject, list: data.topics.filter(t => t.subject === subject) })).filter(s => s.list.length);
-    if (subjects.length && !week.lastWeek) {
+    if (subjects.length && opts.parts.has("progress")) {
       const R = 17, perRow = Math.min(3, subjects.length), rowH = 2 * R + 34, colW = (W - 2 * M) / perRow;
       y += 8;
       if (y + 10 + rowH > H - M) newPage();
@@ -1392,6 +1508,7 @@ TelaDB.start("tutor").then(() => {
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
     if ($("tpOverlay").classList.contains("open")) closeTopics();
+    else if ($("exOverlay").classList.contains("open")) closeExport();
     else if (["hwOverlay", "accOverlay"].some(id => $(id).classList.contains("open"))) { closeHomework(); closeAccountForm(); }
     else if (messagesOpen()) closeMessages();
   });
