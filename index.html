@@ -264,6 +264,11 @@
   }
   .icon-btn:hover { background: var(--grey-bg); color: var(--ink); }
 
+  /* A science subject's topics are split into one section per exam paper */
+  .grid-section { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; font-size: 18px; letter-spacing: -.01em; padding-bottom: 8px; border-bottom: 2px solid var(--line); }
+  .grid-section:not(:first-child) { margin-top: 14px; }
+  .grid-section small { font-size: 13px; font-weight: 500; color: var(--muted); }
+
   .empty {
     grid-column: 1 / -1; text-align: center; padding: 56px 20px;
     background: var(--white); border-radius: var(--radius);
@@ -1237,7 +1242,21 @@ TelaDB.start("student").then(() => {
       return;
     }
 
-    $("grid").innerHTML = list.map(t => `
+    // A science subject (its topics have a paper where Maths has a grade) shows a section for each paper, in the
+    // catalog's order, unless one paper is already picked.
+    const inSubject = topics.filter(t => t.subject === state.subject);
+    const papers = uniq([...(SAMPLE_TOPICS[state.subject] || []).map(r => r[5]), ...inSubject.map(t => t.grade)].filter(Boolean));
+    const byPaper = state.subject !== "All" && state.grade === "All" && papers.length > 1 && inSubject.every(t => /^Paper /.test(t.grade || ""));
+    if (byPaper) {
+      $("grid").innerHTML = papers.map(p => [p, list.filter(t => t.grade === p)]).filter(([, l]) => l.length).map(([p, l]) =>
+        `<h2 class="grid-section">${esc(p)}<small>${l.length} topic${l.length === 1 ? "" : "s"}</small></h2>${l.map(cardHTML).join("")}`).join("");
+      return;
+    }
+    $("grid").innerHTML = list.map(cardHTML).join("");
+  }
+
+  function cardHTML(t) {
+    return `
       <article class="card${PRACTICE[practiceKey(t)] ? ` has-practice" tabindex="0" title="Open practice questions` : ""}" data-id="${esc(t.id)}">
         <div class="card-top">
           <span class="tag">${esc(t.category)}</span>
@@ -1252,7 +1271,7 @@ TelaDB.start("student").then(() => {
           <button class="status ${t.status}" data-action="status" title="Click to change status">${STATUS[t.status].label}</button>
           ${questionCount(t)}
         </div>
-      </article>`).join("");
+      </article>`;
   }
 
   // How many practice questions the topic has altogether, shown in the tile's footer.
