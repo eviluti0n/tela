@@ -4124,4 +4124,150 @@
     reworded("Explain why a pyramid of numbers can be a different shape from a pyramid of biomass.", "In a garden, one rose bush supports hundreds of aphids. Explain why a pyramid of numbers can be a different shape from a pyramid of biomass.", 2, "A pyramid of numbers shows how many organisms there are, not their mass.", "One large producer (e.g. a tree) can feed many small consumers."),
     { question: "A pyramid has 5000 kg of producers and 450 kg of primary consumers. Work out the percentage of biomass transferred.", type: "number", marks: 2, answer: "9" }
   ]);
+
+  // ======================= OTHER ACCEPTED ANSWERS =======================
+  // Typed answers already allow any case, hyphens, a plural "s" and small spelling slips. These lists add other
+  // answers that should also get the mark. Neither changes a question's wording, so saved answers are kept.
+
+  // Names that mean the same thing anywhere: if one is an accepted answer, the others are too (unless the question
+  // itself uses that name, e.g. "IVF stands for _____" doesn't accept "IVF").
+  const SAME = [
+    ["GM", "genetically modified", "genetically engineered", "GMO"],
+    ["carbon dioxide", "CO2", "CO₂"], ["oxygen", "O2", "O₂"], ["water", "H2O", "H₂O"],
+    ["sulfur dioxide", "sulphur dioxide", "SO2", "SO₂"],
+    ["DNA", "deoxyribonucleic acid"], ["CNS", "central nervous system"], ["IVF", "in vitro fertilisation", "in vitro fertilization"],
+    ["HIV", "human immunodeficiency virus"], ["TMV", "tobacco mosaic virus"], ["MRSA", "methicillin-resistant Staphylococcus aureus"],
+    ["FSH", "follicle stimulating hormone"], ["LH", "luteinising hormone", "luteinizing hormone"],
+    ["ADH", "antidiuretic hormone", "anti-diuretic hormone"],
+    ["sexually transmitted diseases", "sexually transmitted disease", "sexually transmitted infections", "sexually transmitted infection", "STDs", "STD", "STIs", "STI"],
+    ["haemoglobin", "hemoglobin"], ["oestrogen", "estrogen"], ["gall bladder", "gallbladder"], ["tumour", "tumor"],
+    ["faeces", "feces"], ["oesophagus", "esophagus", "gullet"], ["foetus", "fetus"], ["vasodilation", "vasodilatation"],
+    ["blood", "bloodstream", "blood stream"], ["eukaryota", "eukarya", "eukaryotes"], ["weedkillers", "weed killers", "herbicides"],
+    ["fertilisation", "fertilization"], ["Sudan III", "Sudan 3", "Sudan three"]
+  ];
+
+  // Other answers for particular questions: [part of the question, an answer it already accepts, answers to add].
+  const MORE = [
+    ["the DNA is a single _____", "loop", "circle/ring/circular loop"],
+    ["sub-cellular structures such as _____", "ribosomes", "chloroplasts/chloroplast/plasmids/plasmid"],
+    ["much higher _____ than light microscopes", "resolution", "resolving power"],
+    ["Start with the _____-power", "lowest", "lower"],
+    ["always start focusing with the _____-power", "lowest", "low/lower"],
+    ["A stain such as _____ makes", "iodine", "methylene blue/eosin/crystal violet"],
+    ["its DNA _____ to form two copies", "replicates", "replicate/duplicates/doubles/copies itself"],
+    ["important for growth, _____ and asexual", "repair", "replacement"],
+    ["stem cells are found in _____.", "bone marrow", "marrow"],
+    ["plant cells lose water and become _____", "plasmolysed", "plasmolyzed/flaccid"],
+    ["blotted dry to remove _____ water", "surface", "excess/extra"],
+    ["take up mineral _____ from the soil", "ions", "salts"],
+    ["absorb mineral _____ from the soil", "ions", "salts"],
+    ["In the gut, _____ can be absorbed", "glucose", "sugar/sugars/amino acids"],
+    ["Lipase breaks down lipids into (a)", "fatty acids", "glycerol"],
+    ["Lipase breaks down lipids into (a)", "glycerol", "fatty acids"],
+    ["Amylase breaks down starch into _____", "sugars", "glucose/simple sugars"],
+    ["must be _____ in a water bath", "heated", "heated up/warmed up/heat"],
+    ["Benedict's solution turns from blue to _____", "brick red", "orange-red/red-brown"],
+    ["Biuret reagent turns from blue to _____", "purple", "violet"],
+    ["water bath at about _____ °C", "75", "70/85"],
+    ["the iodine stays _____", "orange", "yellow/yellow-brown"],
+    ["into iodine on a _____ every 30", "spotting tile", "tile/white tile"],
+    ["veins carry blood (b) _____ the heart", "towards", "toward/back to/into"],
+    ["heart muscle gets less _____", "oxygen", "glucose"],
+    ["physical and _____ well-being", "mental", "emotional/psychological/social"],
+    ["lead to uncontrolled growth and _____", "division", "cell division"],
+    ["contained in one area within a _____", "membrane", "capsule"],
+    ["by water or by _____", "air", "droplets/vectors/vector"],
+    ["Measles is spread by inhaling _____", "droplets", "water droplets/airborne droplets"],
+    ["food prepared in _____ conditions", "unhygienic", "dirty/unclean/unsanitary/unhygenic"],
+    ["Mucus in the airways _____ pathogens", "traps", "catches"],
+    ["Viruses can only reproduce inside living _____", "cells", "host cells"],
+    ["Bacteria may produce _____ that damage", "toxins", "poisons"],
+    ["A vaccine contains _____ or inactive", "dead", "killed"],
+    ["A vaccine contains a dead or _____ form", "inactive", "attenuated"],
+    ["toxicity, efficacy and _____", "dose", "dosage"],
+    ["Plants need nitrate ions to make _____", "proteins", "amino acids"],
+    ["Aphids are insects that feed on the _____", "phloem", "sap/phloem sap"],
+    ["Whichever factor is in _____ supply", "shortest", "short/lowest/least"],
+    ["extra _____ from faster growth", "profit", "money/crop"],
+    ["makes the light intensity a _____", "quarter", "one quarter/a quarter/0.25/fourth"],
+    ["the number of bubbles per minute _____", "increases", "increase/goes up/rises"],
+    ["lamp and the pondweed to absorb _____", "heat", "energy/thermal energy/infrared"],
+    ["movement and keeping _____", "warm", "warm/body temperature/heat"],
+    ["glucose → _____ + carbon dioxide", "ethanol", "alcohol"],
+    ["heart rate and _____ rate increase", "breathing", "ventilation"],
+    ["in the muscles causes _____", "fatigue", "muscle fatigue/cramp"],
+    ["at their _____ for enzymes", "optimum", "optimal/best"],
+    ["a _____ diffuses across the gap to the next neurone", "chemical", "neurotransmitter/transmitter"],
+    ["Caffeine is a stimulant that may _____ reaction time", "decrease", "lower"],
+    ["a _____ distance means a faster reaction time", "shorter", "smaller"],
+    ["should use their _____ hand each time", "dominant", "same/strongest/writing"],
+    ["The _____ is linked with consciousness", "cerebral cortex", "cerebrum"],
+    ["damaged nerve tissue does not _____ easily", "repair", "regenerate/regrow/heal"],
+    ["When too hot, sweat _____ from the skin", "evaporates", "evaporate"],
+    ["hormones act more _____ but their effects last", "slowly", "slower/slow"],
+    ["carbohydrate-controlled diet and _____", "exercise", "physical activity"],
+    ["from the lungs when we _____", "exhale", "breathe"],
+    ["Useful substances such as _____ are reabsorbed", "glucose", "water/ions/mineral ions/amino acids"],
+    ["Oestrogen _____ the release of FSH", "inhibits", "prevents/reduces/blocks/inhibit"],
+    ["Ovulation happens around day _____", "14", "fourteen"],
+    ["stops an embryo _____ in the uterus", "implanting", "implantation/embedding/attaching"],
+    ["IVF can lead to multiple _____", "births", "babies"],
+    ["the eggs are fertilised by sperm in a _____", "laboratory", "petri dish/test tube"],
+    ["Auxins are used as _____ and rooting", "weedkillers", "herbicides"],
+    ["Auxin builds up on the _____ side", "shaded", "shady/darker/shadow"],
+    ["gametes made by meiosis are genetically _____", "different", "unique/varied/not identical"],
+    ["Meiosis happens in the _____", "reproductive organs", "testes/ovaries/gonads/testis/ovary"],
+    ["Meiosis takes place in the _____", "reproductive organs", "testes/ovaries/gonads/testis/ovary"],
+    ["contain _____ pairs of chromosomes.", "23", "twenty three"],
+    ["have _____ pairs of chromosomes; one", "23", "twenty three"],
+    ["contains _____ chromosomes in total", "46", "forty six"],
+    ["Base A always pairs with base _____", "T", "thymine"],
+    ["Base C always pairs with base _____", "G", "guanine"],
+    ["A mutation is a change in the _____ sequence", "DNA", "base/genetic"],
+    ["A mutation is a change in the _____.", "DNA", "genes/gene"],
+    ["shown with a _____ letter", "capital", "uppercase/upper case/big"],
+    ["3 dominant : _____ recessive", "1", "one"],
+    ["economic, social and _____ issues", "ethical", "moral"],
+    ["can no longer _____ to produce fertile", "interbreed", "reproduce/mate"],
+    ["more likely to survive and _____", "reproduce", "pass on their genes/have offspring"],
+    ["Inbreeding reduces _____", "variation", "genetic variation/the gene pool/gene pool"],
+    ["Genetic engineering changes the _____ of an organism", "genome", "DNA/genes"],
+    ["GM crops could affect populations of wild flowers and _____", "insects", "bees"],
+    ["Genes are cut out using _____", "enzymes", "restriction enzymes/restriction enzyme"],
+    ["Organisms depend on each other for food, shelter and _____", "pollination", "seed dispersal/mates/water"],
+    ["Abiotic factors are _____ factors", "non-living", "physical"],
+    ["Abiotic factors are the _____ factors", "non-living", "physical"],
+    ["Animals compete for food, mates and _____", "territory", "space/shelter"],
+    ["A new _____ arriving can reduce", "predator", "disease"],
+    ["If the number of prey rises, the number of predators _____", "rises", "increase"],
+    ["the predator population will _____", "fall", "drop/decline"],
+    ["Using many quadrats makes results more _____", "representative", "valid/reliable/accurate"],
+    ["Burning fossil fuels and wood, called _____", "combustion", "burning"],
+    ["Burning fossil fuels is called _____", "combustion", "burning"],
+    ["biogas generator produces _____", "methane", "biogas"],
+    ["some species are found further _____ than before", "north", "northwards/away from the equator/uphill"],
+    ["oxygen meters and _____", "data loggers", "sensors/sensor/meters"],
+    ["Only about _____% of the biomass", "10", "ten"],
+    ["only about 1% of the _____ that reaches them", "incident energy", "light/light energy/sunlight/energy"],
+    ["carnivores with no _____", "predators", "natural predators"],
+    ["biomass is _____ at each level", "lost", "used"]
+  ];
+
+  const norm = s => String(s).toLowerCase().replace(/[−–—-]/g, " ").replace(/[^a-z0-9₀-₉²³ ]/g, "").replace(/\s+/g, " ").trim();
+  const usedMore = new Set();
+  Object.values(blocks).forEach(block => block.questions.forEach(q => (Array.isArray(q.parts) ? q.parts : [q]).forEach(p => {
+    if ((p.type || block.type) !== "word" || !p.answer) return;
+    const asked = ((q.text || "") + " " + (p.question || "")).replace(/\[[^\]]*\]/g, "");
+    const answers = String(p.answer).split("/").map(s => s.trim()).filter(Boolean);
+    const add = a => { if (!answers.some(x => norm(x) === norm(a))) answers.push(a); };
+    MORE.forEach(([where, has, extra], i) => {
+      if (asked.includes(where) && answers.some(a => norm(a) === norm(has))) { extra.split("/").forEach(add); usedMore.add(i); }
+    });
+    SAME.forEach(group => {
+      if (!answers.some(a => group.some(g => norm(g) === norm(a)))) return;
+      group.filter(g => !` ${norm(asked)} `.includes(` ${norm(g)} `)).forEach(add);
+    });
+    p.answer = answers.join("/");
+  })));
+  MORE.forEach(([where, has], i) => { if (!usedMore.has(i)) console.warn(`questions-biology.js: no question matches "${where}" with the answer "${has}"`); });
 })();
