@@ -476,14 +476,14 @@
   // questions.js adds each topic's questions with QUESTION_BANK.add({...}); here it's only used to count them.
   window.QUESTION_BANK = { topics: {}, add(t) { const k = String(t && t.topic).trim().toLowerCase(); (this.topics[k] = this.topics[k] || []).push(t); } };
 </script>
-<script src="questions.js"></script>
-<script src="questions-biology.js"></script>
+<script src="questions.js?v=20261110"></script>
+<script src="questions-biology.js?v=20261110"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js"></script>
-<script src="activity.js"></script>
-<script src="catalog.js"></script>
-<script src="messages.js"></script>
-<script src="dropdown.js"></script>
+<script src="db.js?v=20261110"></script>
+<script src="activity.js?v=20261110"></script>
+<script src="catalog.js?v=20261110"></script>
+<script src="messages.js?v=20261110"></script>
+<script src="dropdown.js?v=20261110"></script>
 <script>
 // The page starts once the signed-in tutor's students, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("tutor").then(() => {
@@ -506,7 +506,8 @@ TelaDB.start("tutor").then(() => {
       username, name: TelaMessages.properName(acc.displayName || username), opened: Array.isArray(topics), total: list.length,
       done: count("done"), doing: count("doing"), todo: count("todo"),
       working: list.filter(t => t.status === "doing").map(t => t.title),
-      list, progress: TelaDB.progressOf(username),
+      // (An old cached db.js has no progressOf; the cards still show without it.)
+      list, progress: TelaDB.progressOf ? TelaDB.progressOf(username) : {},
       lastMessage: TelaMessages.last(username, tutorUser), unread: TelaMessages.unread(username, tutorUser, "tutor"),
       homework: TelaDB.homeworkOf(username).filter(hw => isShownSubject(hw.subject)),
       activity: TelaDB.activityOf(username),
