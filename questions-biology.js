@@ -5413,6 +5413,1284 @@
   ]);
 
 
+  // ======================= MORE PRACTICE (set 3, November 2026) =======================
+  // A third set of eight per topic, leaning on data, practicals and evaluation. Uses mc and num from set 2.
+
+  // ---------- 4.1 Cell Biology ----------
+  addTo("Prokaryotic vs eukaryotic cells", [
+    fill("Prokaryotic cells are much [smaller] than eukaryotic cells."),
+    mc("Which of these organisms is a prokaryote?", ["Yeast", "E. coli", "An amoeba", "A mushroom"], "E. coli"),
+    mc("Bacterial and plant cells both have a cell wall. How are they different?", ["Only the plant cell wall is made of cellulose", "Only the bacterial wall is made of cellulose", "They are both made of protein", "There is no difference"], "Only the plant cell wall is made of cellulose"),
+    num("A bacterium is 1.5 µm long and an animal cell is 45 µm across. How many times larger is the animal cell?", 30),
+    num("A colony of bacteria is 3 mm across. Each bacterium is 2 µm long. How many bacteria would fit end to end across the colony?", 1500),
+    ex("A scientist finds a new single-celled organism. Describe what she should look for to decide whether it is a prokaryote or a eukaryote.", 2,
+      "Whether it has a nucleus (and membrane-bound organelles such as mitochondria).", "A prokaryote has no nucleus and its DNA is a free loop (possibly with plasmids)."),
+    ex("Some antibiotics work by damaging the bacterial cell wall. Explain why these antibiotics do not damage human cells.", 2,
+      "Human (animal) cells have no cell wall.", "So the antibiotic has nothing to act on in human cells."),
+    ex("Some bacteria have a slime capsule outside the cell wall. Suggest how this could help them cause disease.", 2,
+      "The capsule protects the bacterium.", "E.g. from being engulfed by white blood cells, so it survives in the body.")
+  ]);
+  addTo("Animal and plant cell structures and functions", [
+    fill("Genetic material that controls the cell's activities is found in the [nucleus]."),
+    mc("A cell has a nucleus, mitochondria, a cell wall and no chloroplasts. Which could it be?", ["A cheek cell", "A root cell", "A bacterium", "A red blood cell"], "A root cell"),
+    mc("Which structure is found in both plant and animal cells?", ["Cell wall", "Chloroplast", "Mitochondrion", "Permanent vacuole"], "Mitochondrion"),
+    mc("What is the function of ribosomes?", ["Photosynthesis", "Protein synthesis", "Respiration", "Storing sap"], "Protein synthesis"),
+    num("A palisade cell has 60 chloroplasts. A spongy mesophyll cell has 15. How many times more chloroplasts does the palisade cell have?", 4, 1),
+    ex("Muscle cells in a marathon runner have more mitochondria than those of someone who doesn't exercise. Suggest why.", 2,
+      "Training increases the demand for energy in the muscles.", "More mitochondria allow more aerobic respiration, releasing more energy."),
+    ex("A student says 'all plant cells have chloroplasts'. Use an example to show this is wrong.", 2,
+      "Root (hair) cells don't have chloroplasts.", "Because they are underground and get no light."),
+    ex("Explain why the cytoplasm is important to a cell.", 2,
+      "It is where most chemical reactions take place.", "It contains the enzymes that control these reactions.")
+  ]);
+  addTo("Differentiation and specialised cells", [
+    fill("Specialised cells have a particular [structure/shape] that suits their function."),
+    mc("Which feature of xylem helps it carry water?", ["Living cells with chloroplasts", "Hollow tubes strengthened by lignin", "Many mitochondria", "A tail"], "Hollow tubes strengthened by lignin"),
+    mc("Which cell carries impulses to and from the brain?", ["Nerve cell", "Muscle cell", "Sperm cell", "Phloem cell"], "Nerve cell"),
+    mc("A root hair cell has a long extension. What is it for?", ["Swimming", "Increasing the surface area for absorption", "Photosynthesis", "Storing starch"], "Increasing the surface area for absorption"),
+    ex("Phloem cells have very few sub-cellular structures. Suggest why.", 2,
+      "So there is more space for dissolved sugars to flow through.", "They are supported by companion cells that supply their energy."),
+    ex("Muscle cells are packed with protein fibres and mitochondria. Explain why both are needed.", 2,
+      "Protein fibres slide together to contract the muscle.", "Mitochondria release the energy needed for contraction."),
+    ex("Explain why an egg cell is much larger than a sperm cell.", 2,
+      "The egg cell contains nutrients in its cytoplasm.", "These feed the embryo before it implants."),
+    ex("Explain why differentiation means a cell gains new sub-cellular structures.", 2,
+      "Cells develop the structures needed for their specific function.", "E.g. a muscle cell gains more mitochondria and protein fibres.")
+  ]);
+  addTo("Microscopy: magnification and resolution", [
+    fill("The smallest distance between two points that can still be seen as separate is the [resolution]."),
+    num("A microscope has a ×15 eyepiece and a ×40 objective lens. Work out the total magnification.", 600, 1),
+    num("An image of a cell is 24 mm long at ×800. Work out the real length in µm.", 30),
+    num("A cell 0.1 mm across is viewed at ×400. How wide is its image in mm?", 40),
+    mc("Which of these can only be seen with an electron microscope?", ["Nucleus", "Cell wall", "Ribosomes", "Chloroplasts"], "Ribosomes"),
+    mc("Why can electron microscopes not be used to look at living cells?", ["The specimen must be in a vacuum and specially prepared", "They use light", "They are too small", "They have low resolution"], "The specimen must be in a vacuum and specially prepared"),
+    ex("A school lab and a research lab both want microscopes. Explain why the school uses light microscopes and the research lab uses electron microscopes.", 2,
+      "Light microscopes are cheap, small and easy to use, so suit schools.", "Electron microscopes are expensive but give much higher resolution for research on sub-cellular structures."),
+    ex("A student calculates the magnification of an image as ×0.005. Explain what mistake they are likely to have made.", 2,
+      "They divided the real size by the image size (the wrong way round).", "Or used different units for the image and the real object.")
+  ]);
+  addTo("Microscopy calculations using standard form", [
+    num("How many nanometres (nm) are in 1 µm?", 1000, 1),
+    num("A virus is 100 nm across. Give its size in µm.", 0.1, 1),
+    { question: "A cell is 0.000 015 m across. Write this in standard form (m).", type: "stdform", marks: 1, answer: "1.5 × 10^-5" },
+    { question: "A bacterium is 2 × 10⁻⁶ m long. Write its length in µm.", type: "number", marks: 1, answer: "2" },
+    { question: "An image is 50 mm wide. The magnification is 2.5 × 10⁴. Work out the real width in mm. Give your answer in standard form.", type: "stdform", marks: 2, answer: "2 × 10^-3" },
+    num("A ribosome is 25 nm across. It is magnified ×200 000. Work out the image size in mm.", 5),
+    num("An image of a chloroplast is 12 mm and the real chloroplast is 6 µm. Work out the magnification.", 2000),
+    ex("A student writes the size of a cell as 0.00004 m. Explain why scientists prefer to write it as 4 × 10⁻⁵ m or 40 µm.", 2,
+      "Standard form or smaller units avoid writing many zeros.", "This makes numbers easier to read, compare and less likely to be miscopied.")
+  ]);
+  addTo("Required practical: using a microscope to observe cells", [
+    fill("The [stage] is the flat platform where the slide is placed."),
+    mc("Which lens should be used first when viewing a slide?", ["The highest-power objective", "The lowest-power objective", "Any lens", "No lens"], "The lowest-power objective"),
+    mc("What does a stage micrometer allow you to do?", ["Calibrate an eyepiece graticule to measure cells", "Stain cells", "Focus the image", "Light the specimen"], "Calibrate an eyepiece graticule to measure cells"),
+    num("An onion cell is 5 eyepiece units long. Each unit is 12 µm. Work out the length of the cell in µm.", 60),
+    num("Ten cells fit across a field of view 1.5 mm wide. Estimate the width of one cell in µm.", 150),
+    ex("A student sees the image is blurry and dark. Suggest two things they could adjust.", 2,
+      "Use the fine focus wheel to sharpen the image.", "Adjust the light source / mirror / diaphragm to let more light through."),
+    ex("A student's onion cell drawing is three times bigger than the cells look through the eyepiece. Suggest what extra information they should add to the drawing.", 2,
+      "The magnification of the drawing.", "A scale bar or labels and a title."),
+    ex("Explain why a thin layer of onion epidermis is used rather than a chunk of onion.", 2,
+      "It is one cell thick.", "So light can pass through and individual cells can be seen clearly.")
+  ]);
+  addTo("Mitosis and the cell cycle", [
+    fill("During mitosis, the chromosomes line up in the [middle/centre/equator] of the cell."),
+    mc("In a microscope image of a root tip, 20 of 400 cells are in mitosis. What percentage is that?", ["2%", "5%", "20%", "50%"], "5%"),
+    mc("What happens in the longest stage of the cell cycle?", ["The cell grows and DNA is copied", "Chromosomes are pulled apart", "The cell membrane divides", "The cell dies"], "The cell grows and DNA is copied"),
+    num("A cell cycle lasts 24 hours. 6% of cells are in mitosis at any time. Estimate how many minutes mitosis lasts.", 86.4),
+    num("A body cell divides by mitosis 5 times in a row. How many cells are made from the first cell?", 32),
+    ex("Cancer is caused by cells dividing by mitosis out of control. Explain why some cancer drugs stop DNA being copied.", 2,
+      "Cells must copy their DNA before they can divide.", "So stopping DNA replication stops cancer cells dividing and the tumour growing."),
+    ex("Explain why the two cells made by mitosis are genetically identical.", 2,
+      "Each chromosome is copied exactly before division.", "One copy of each chromosome goes to each new cell."),
+    ex("A plant cutting grows into a new plant. Explain why the new plant is identical to the parent.", 2,
+      "The new plant grows by mitosis from the parent's cells.", "Mitosis makes genetically identical cells, so it is a clone.")
+  ]);
+  addTo("Stem cells: types and uses (embryonic & adult)", [
+    fill("Adult stem cells can form many types of cells, including [blood] cells."),
+    mc("In therapeutic cloning, why is the embryo made with the patient's own genes?", ["So the cells are not rejected", "So it grows faster", "To make it a different species", "To make antibodies"], "So the cells are not rejected"),
+    mc("Which type of stem cell is found in bone marrow?", ["Embryonic", "Adult", "Meristem", "Plant"], "Adult"),
+    mc("Which condition might stem cells one day help to treat?", ["Paralysis", "A cold", "Food poisoning", "Short-sightedness"], "Paralysis"),
+    ex("A plant breeder wants to make thousands of identical disease-resistant crop plants. Explain why meristem cloning is useful.", 3,
+      "Meristem cells can differentiate into any plant cell type.", "Many clones can be made quickly and cheaply.", "All the clones have the disease resistance of the parent."),
+    ex("Give one advantage of embryonic stem cells over adult stem cells.", 1, "They can differentiate into any type of cell (adult ones only into some types)."),
+    ex("Explain why stem cell research is regulated by law in many countries.", 2,
+      "There are ethical concerns, e.g. about destroying embryos.", "And safety concerns, e.g. about infection or tumours."),
+    ex("Suggest how stem cells could help someone with type 1 diabetes.", 2,
+      "Stem cells could be made to differentiate into insulin-producing cells.", "These could be transplanted into the pancreas so the patient makes their own insulin.")
+  ]);
+  addTo("Diffusion: factors affecting rate", [
+    fill("A steeper [concentration gradient/concentration difference] increases the rate of diffusion."),
+    num("A cube has 3 cm sides. Work out its surface area to volume ratio (as a number : 1).", 2),
+    num("A cell has a surface area of 600 µm² and a volume of 1000 µm³. Work out its surface area to volume ratio (as a number : 1).", 0.6),
+    mc("Which of these speeds up diffusion?", ["A larger diffusion distance", "A lower temperature", "A larger surface area", "A smaller concentration difference"], "A larger surface area"),
+    mc("Which substance diffuses out of cells into the blood to be taken to the kidneys?", ["Urea", "Glucose", "Oxygen", "Starch"], "Urea"),
+    ex("Fish gills have many thin filaments. Explain how this makes gas exchange efficient.", 2,
+      "The filaments give a large surface area.", "They are thin, giving a short diffusion distance (and have a good blood supply)."),
+    ex("Explain why the blood flow through the lungs keeps oxygen diffusing into the blood quickly.", 2,
+      "Blood carries oxygen away from the alveoli.", "This keeps a steep concentration gradient."),
+    ex("A tea bag is put into hot water and another into cold water. Predict which colours the water faster and explain why.", 2,
+      "The hot water.", "Particles have more kinetic energy and move faster, so diffusion is faster.")
+  ]);
+  addTo("Osmosis: definition and examples", [
+    fill("A plant cell full of water is described as [turgid]."),
+    mc("A plant cell is placed in a strong sugar solution. What happens?", ["It gains water and swells", "It loses water and becomes plasmolysed", "Nothing", "It bursts"], "It loses water and becomes plasmolysed"),
+    mc("Which part of a cell acts as the partially permeable membrane in osmosis?", ["Cell wall", "Cell membrane", "Nucleus", "Vacuole"], "Cell membrane"),
+    num("A visking tubing bag of sugar solution weighs 12.0 g. After an hour in water it weighs 13.5 g. Work out the percentage increase.", 12.5),
+    ex("Slices of cucumber become soft and floppy in salty water. Explain why.", 2,
+      "Water moves out of the cucumber cells by osmosis into the salty water.", "The cells become flaccid (lose turgor), so the slices go soft."),
+    ex("Explain why animal cells, but not plant cells, can burst when placed in water.", 2,
+      "Water moves into both by osmosis.", "Plant cells have a cell wall that stops them bursting; animal cells don't."),
+    ex("Explain why osmosis is described as a type of diffusion.", 2,
+      "It is the net movement of water molecules.", "From a region of high water concentration (dilute solution) to low (concentrated), down a gradient."),
+    ex("Slugs die if salt is put on them. Use osmosis to explain why.", 2,
+      "Salt makes the outside of the slug very concentrated.", "Water moves out of the slug's cells by osmosis, so it dehydrates.")
+  ]);
+  addTo("Required practical: osmosis in plant tissue", [
+    fill("Potato cylinders are [blotted/dried] before weighing to remove surface water."),
+    num("A cylinder changed from 3.20 g to 3.04 g. Work out the percentage change in mass.", -5),
+    num("A cylinder changed from 1.60 g to 2.00 g. Work out the percentage change in mass.", 25),
+    mc("A cylinder gains mass in a solution. What does this show about the solution?", ["It is more concentrated than the potato cells", "It is more dilute than the potato cells", "It is the same", "It is pure salt"], "It is more dilute than the potato cells"),
+    mc("Which is the dependent variable?", ["Concentration of the solution", "Change in mass of the potato", "Length of the cylinder at the start", "Temperature"], "Change in mass of the potato"),
+    ex("A student's graph crosses the x-axis at 0.25 mol/dm³. Describe how they would use this to estimate the concentration of the potato cells.", 2,
+      "Where the line crosses zero change in mass, there is no net osmosis.", "So the potato cell contents are about 0.25 mol/dm³."),
+    ex("Suggest why sweet potato cylinders lose less mass than ordinary potato cylinders in the same strong sugar solution.", 2,
+      "Sweet potato cells contain more sugar, so their contents are more concentrated.", "So the concentration gradient is smaller and less water leaves by osmosis."),
+    ex("A student's results show one cylinder lost far more mass than the others. Suggest two possible reasons.", 2,
+      "It wasn't blotted the same way / was a different size.", "It was left in the solution longer / the solution was made up wrongly.")
+  ]);
+  addTo("Active transport: differences from diffusion", [
+    fill("Active transport uses [carrier proteins/carrier protein/proteins] in the cell membrane."),
+    mc("Which of these uses active transport?", ["Oxygen entering red blood cells", "Mineral ions entering root hair cells", "Water entering roots", "Carbon dioxide entering a leaf"], "Mineral ions entering root hair cells"),
+    mc("A poison stops respiration. Which process will stop?", ["Diffusion", "Osmosis", "Active transport", "All three"], "Active transport"),
+    mc("Which way does active transport move substances?", ["Down a concentration gradient", "Against a concentration gradient", "Only out of cells", "Only in gases"], "Against a concentration gradient"),
+    ex("Root hair cells take in mineral ions even when the soil has fewer ions than the cell. Explain how.", 2,
+      "By active transport.", "Using energy from respiration to move ions against the concentration gradient."),
+    ex("A student adds a respiratory poison to plant roots. Uptake of nitrate ions falls, but uptake of water doesn't. Explain why.", 2,
+      "Nitrate uptake is by active transport, which needs energy from respiration.", "Water enters by osmosis, which doesn't need energy."),
+    ex("Explain why the rate of mineral ion uptake by roots increases as temperature rises, up to a point.", 2,
+      "Respiration enzymes work faster, releasing more energy.", "So more active transport can happen (until the enzymes denature)."),
+    ex("Give two examples of active transport in living organisms.", 2,
+      "Mineral ions into root hair cells.", "Glucose from the gut into the blood (or into kidney tubules when reabsorbed).")
+  ]);
+
+  // ---------- 4.2 Organisation ----------
+  addTo("Cells → tissues → organs → organ systems", [
+    fill("Muscular tissue can [contract/shorten] to bring about movement."),
+    mc("Which is an organ system?", ["The heart", "The circulatory system", "Blood", "A red blood cell"], "The circulatory system"),
+    mc("Which organ is part of the digestive system?", ["Lungs", "Pancreas", "Kidney", "Brain"], "Pancreas"),
+    mc("Glandular tissue is found in the stomach. What does it do?", ["Churns food", "Produces digestive juices", "Covers the stomach", "Absorbs food"], "Produces digestive juices"),
+    ex("Put these in order of size, smallest first, and give an example of each from the human body: organ, cell, organ system, tissue.", 2,
+      "Cell, tissue, organ, organ system.", "E.g. muscle cell, muscle tissue, heart (or stomach), circulatory (or digestive) system."),
+    ex("Explain why the heart is described as an organ, not a tissue.", 2,
+      "It is made of several tissues (e.g. muscle, nerve, connective tissue).", "These work together to do a job: pumping blood."),
+    ex("A plant's leaf, stem and roots work together to transport water. Explain why they are described as an organ system.", 2,
+      "Each is an organ made of several tissues.", "Together they carry out a function (transport of water and food)."),
+    ex("Explain why single-celled organisms do not need organ systems.", 2,
+      "They have a large surface area to volume ratio.", "Substances can diffuse directly in and out across the cell membrane.")
+  ]);
+  addTo("Digestive system: organs and enzymes", [
+    fill("Carbohydrase enzymes such as amylase break down carbohydrates into simple [sugars/sugar]."),
+    mc("Where is amylase made?", ["Salivary glands, pancreas and small intestine", "Liver only", "Stomach only", "Large intestine"], "Salivary glands, pancreas and small intestine"),
+    mc("Where is water mainly absorbed?", ["Large intestine", "Stomach", "Oesophagus", "Mouth"], "Large intestine"),
+    mc("Which enzyme digests protein in the stomach?", ["Amylase", "Protease", "Lipase", "Ligase"], "Protease"),
+    ex("Explain why the stomach produces hydrochloric acid.", 2,
+      "It kills pathogens in food.", "It provides the acidic pH that stomach protease works best at."),
+    ex("A person has a disease that damages their villi. Suggest how this would affect them.", 2,
+      "Less surface area for absorption.", "So fewer digested food molecules are absorbed; they may lose weight or become malnourished."),
+    ex("Explain why digestive enzymes in the small intestine work best at a slightly alkaline pH.", 2,
+      "Bile neutralises the acid from the stomach.", "The pancreatic enzymes have an optimum pH that is slightly alkaline."),
+    ex("Describe what happens to a piece of bread as it passes through the mouth, stomach and small intestine.", 3,
+      "Mouth: it is chewed and amylase starts breaking starch into sugars.", "Stomach: it is churned; acid kills pathogens.", "Small intestine: enzymes complete digestion and sugars are absorbed into the blood.")
+  ]);
+  addTo("Enzyme action: lock and key, temperature, pH", [
+    fill("Enzymes are biological [catalysts/catalyst]."),
+    mc("What type of molecule is an enzyme?", ["Carbohydrate", "Protein", "Lipid", "Mineral"], "Protein"),
+    mc("Which describes the lock and key model?", ["The substrate fits into the enzyme's active site", "The enzyme is used up", "The enzyme changes into the product", "Any substrate fits"], "The substrate fits into the enzyme's active site"),
+    num("A reaction produces 24 cm³ of oxygen in 2 minutes. Work out the rate in cm³ per second.", 0.2),
+    num("At 20 °C an enzyme reaction takes 80 s. At 40 °C it takes 20 s. How many times faster is it at 40 °C?", 4, 1),
+    ex("An enzyme from a bacterium in a hot spring works best at 75 °C. Suggest why it isn't denatured at that temperature.", 2,
+      "Its active site has a shape that stays stable at high temperatures.", "The bacterium is adapted to its hot environment."),
+    ex("Explain why a change in pH can stop an enzyme working.", 2,
+      "pH changes the shape of the active site (denatures it).", "So the substrate no longer fits."),
+    ex("A graph of enzyme activity against temperature rises then falls sharply. Describe and explain its shape.", 3,
+      "Rate rises as temperature increases, as more collisions happen.", "Peak at the optimum temperature.", "Then falls sharply as the enzyme is denatured.")
+  ]);
+  addTo("Required practical: food tests (Benedict's, Biuret, iodine)", [
+    fill("Benedict's test detects [reducing sugars/reducing sugar/sugars/sugar] such as glucose."),
+    mc("A food turns iodine blue-black and Biuret purple. What does it contain?", ["Starch and protein", "Sugar and fat", "Only protein", "Only starch"], "Starch and protein"),
+    mc("Which colour shows the most sugar in a Benedict's test?", ["Green", "Yellow", "Brick red", "Blue"], "Brick red"),
+    mc("Which reagent is used to test for protein?", ["Iodine", "Benedict's", "Biuret", "Sudan III"], "Biuret"),
+    ex("A student tests a sample of milk and gets a purple colour with Biuret and an orange colour with Benedict's. What can they conclude?", 2,
+      "Milk contains protein.", "It contains a reducing sugar (lactose)."),
+    ex("Benedict's test is described as semi-quantitative. Explain what this means.", 2,
+      "The colour gives a rough idea of how much sugar is present.", "But not an exact amount (green = little, brick red = lots)."),
+    ex("Suggest how a student could make the Benedict's test more quantitative.", 2,
+      "Use a colorimeter to measure the colour.", "Or compare with standard solutions of known sugar concentration."),
+    ex("A student's Benedict's test stays blue for a sample of table sugar (sucrose). Explain why.", 2,
+      "Sucrose is not a reducing sugar.", "So it doesn't react with Benedict's solution.")
+  ]);
+  addTo("Required practical: effect of pH on enzyme activity", [
+    fill("A [spotting tile] holds drops of iodine for testing samples of the mixture."),
+    mc("Which is the independent variable?", ["Time for starch to disappear", "pH", "Temperature", "Volume of amylase"], "pH"),
+    mc("Which result shows the fastest enzyme activity?", ["Starch gone after 30 s", "Starch gone after 120 s", "Starch still there after 10 minutes", "Starch gone after 300 s"], "Starch gone after 30 s"),
+    num("The starch was gone after 90 s. Work out the rate in 1/s, as 1 ÷ time, to 3 decimal places.", 0.011),
+    ex("Explain why the amylase and starch are placed in the water bath separately for a few minutes before mixing.", 2,
+      "So both reach the right temperature first.", "Then the reaction happens at the set temperature from the start."),
+    ex("Testing a drop every 30 seconds limits the precision of the results. Explain why, and suggest an improvement.", 2,
+      "The starch could have gone at any point within the 30 seconds.", "Test more often (e.g. every 10 s) or use a colorimeter."),
+    ex("Give two hazards in this practical and how to reduce them.", 2,
+      "Iodine is an irritant: wear eye protection.", "Hot water bath: handle with care / don't touch."),
+    ex("At pH 7 the starch was gone in 60 s, at pH 9 in 150 s. Explain the difference.", 2,
+      "pH 7 is closer to the optimum pH of amylase.", "At pH 9 the active site's shape is changed, so fewer substrates fit and the reaction is slower.")
+  ]);
+  addTo("Heart structure and the circulatory system", [
+    fill("The [right] ventricle pumps blood to the lungs."),
+    mc("Which blood vessel carries blood from the body into the heart?", ["Aorta", "Vena cava", "Pulmonary artery", "Pulmonary vein"], "Vena cava"),
+    mc("Why is the wall of the left ventricle thicker than the right?", ["It pumps blood all around the body at higher pressure", "It holds more blood", "It pumps to the lungs", "It has valves"], "It pumps blood all around the body at higher pressure"),
+    mc("Which vessels supply the heart muscle with oxygen?", ["Coronary arteries", "Pulmonary veins", "Vena cava", "Capillaries in the lungs"], "Coronary arteries"),
+    num("A heart pumps 4900 cm³ per minute at a heart rate of 70 beats per minute. Work out the volume per beat (stroke volume) in cm³.", 70),
+    ex("Describe the path of blood from the vena cava to the aorta.", 4,
+      "Vena cava to the right atrium, then the right ventricle.", "Pulmonary artery to the lungs.", "Pulmonary vein to the left atrium, then the left ventricle.", "Out through the aorta."),
+    ex("A baby is born with a hole between the left and right ventricles. Suggest why the baby has less oxygen in its blood.", 2,
+      "Oxygenated and deoxygenated blood mix.", "So blood pumped to the body carries less oxygen."),
+    ex("Explain why the atria have thinner walls than the ventricles.", 2,
+      "The atria only pump blood a short distance, into the ventricles.", "So they need less muscle.")
+  ]);
+  addTo("Blood vessels: arteries, veins, capillaries", [
+    fill("Blood flows from arteries into capillaries and then into [veins/vein]."),
+    mc("Which vessel carries blood at the highest pressure?", ["Artery", "Vein", "Capillary", "They are all the same"], "Artery"),
+    mc("Which vessel has walls one cell thick?", ["Artery", "Vein", "Capillary", "Aorta"], "Capillary"),
+    num("An artery has a lumen of 4 mm and a wall 1 mm thick on each side. Work out its total diameter in mm.", 6, 1),
+    num("Blood flows 50 cm through a vein in 10 s. Work out the speed in cm/s.", 5, 1),
+    ex("Explain why you can feel a pulse in an artery but not in a vein.", 2,
+      "Blood in arteries is pumped in surges by the heart at high pressure.", "In veins the pressure is low and the flow is steady."),
+    ex("Explain how valves in veins help blood flow back to the heart.", 2,
+      "Valves close if blood starts to flow backwards.", "So blood can only move towards the heart."),
+    ex("Muscles squeeze veins when we walk. Suggest why people who sit still for long journeys can get swollen ankles.", 2,
+      "Without muscle movement, blood is not pushed back up the veins as well.", "Blood (and fluid) collects in the legs.")
+  ]);
+  addTo("Blood: components and functions", [
+    fill("White blood cells are part of the [immune] system."),
+    mc("Which part of the blood carries hormones?", ["Plasma", "Red blood cells", "Platelets", "White blood cells"], "Plasma"),
+    mc("Which blood cell has a nucleus?", ["Red blood cell", "White blood cell", "Platelet", "None"], "White blood cell"),
+    mc("Which substance does haemoglobin combine with in the lungs?", ["Carbon dioxide", "Oxygen", "Glucose", "Urea"], "Oxygen"),
+    num("Blood is 55% plasma. A person has 5 litres of blood. How many litres of plasma is that?", 2.75),
+    ex("A person with anaemia has fewer red blood cells. Explain why they feel tired.", 2,
+      "Less oxygen is carried to the cells.", "So less aerobic respiration and less energy is released."),
+    ex("Describe how a blood clot forms after a cut.", 2,
+      "Platelets gather at the wound and trigger a series of reactions.", "A mesh of fibres traps blood cells, forming a clot (scab)."),
+    ex("Give three substances transported in the plasma.", 3,
+      "Carbon dioxide (from organs to the lungs).", "Urea (from the liver to the kidneys).", "Glucose / amino acids / hormones / antibodies.")
+  ]);
+  addTo("Coronary heart disease and treatments", [
+    fill("A stent keeps the coronary artery [open]."),
+    mc("Why do statins reduce the risk of heart disease?", ["They reduce blood cholesterol, slowing fatty deposits", "They widen arteries", "They replace valves", "They kill bacteria"], "They reduce blood cholesterol, slowing fatty deposits"),
+    mc("Which treatment is used if a heart fails completely?", ["Stent", "Statins", "Heart transplant or artificial heart", "Antibiotics"], "Heart transplant or artificial heart"),
+    mc("What is a risk of fitting a stent?", ["Infection or blood clots during surgery", "It lowers cholesterol", "It stops the heart", "It causes diabetes"], "Infection or blood clots during surgery"),
+    ex("Artificial hearts are sometimes used while a patient waits for a transplant. Give one advantage and one disadvantage.", 2,
+      "Advantage: keeps the patient alive / not rejected by the immune system.", "Disadvantage: risk of blood clots / infection / patient must carry a battery or pump."),
+    ex("A patient has narrow coronary arteries. Compare treating them with a stent and with statins.", 3,
+      "A stent widens the artery immediately but needs surgery.", "Statins don't need surgery but must be taken long-term and act slowly.", "Statins have side effects; stents can have complications such as clots."),
+    ex("Explain why being overweight increases the risk of coronary heart disease.", 2,
+      "It is linked to high cholesterol and blood pressure.", "Which increases fatty deposits in the coronary arteries."),
+    ex("Suggest two lifestyle changes a doctor might advise for a patient at risk of CHD.", 2,
+      "Stop smoking.", "Eat less saturated fat / take more exercise / lose weight.")
+  ]);
+  addTo("Health: communicable vs non-communicable disease", [
+    fill("Diseases caused by pathogens are [communicable/infectious] diseases."),
+    mc("Which of these is a risk factor for lung disease?", ["Smoking", "Eating fruit", "Wearing glasses", "Sleeping"], "Smoking"),
+    mc("Why might a person with a weak immune system get cancer more easily?", ["Some cancers are triggered by infection by viruses", "Cancer is spread by coughing", "Cancer is caused by bacteria", "Their genes change"], "Some cancers are triggered by infection by viruses"),
+    num("In a town of 50 000, 4500 people have type 2 diabetes. Work out the percentage.", 9),
+    ex("Explain how a viral infection can lead to an allergy or other health problem.", 2,
+      "Diseases can interact: an infection can trigger immune reactions.", "E.g. immune reactions initially caused by a pathogen can trigger allergies such as skin rashes or asthma."),
+    ex("Give two ways living in poor conditions can affect health.", 2,
+      "Lack of clean water or sanitation spreads communicable diseases.", "Poor diet / overcrowding / lack of healthcare."),
+    ex("A study finds that people who exercise more have lower rates of heart disease. Suggest why scientists say this is a correlation, not proof.", 2,
+      "Other factors (diet, smoking, income) may also differ between the groups.", "A causal link needs a mechanism or controlled study."),
+    ex("Explain why non-communicable diseases are often described as having risk factors rather than causes.", 2,
+      "A risk factor increases the chance of getting the disease.", "But not everyone with the risk factor gets the disease.")
+  ]);
+  addTo("Cancer: benign vs malignant tumours", [
+    fill("A [benign] tumour does not invade other parts of the body."),
+    mc("What is cancer caused by?", ["Changes in cells that lead to uncontrolled growth and division", "Bacteria", "Lack of vitamins", "Fungi"], "Changes in cells that lead to uncontrolled growth and division"),
+    mc("Which is a genetic risk factor for cancer?", ["Inherited faulty BRCA genes", "Sunbathing", "Smoking", "Alcohol"], "Inherited faulty BRCA genes"),
+    mc("Which treatment uses chemicals to kill dividing cells?", ["Chemotherapy", "Radiotherapy", "Statins", "Antibiotics"], "Chemotherapy"),
+    ex("Explain why chemotherapy can cause side effects such as hair loss.", 2,
+      "Chemotherapy kills (or stops) cells that divide rapidly.", "Hair follicle cells also divide rapidly, so they are damaged too."),
+    ex("Explain why finding a cancer early improves the chance of successful treatment.", 2,
+      "The tumour is smaller and may not have spread.", "So it is easier to remove or treat before secondary tumours form."),
+    ex("Benign tumours are not cancer but some still need to be removed. Suggest why.", 2,
+      "They can grow large.", "And press on organs or nerves, e.g. in the brain."),
+    ex("Give two ways people can reduce their risk of getting cancer.", 2,
+      "Don't smoke / limit alcohol.", "Use sunscreen and avoid too much sun / keep a healthy weight / get the HPV vaccine.")
+  ]);
+  addTo("Plant tissues: leaf structure and transpiration", [
+    fill("The loss of water vapour from the leaves is called [transpiration]."),
+    mc("Which tissue in a leaf contains most chloroplasts?", ["Palisade mesophyll", "Upper epidermis", "Xylem", "Guard cells"], "Palisade mesophyll"),
+    mc("What happens to stomata when a plant is short of water?", ["They close", "They open wider", "They disappear", "They make more"], "They close"),
+    mc("Which instrument measures the rate of water uptake by a plant shoot?", ["Potometer", "Thermometer", "Quadrat", "Colorimeter"], "Potometer"),
+    num("A bubble moves 45 mm along a potometer in 15 minutes. Work out the rate in mm per minute.", 3, 1),
+    num("A leaf has 250 stomata per mm² on its lower surface. Its lower surface area is 400 mm². How many stomata are on the lower surface?", 100000),
+    ex("A student puts petroleum jelly on the lower surface of one leaf and the upper surface of another. The leaf with jelly on its lower surface lost less water. Explain why.", 2,
+      "Most stomata are on the lower surface.", "The jelly blocked them, so less water vapour could escape."),
+    ex("Explain why the rate of transpiration increases on a sunny day.", 2,
+      "Light makes stomata open wider for photosynthesis.", "Warmth increases evaporation and diffusion of water vapour.")
+  ]);
+
+  // ---------- 4.3 Infection and response ----------
+  addTo("Pathogens: bacteria, viruses, fungi, protists", [
+    fill("Pathogens can infect plants as well as [animals/animal/humans]."),
+    mc("Which pathogen is the smallest?", ["Virus", "Bacterium", "Fungus", "Protist"], "Virus"),
+    mc("How do viruses make us feel ill?", ["They reproduce inside cells and damage them", "They produce toxins outside cells only", "They eat food in the gut", "They block blood vessels"], "They reproduce inside cells and damage them"),
+    num("A flu virus is 100 nm across. A bacterium is 2 µm long. How many times longer is the bacterium?", 20),
+    ex("A student grows bacteria on agar at 25 °C, not 37 °C. Explain why.", 2,
+      "37 °C is body temperature, so human pathogens could grow.", "25 °C reduces the chance of growing harmful pathogens."),
+    ex("Describe two things a student should do to avoid contaminating a culture of bacteria.", 2,
+      "Sterilise the inoculating loop in a flame and use sterile Petri dishes and agar.", "Tape the lid on (not sealed fully) and store the dish upside down."),
+    ex("A student has a colony of bacteria with a diameter of 6 mm. Work out the area of the colony using πr² and show your working.", 2,
+      "r = 3 mm.", "Area = π × 3² ≈ 28.3 mm²."),
+    ex("Explain why diseases spread quickly in crowded cities.", 2,
+      "People are close together.", "So pathogens spread easily by droplets and contact.")
+  ]);
+  addTo("Examples of communicable diseases", [
+    fill("HIV is a [virus] that attacks the immune system."),
+    mc("Which disease is caused by a virus and treated with antiretroviral drugs?", ["HIV", "Gonorrhoea", "Malaria", "Salmonella"], "HIV"),
+    mc("Which disease causes a yellow discharge and pain on urinating?", ["Gonorrhoea", "Measles", "TMV", "Malaria"], "Gonorrhoea"),
+    mc("How is Salmonella spread?", ["Undercooked food or food prepared in unhygienic conditions", "Mosquito bites", "Sexual contact", "Air only"], "Undercooked food or food prepared in unhygienic conditions"),
+    mc("What happens if HIV is untreated in late stages?", ["AIDS develops: the immune system is badly damaged", "It turns into bacteria", "It cures itself", "Fever only"], "AIDS develops: the immune system is badly damaged"),
+    ex("Gonorrhoea is becoming harder to treat. Explain why, and how its spread can be controlled.", 3,
+      "Many strains are now resistant to penicillin (and other antibiotics).", "Use condoms to prevent spread.", "Treat infected people and trace their partners."),
+    ex("Measles can be fatal. Explain why most young children in the UK are vaccinated against it.", 2,
+      "Measles can cause serious complications, so prevention is important.", "Vaccination gives immunity, and if most are vaccinated, it can't spread (herd immunity)."),
+    ex("Explain how TMV spreads between tomato plants in a greenhouse.", 2,
+      "By contact between plants.", "Or on the hands/tools of workers.")
+  ]);
+  addTo("Human defence systems: non-specific (skin, mucus, stomach acid)", [
+    fill("The skin produces [antimicrobial] secretions that kill pathogens."),
+    mc("Which of these is the body's first line of defence?", ["White blood cells", "Antibodies", "The skin", "Memory cells"], "The skin"),
+    mc("Where are cilia found?", ["The airways (trachea and bronchi)", "The stomach", "The skin", "The blood"], "The airways (trachea and bronchi)"),
+    mc("Which defence traps pathogens in the airways?", ["Mucus", "Stomach acid", "Platelets", "Antitoxins"], "Mucus"),
+    ex("Explain why vomiting after eating bad food may help protect the body.", 2,
+      "It removes the pathogens before they are absorbed.", "So they can't reproduce in the gut."),
+    ex("Tears contain an enzyme that breaks down bacteria. Explain how this protects the eye.", 2,
+      "The enzyme kills bacteria on the surface of the eye.", "So they can't enter the body and cause infection."),
+    ex("Explain how the skin, nose and stomach together protect the body.", 3,
+      "Skin is a barrier and makes antimicrobial secretions.", "The nose traps pathogens with hairs and mucus.", "The stomach's acid kills pathogens in food and drink."),
+    ex("Babies have a weaker immune system. Suggest why washing hands before feeding a baby is important.", 2,
+      "Hands carry pathogens.", "The baby's defences can't fight infection as well, so it could become ill.")
+  ]);
+  addTo("The immune response: white blood cells, antibodies", [
+    fill("Proteins on the surface of a pathogen that trigger an immune response are [antigens/antigen]."),
+    mc("What do lymphocytes produce?", ["Antibodies", "Hormones", "Platelets", "Enzymes for digestion"], "Antibodies"),
+    mc("Which white blood cell process destroys pathogens by engulfing them?", ["Phagocytosis", "Antitoxin production", "Clotting", "Osmosis"], "Phagocytosis"),
+    mc("Why does the second infection lead to a faster immune response?", ["Memory cells are already present", "The pathogen is weaker", "Antibiotics remain", "Skin is thicker"], "Memory cells are already present"),
+    ex("A graph shows antibody levels after a first and a second infection with the same virus. Describe two differences you would expect.", 2,
+      "Second response is faster (starts sooner).", "Second response produces many more antibodies."),
+    ex("Explain how antibodies help destroy pathogens.", 2,
+      "Antibodies bind to specific antigens on the pathogen.", "This clumps them together or marks them so white blood cells can engulf them."),
+    ex("Explain why we can catch flu more than once, but usually only get chickenpox once.", 2,
+      "Flu viruses mutate, so their antigens change.", "Memory cells don't recognise the new antigens; chickenpox antigens stay the same."),
+    ex("Explain why antitoxins are needed in addition to antibodies when fighting some bacterial infections.", 2,
+      "Some bacteria produce toxins that damage tissues.", "Antitoxins neutralise the toxins.")
+  ]);
+  addTo("Vaccination and herd immunity", [
+    fill("A vaccine stimulates white blood cells to produce [antibodies/antibody]."),
+    mc("Which disease has been wiped out worldwide by vaccination?", ["Smallpox", "Malaria", "Flu", "HIV"], "Smallpox"),
+    mc("Why is a new flu vaccine made every year?", ["The flu virus changes its antigens", "The old vaccine expires", "To make it cheaper", "Flu is a bacterium"], "The flu virus changes its antigens"),
+    num("In a school of 1200 pupils, 1080 are vaccinated. What percentage are vaccinated?", 90),
+    num("A vaccine is 95% effective. 2000 people are vaccinated. How many would you expect to still be at risk?", 100),
+    ex("After a scare about a vaccine, fewer children were vaccinated and outbreaks of measles increased. Explain why.", 3,
+      "Fewer people were immune.", "Herd immunity was lost.", "So measles could spread more easily between unvaccinated people."),
+    ex("Explain why being vaccinated is better than catching the disease to become immune.", 2,
+      "You get immunity without suffering the illness.", "Which can be serious or fatal."),
+    ex("Travellers to some countries need vaccines before they go. Explain why.", 2,
+      "Some diseases are common there but not at home.", "So the traveller has no immunity to them.")
+  ]);
+  addTo("Antibiotics: how they work and resistance", [
+    fill("Antibiotic-resistant bacteria such as [MRSA] are difficult to treat."),
+    mc("Why should antibiotics not be used in farming to make animals grow faster?", ["It increases antibiotic resistance", "It makes meat cheaper", "It makes animals fat", "It is illegal everywhere"], "It increases antibiotic resistance"),
+    mc("How does antibiotic resistance first appear?", ["A random mutation in bacteria", "Bacteria learn", "The antibiotic changes", "The patient changes"], "A random mutation in bacteria"),
+    mc("Which kind of antibiotic is used for a specific bacterial infection?", ["A specific antibiotic for that bacteria", "Any painkiller", "An antiviral", "A vaccine"], "A specific antibiotic for that bacteria"),
+    num("A student places antibiotic discs on a plate of bacteria. One disc has a clear zone with a radius of 4 mm. Work out its area to the nearest mm² (π = 3.14).", 50),
+    ex("A student tests three antibiotics on bacteria. Antibiotic A gives a clear zone 12 mm across; B 4 mm; C 20 mm. Which is most effective? Explain.", 2,
+      "C.", "It has the largest clear zone, so it killed the most bacteria (or diffused furthest at killing concentration)."),
+    ex("Explain why it is becoming harder to find new antibiotics.", 2,
+      "Bacteria evolve resistance quickly.", "Developing new drugs is slow and expensive."),
+    ex("Explain how resistant bacteria become common in a hospital.", 3,
+      "A mutation makes some bacteria resistant.", "Antibiotics kill non-resistant bacteria; resistant ones survive.", "They reproduce and spread between patients.")
+  ]);
+  addTo("Drug development: clinical trials, double-blind", [
+    fill("Aspirin was developed from a chemical found in [willow] bark."),
+    mc("Who first tests a new drug in clinical trials?", ["Healthy volunteers at low doses", "Very ill patients at high doses", "Children", "Doctors only"], "Healthy volunteers at low doses"),
+    mc("Why is a placebo given to some patients in a trial?", ["To compare against the drug, to see if it really works", "To make them better", "To save money", "To test toxicity"], "To compare against the drug, to see if it really works"),
+    mc("Penicillin was discovered from which organism?", ["A mould (Penicillium)", "Foxglove", "Willow", "Bacteria"], "A mould (Penicillium)"),
+    num("In a trial, 240 of 300 patients improved on a new drug. Work out the percentage.", 80),
+    ex("In a trial, 60% improved on the drug and 55% improved on the placebo. What does this suggest about the drug?", 2,
+      "The drug is only slightly better than the placebo.", "So it may not be very effective (the difference may be due to chance)."),
+    ex("Explain why drugs are tested on cells and animals before humans.", 2,
+      "To check they are not toxic.", "And to see whether they work, before risking human health."),
+    ex("Explain why a drug trial uses large numbers of patients.", 2,
+      "To reduce the effect of chance or individual differences.", "So results are more reliable and rare side effects can be found.")
+  ]);
+  addTo("Monoclonal antibodies: production and uses", [
+    fill("Monoclonal antibodies bind to a [specific] antigen."),
+    mc("Which of these is a use of monoclonal antibodies?", ["Measuring hormone levels in blood", "Killing all bacteria", "Making vaccines grow", "Removing blood clots"], "Measuring hormone levels in blood"),
+    mc("Why are monoclonal antibodies called 'monoclonal'?", ["They come from many cells", "They are made by clones of one cell", "They are made by plants", "They contain one gene"], "They are made by clones of one cell"),
+    mc("Which cells are fused to make a hybridoma?", ["A lymphocyte and a tumour cell", "A red blood cell and a sperm cell", "A bacterium and a virus", "Two plant cells"], "A lymphocyte and a tumour cell"),
+    ex("Monoclonal antibodies can be attached to a fluorescent dye. Explain how they can be used to find blood clots.", 2,
+      "They bind to proteins (antigens) found in clots.", "The dye shows where the clot is."),
+    ex("Monoclonal antibodies can block receptors on cancer cells. Explain how this can stop cancer cells dividing.", 2,
+      "Cancer cells need to receive certain signals to divide.", "If the receptors are blocked, they don't receive the signal."),
+    ex("Give one reason monoclonal antibodies are useful in identifying pathogens in a laboratory.", 1, "They bind only to the pathogen's specific antigen, so they identify it exactly."),
+    ex("Monoclonal antibodies were expected to be widely used, but are not. Suggest why.", 2,
+      "They cause more side effects than expected.", "They are expensive to produce.")
+  ]);
+  addTo("Plant disease: detection and defence", [
+    fill("Aphids are insect pests that feed on the plant's [phloem/sap]."),
+    mc("Which of these is a chemical plant defence?", ["Thorns", "Waxy cuticle", "Antibacterial chemicals", "Bark"], "Antibacterial chemicals"),
+    mc("What does a lack of nitrate ions cause in plants?", ["Stunted growth", "Purple leaves", "Spots", "More fruit"], "Stunted growth"),
+    mc("Which is a mechanical adaptation that stops plants being eaten?", ["Thorns and hairs", "Cell walls", "Bark", "Antibacterial chemicals"], "Thorns and hairs"),
+    ex("A gardener notices that leaves have a mosaic pattern of yellow patches. Suggest the cause and its effect.", 2,
+      "Tobacco mosaic virus (TMV).", "Less chlorophyll, so less photosynthesis and slower growth."),
+    ex("Explain how a waxy cuticle helps protect a leaf from disease.", 2,
+      "It is a physical barrier.", "Pathogens can't easily get through the leaf surface."),
+    ex("Explain why plants with a lack of magnesium grow poorly.", 2,
+      "Magnesium is needed to make chlorophyll.", "Less chlorophyll means less photosynthesis (chlorosis)."),
+    ex("Give two ways plant diseases can be identified.", 2,
+      "Observing symptoms (e.g. spots, stunted growth, decay, pests).", "Lab tests (e.g. monoclonal antibody testing kits) / looking up in a reference.")
+  ]);
+
+  // ---------- 4.4 Bioenergetics ----------
+  addTo("Photosynthesis equation (word and symbol)", [
+    fill("The chemical formula of glucose is [C₆H₁₂O₆/C6H12O6]."),
+    mc("Which substances are the reactants in photosynthesis?", ["Carbon dioxide and water", "Glucose and oxygen", "Oxygen and water", "Glucose and carbon dioxide"], "Carbon dioxide and water"),
+    mc("Where does the water for photosynthesis come from?", ["The soil, through the roots", "The air, through stomata", "Glucose", "Respiration only"], "The soil, through the roots"),
+    mc("Which is a use of glucose that needs nitrate ions from the soil?", ["Making amino acids for proteins", "Making starch", "Making cellulose", "Respiration"], "Making amino acids for proteins"),
+    num("In the balanced equation for photosynthesis, how many molecules of water are used?", 6, 1),
+    ex("A student puts a plant in a sealed jar in the light. After a few hours the oxygen level has gone up. Explain why.", 2,
+      "The plant photosynthesised.", "Oxygen is a product of photosynthesis (made faster than it is used in respiration)."),
+    ex("Explain why photosynthesis is important for animals as well as plants.", 2,
+      "It produces glucose (biomass), which is the start of food chains.", "And it releases oxygen, which animals need for respiration."),
+    ex("A leaf with green and white areas (variegated) is tested for starch. Only the green areas turn blue-black. Explain why.", 2,
+      "Only the green areas contain chlorophyll.", "So only they can photosynthesise and make starch.")
+  ]);
+  addTo("Adaptations of the leaf for photosynthesis", [
+    fill("Veins in the leaf contain xylem and [phloem]."),
+    mc("Why do leaves have a waxy cuticle?", ["To reduce water loss", "To absorb light", "To take in carbon dioxide", "To make glucose"], "To reduce water loss"),
+    mc("What do guard cells control?", ["Opening and closing of stomata", "Light absorption", "Water transport in xylem", "Sugar transport"], "Opening and closing of stomata"),
+    mc("Why do leaves contain a network of veins?", ["To transport water in and sugars out", "To store starch", "To support the cuticle only", "To make chlorophyll"], "To transport water in and sugars out"),
+    ex("Explain how the spongy mesophyll is adapted for gas exchange.", 2,
+      "It has large air spaces.", "Giving a large surface area and letting gases diffuse easily to cells."),
+    ex("Explain why leaves are often arranged so they don't overlap.", 2,
+      "So each leaf is not shaded by others.", "Each absorbs as much light as possible for photosynthesis."),
+    ex("Stomata open in the light and close in the dark. Explain why this is useful to the plant.", 2,
+      "In the light they let carbon dioxide in for photosynthesis.", "In the dark there's no photosynthesis, so closing reduces water loss."),
+    ex("Explain how xylem in the leaf supports photosynthesis.", 2,
+      "Xylem brings water to the leaf.", "Water is a reactant in photosynthesis (and keeps cells turgid).")
+  ]);
+  addTo("Limiting factors: light, CO₂, temperature", [
+    fill("If light intensity increases but the rate of photosynthesis doesn't, light is no longer the [limiting factor]."),
+    mc("In a greenhouse on a hot sunny day, which factor is most likely to limit photosynthesis?", ["Carbon dioxide concentration", "Light", "Temperature", "Chlorophyll"], "Carbon dioxide concentration"),
+    mc("Why does photosynthesis slow down above about 45 °C?", ["Enzymes are denatured", "There is too much light", "The plant has too much water", "CO₂ is used up"], "Enzymes are denatured"),
+    mc("Which factor also limits photosynthesis in older yellowing leaves?", ["The amount of chlorophyll", "Oxygen", "Soil pH", "Wind"], "The amount of chlorophyll"),
+    num("At 10 °C, a plant makes 4 cm³ of oxygen per hour. At 20 °C it makes 10 cm³. Work out the percentage increase.", 150),
+    ex("A graph shows that increasing CO₂ concentration raises the rate of photosynthesis up to a point, then the line levels off. Explain both parts of the graph.", 2,
+      "At first CO₂ is the limiting factor, so more CO₂ increases the rate.", "Then another factor (light or temperature) becomes limiting, so the rate stops increasing."),
+    ex("Explain why plants grow slowly in early spring even though there is plenty of carbon dioxide.", 2,
+      "Light intensity is low and days are short.", "And temperatures are low, so enzymes work slowly."),
+    ex("A grower says 'adding more light will always make my plants grow faster'. Explain why this is not true.", 2,
+      "Once light is not limiting, another factor (CO₂ or temperature) limits the rate.", "So extra light won't increase the rate any further.")
+  ]);
+  addTo("Limiting factors in depth: interactions, the inverse square law and greenhouse costs", [
+    num("A lamp is moved from 30 cm to 10 cm from a plant. By what factor does the light intensity increase?", 9),
+    num("Light intensity at 20 cm is 50 units. Work out the light intensity at 40 cm.", 12.5),
+    num("Light intensity = 1 ÷ d². Work out the light intensity when d = 0.2 m.", 25),
+    mc("A grower adds CO₂ but sees no change in growth. What is most likely?", ["Light or temperature is limiting", "CO₂ was limiting", "The plants are dead", "Water is not needed"], "Light or temperature is limiting"),
+    ex("A grower's extra heating costs £500 a month and increases the crop value by £350 a month. Explain whether it is worth it.", 2,
+      "It is not worth it financially.", "The cost (£500) is more than the extra income (£350)."),
+    ex("Describe how a grower could use sensors and a computer to control a greenhouse.", 2,
+      "Sensors measure light, temperature and CO₂.", "The computer switches heaters, lights or CO₂ supply on only when a factor is limiting, saving money."),
+    ex("A graph shows rate of photosynthesis against light intensity at two temperatures. At low light both lines are the same. Explain why.", 2,
+      "At low light intensity, light is the limiting factor.", "So increasing temperature has no effect on the rate."),
+    ex("Explain why the rate of photosynthesis is limited by light near the bottom of a dense forest.", 2,
+      "Tall trees absorb most of the light.", "So little light reaches plants on the forest floor.")
+  ]);
+  addTo("Required practical: investigating the rate of photosynthesis", [
+    fill("In the pondweed practical, the [independent] variable is the distance of the lamp."),
+    mc("Why should the room be dark apart from the lamp?", ["So only the lamp's light affects the plant", "To keep the pondweed cold", "To stop bubbles", "To save energy"], "So only the lamp's light affects the plant"),
+    mc("What should be kept the same in the pondweed experiment?", ["Temperature of the water", "Distance of the lamp", "Light intensity", "Number of bubbles"], "Temperature of the water"),
+    num("Pondweed gave 18, 21 and 24 bubbles in three 1-minute counts. Work out the mean.", 21, 1),
+    num("At 10 cm the rate is 40 bubbles/min; at 20 cm it is 10 bubbles/min. How many times faster is it at 10 cm?", 4, 1),
+    ex("A student uses an LED lamp instead of a filament lamp. Explain why this improves the experiment.", 2,
+      "LED lamps give out much less heat.", "So the temperature of the water stays more constant."),
+    ex("Describe how the student could use their results to show the inverse square law.", 2,
+      "Calculate 1 ÷ distance² for each distance.", "Plot rate against 1/d²: a straight line through the origin (at low intensity) supports the law."),
+    ex("Suggest why, at very close distances, the rate stops increasing.", 2,
+      "Light is no longer limiting.", "CO₂ or temperature limits the rate instead.")
+  ]);
+  addTo("Aerobic respiration equation", [
+    fill("The products of aerobic respiration are carbon dioxide and [water]."),
+    mc("Which is the balanced symbol equation for aerobic respiration?", ["C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂", "C₆H₁₂O₆ → lactic acid"], "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O"),
+    mc("Which organisms carry out aerobic respiration?", ["All plants and animals", "Only animals", "Only plants in the dark", "Only bacteria"], "All plants and animals"),
+    mc("What is metabolism?", ["The sum of all the reactions in a cell or the body", "Only respiration", "Only digestion", "Only photosynthesis"], "The sum of all the reactions in a cell or the body"),
+    num("How many molecules of oxygen are needed to respire one molecule of glucose aerobically?", 6, 1),
+    ex("A student sets up a respirometer with woodlice. The coloured liquid moves towards the woodlice. Explain why.", 2,
+      "The woodlice use oxygen in respiration.", "The carbon dioxide made is absorbed (by soda lime), so the gas volume falls."),
+    ex("Give three examples of metabolic reactions that use the energy from respiration.", 3,
+      "Joining glucose into starch, glycogen or cellulose.", "Joining amino acids into proteins / glycerol and fatty acids into lipids.", "Breaking down excess proteins into urea."),
+    ex("Explain why plants respire all the time, even though they photosynthesise.", 2,
+      "All living cells need energy all the time.", "Photosynthesis makes glucose; respiration releases energy from it.")
+  ]);
+  addTo("Anaerobic respiration: fermentation, muscle fatigue", [
+    fill("Anaerobic respiration means respiration without [oxygen]."),
+    mc("Which is the word equation for anaerobic respiration in muscles?", ["glucose → lactic acid", "glucose → ethanol + carbon dioxide", "glucose + oxygen → carbon dioxide + water", "lactic acid → glucose"], "glucose → lactic acid"),
+    mc("Which product of anaerobic respiration in yeast is used in brewing?", ["Ethanol", "Lactic acid", "Water", "Oxygen"], "Ethanol"),
+    mc("Where does anaerobic respiration happen?", ["In the cytoplasm", "In the mitochondria", "In the nucleus", "In chloroplasts"], "In the cytoplasm"),
+    num("A student measures 30 cm³ of CO₂ from yeast in 5 minutes. Work out the rate in cm³ per minute.", 6, 1),
+    ex("A student mixes yeast with sugar solution and covers it with a layer of oil. Explain why.", 2,
+      "The oil stops oxygen getting in.", "So the yeast respires anaerobically."),
+    ex("Explain why a sprinter can't run at full speed for very long.", 2,
+      "Muscles respire anaerobically, producing lactic acid.", "Lactic acid builds up, causing fatigue, and less energy is released."),
+    ex("Yeast grows faster with oxygen than without. Explain why.", 2,
+      "Aerobic respiration releases much more energy.", "More energy is available for growth and reproduction.")
+  ]);
+  addTo("Exercise: effects on breathing rate and heart rate", [
+    fill("During exercise, muscles need more oxygen and [glucose]."),
+    mc("Why does breathing rate increase during exercise?", ["To take in more oxygen and remove more carbon dioxide", "To cool down", "To make lactic acid", "To slow the heart"], "To take in more oxygen and remove more carbon dioxide"),
+    mc("What is stored in the muscles and broken down to glucose during exercise?", ["Glycogen", "Starch", "Cellulose", "Protein"], "Glycogen"),
+    num("A person breathes 12 times a minute at rest and 30 times a minute during exercise. Work out the percentage increase.", 150),
+    num("A student's pulse is 23 beats in 15 seconds. Work out the heart rate in beats per minute.", 92, 1),
+    ex("Explain why the heart rate rises during exercise, using the idea of respiration.", 3,
+      "Muscles respire faster to release more energy for contraction.", "They need more oxygen and glucose, and produce more CO₂.", "A faster heart rate delivers more blood to supply these and remove CO₂."),
+    ex("Describe how a student could investigate the effect of exercise on breathing rate.", 3,
+      "Count breaths per minute at rest.", "Do a set exercise (e.g. step-ups for 3 minutes).", "Count breaths per minute straight after; repeat and calculate means."),
+    ex("An athlete has a lower resting heart rate than a non-athlete. Suggest why.", 2,
+      "Their heart muscle is stronger.", "So it pumps more blood per beat and needs fewer beats.")
+  ]);
+  addTo("Oxygen debt: lactic acid converted back to glucose in the liver", [
+    fill("Oxygen debt is the amount of extra [oxygen] the body needs after exercise."),
+    mc("Which organ converts lactic acid back into glucose?", ["Liver", "Kidney", "Heart", "Lungs"], "Liver"),
+    mc("What does lactic acid build-up cause?", ["Muscle fatigue", "Fast reactions", "Sweating", "Shivering"], "Muscle fatigue"),
+    mc("When does anaerobic respiration happen in muscles?", ["When not enough oxygen reaches them", "At rest", "When asleep", "Only when cold"], "When not enough oxygen reaches them"),
+    num("After a race, an athlete takes 18 minutes to repay their oxygen debt. A fitter athlete takes a third of that time. How many minutes is that?", 6, 1),
+    ex("Explain why an athlete keeps panting after finishing a race.", 3,
+      "During the race, muscles respired anaerobically, making lactic acid.", "Extra oxygen is needed to convert lactic acid back to glucose in the liver.", "So breathing stays fast and deep to repay the oxygen debt."),
+    ex("Explain why oxygen debt is larger after high-intensity exercise.", 2,
+      "More anaerobic respiration happens because oxygen can't be supplied fast enough.", "So more lactic acid builds up and needs more oxygen to remove."),
+    ex("Explain why training can reduce an athlete's oxygen debt.", 2,
+      "Training improves the heart and lungs, so more oxygen reaches the muscles.", "So less anaerobic respiration happens and less lactic acid is made.")
+  ]);
+
+  // ---------- 4.5 Homeostasis and response ----------
+  addTo("Homeostasis: definition and importance", [
+    fill("Homeostasis keeps conditions right for cell function and [enzyme/enzymes] action."),
+    mc("Which of these is an automatic control system?", ["Control of blood glucose", "Choosing to run", "Deciding what to eat", "Reading a book"], "Control of blood glucose"),
+    mc("A thermostat keeps a room's temperature steady. Which part of the body acts like the thermostat for body temperature?", ["The brain (thermoregulatory centre)", "The skin", "The lungs", "The liver"], "The brain (thermoregulatory centre)"),
+    mc("Which is a glandular effector?", ["The pancreas releasing insulin", "An arm muscle", "A light receptor", "The spinal cord"], "The pancreas releasing insulin"),
+    ex("A person's body temperature rises to 40 °C during a fever. Explain why this is dangerous.", 2,
+      "Enzymes start to denature above their optimum temperature.", "So reactions in cells slow down and cells can be damaged."),
+    ex("Give three internal conditions controlled by homeostasis.", 3,
+      "Body temperature.", "Blood glucose concentration.", "Water levels (and ion levels)."),
+    ex("Explain why both the nervous system and hormones are needed for homeostasis.", 2,
+      "Nerves give fast, short-lived responses.", "Hormones give slower but longer-lasting responses, e.g. for blood glucose."),
+    ex("Explain why a control system must be able to respond to changes in both directions.", 2,
+      "Conditions can rise above or fall below the set point.", "The body must reverse either change to keep conditions constant.")
+  ]);
+  addTo("The nervous system: CNS, neurones, synapses", [
+    fill("Nerve impulses are [electrical] signals."),
+    mc("Which neurone carries impulses from the CNS to an effector?", ["Sensory", "Relay", "Motor", "Receptor"], "Motor"),
+    mc("Which of these is a receptor?", ["Light receptor cells in the retina", "A gland", "A muscle", "The spinal cord"], "Light receptor cells in the retina"),
+    mc("What does the nervous system allow humans to do?", ["React to their surroundings and coordinate behaviour", "Digest food", "Make hormones only", "Transport oxygen"], "React to their surroundings and coordinate behaviour"),
+    num("An impulse travels along a 1.2 m neurone at 60 m/s. Work out the time taken in seconds.", 0.02),
+    ex("Describe what happens at a synapse.", 3,
+      "An impulse arrives at the end of a neurone.", "A chemical is released and diffuses across the gap.", "It binds to the next neurone and triggers a new impulse."),
+    ex("Explain why synapses make sure impulses only travel in one direction.", 2,
+      "The chemical is only released from one side of the synapse.", "And the receptors are only on the next neurone."),
+    ex("A person has damage to their motor neurones. Suggest how this would affect them.", 2,
+      "Impulses can't reach the muscles.", "So they can't move those muscles (paralysis), even though they can feel.")
+  ]);
+  addTo("Reflex arc: sensory, relay, motor neurones", [
+    fill("Receptors in a reflex arc detect a [stimulus]."),
+    mc("In the knee-jerk reflex, what is the effector?", ["The thigh muscle", "The skin", "The brain", "The spinal cord"], "The thigh muscle"),
+    mc("Which is the correct order in a reflex arc?", ["Receptor → sensory → relay → motor → effector", "Effector → motor → relay → sensory → receptor", "Receptor → motor → relay → sensory → effector", "Sensory → receptor → effector → motor"], "Receptor → sensory → relay → motor → effector"),
+    mc("Which of these is not a reflex?", ["Coughing when something goes down the wrong way", "Pupil shrinking in bright light", "Catching a ball you see coming", "Pulling your hand from a flame"], "Catching a ball you see coming"),
+    num("A reflex impulse travels 1.5 m at 100 m/s and crosses 3 synapses, each taking 0.001 s. Work out the total time in s.", 0.018),
+    ex("A doctor taps a patient's knee and their leg doesn't kick. Suggest what this could tell the doctor.", 2,
+      "The reflex arc is not working.", "There may be damage to the nerves or spinal cord."),
+    ex("Explain why a newborn baby has reflexes such as grasping.", 2,
+      "Reflexes are automatic and don't need to be learned.", "They help the baby survive (e.g. holding on, sucking for milk)."),
+    ex("Explain why you might drop a hot plate even though dropping it is not sensible.", 2,
+      "Pulling away from heat is a reflex.", "It happens before the conscious brain can decide to hold on.")
+  ]);
+  addTo("Required practical: measuring reaction time", [
+    fill("Reaction time is the time between a [stimulus] and the response."),
+    mc("In the ruler drop test, what does catching the ruler higher up show?", ["A slower reaction time", "A faster reaction time", "Nothing", "More caffeine"], "A slower reaction time"),
+    mc("What type of variable is the distance the ruler falls?", ["Dependent", "Independent", "Control", "Categoric"], "Dependent"),
+    num("A ruler drops 20 cm. Using t = √(2d ÷ g), with d = 0.2 m and g = 10 m/s², work out the reaction time in s.", 0.2),
+    num("A student's catches were at 8, 9, 15, 7 and 8 cm. Ignoring the anomaly, work out the mean.", 8),
+    ex("Explain why the student should do several practice drops before taking results.", 2,
+      "Reaction times improve with practice at first.", "Practising first makes sure later results show the effect of the variable, not learning."),
+    ex("A student finds a person's reaction time is slower after drinking coffee. Suggest why this result is surprising, and one explanation.", 2,
+      "Caffeine is a stimulant, so it usually speeds up reactions.", "The person may have been tired / it may be an error or due to too few repeats."),
+    ex("Explain why results from only one person are not enough to conclude how caffeine affects reaction time.", 2,
+      "People vary in how they respond.", "A larger sample makes the conclusion more valid (representative).")
+  ]);
+  addTo("The brain: regions and functions", [
+    fill("The brain controls complex [behaviour/behaviours]."),
+    mc("Which part of the brain is largest and wrinkled on the outside?", ["Cerebral cortex", "Cerebellum", "Medulla", "Spinal cord"], "Cerebral cortex"),
+    mc("Damage to which area could affect speech?", ["Cerebral cortex", "Medulla", "Cerebellum", "Pituitary"], "Cerebral cortex"),
+    mc("What are neurones in the brain arranged into?", ["Regions that each carry out different functions", "One region doing everything", "Muscles", "Glands"], "Regions that each carry out different functions"),
+    ex("A gymnast needs excellent balance and coordination. Which part of the brain is particularly important, and why?", 2,
+      "The cerebellum.", "It controls balance and coordinates muscle movement."),
+    ex("Explain why MRI scans are useful for studying the brain.", 2,
+      "They produce detailed images without surgery.", "They can show which areas are active during certain tasks."),
+    ex("Explain why brain surgery carries more risk than surgery on other organs.", 2,
+      "The brain is complex and delicate.", "Damage to one area could affect important functions (memory, speech, movement)."),
+    ex("A patient becomes unconscious after a head injury, but their heart keeps beating. Suggest which parts of the brain are and aren't working.", 2,
+      "The cerebral cortex (consciousness) is affected.", "The medulla (controls heart rate) is still working.")
+  ]);
+  addTo("The eye: structure and function, accommodation", [
+    fill("The transparent front of the eye that refracts light is the [cornea]."),
+    mc("What is the iris?", ["The coloured ring that controls pupil size", "The light-sensitive layer", "The lens", "The white outer layer"], "The coloured ring that controls pupil size"),
+    mc("What is the sclera?", ["The tough white outer layer", "The coloured part", "The hole in the middle", "The nerve to the brain"], "The tough white outer layer"),
+    mc("Which part changes shape to focus light?", ["The lens", "The cornea", "The retina", "The pupil"], "The lens"),
+    mc("Which is a treatment for short-sightedness?", ["Laser eye surgery to change the shape of the cornea", "Antibiotics", "Insulin", "Statins"], "Laser eye surgery to change the shape of the cornea"),
+    ex("Describe how the eye focuses on a near object.", 3,
+      "Ciliary muscles contract and suspensory ligaments loosen.", "The lens becomes thicker (more rounded).", "Light is refracted more and focused on the retina."),
+    ex("Explain why people's ability to focus on near objects gets worse with age.", 2,
+      "The lens becomes less elastic.", "So it can't become thick enough to focus near light on the retina."),
+    ex("Give one advantage and one disadvantage of contact lenses compared with glasses.", 2,
+      "Advantage: not noticeable / good for sports.", "Disadvantage: risk of eye infection / must be cleaned and changed.")
+  ]);
+  addTo("Thermoregulation: vasodilation, sweating, shivering", [
+    fill("The thermoregulatory centre contains receptors that detect the temperature of the [blood]."),
+    mc("Where are temperature receptors found?", ["In the skin and the brain", "In the stomach only", "In the lungs", "In the bones"], "In the skin and the brain"),
+    mc("When too cold, what happens to blood vessels near the skin?", ["They constrict (vasoconstriction)", "They dilate", "Nothing", "They burst"], "They constrict (vasoconstriction)"),
+    mc("What effector produces sweat?", ["Sweat glands", "Muscles", "Liver", "Hairs"], "Sweat glands"),
+    num("A person's skin temperature drops from 34 °C to 29 °C in cold weather. Work out the percentage decrease to 1 decimal place.", 14.7),
+    ex("A walker is lost in the snow. Describe how their body tries to keep its core temperature at 37 °C.", 3,
+      "Vasoconstriction: less blood flows near the skin, so less heat is lost.", "Shivering: muscles contract and respiration releases heat.", "Sweating stops."),
+    ex("Explain why vasoconstriction can cause damage to fingers and toes in extreme cold (frostbite).", 2,
+      "Less blood flows to the skin and extremities.", "So the tissues get very cold and receive less oxygen, and cells die."),
+    ex("Explain why elderly people are more at risk in very hot and very cold weather.", 2,
+      "Their thermoregulation may work less well (e.g. sweat less, shiver less).", "So their core temperature can change more.")
+  ]);
+  addTo("Hormones: endocrine glands and target organs", [
+    fill("Glands that secrete hormones directly into the blood are [endocrine] glands."),
+    mc("Which hormone is made by the testes?", ["Testosterone", "Oestrogen", "Insulin", "Thyroxine"], "Testosterone"),
+    mc("Which hormone is made by the ovaries?", ["Oestrogen", "Adrenaline", "ADH", "Glucagon"], "Oestrogen"),
+    mc("Which hormone does the pituitary release to stimulate the thyroid?", ["TSH", "LH", "ADH", "Insulin"], "TSH"),
+    ex("Explain why hormones can affect only certain organs.", 2,
+      "Only target organs have receptors for that hormone.", "So the hormone only affects them."),
+    ex("Thyroxine is controlled by negative feedback. Explain what happens if thyroxine levels rise.", 2,
+      "The pituitary releases less TSH.", "So the thyroid releases less thyroxine, bringing levels back down."),
+    ex("Compare the effects of hormones and nerves. Give three differences.", 3,
+      "Hormones are chemical; nerves are electrical.", "Hormones travel in the blood; nerves along neurones.", "Hormones are slower and last longer; nerves are fast and short-lived."),
+    ex("Adrenaline increases the breakdown of glycogen in the liver. Explain why this is useful in danger.", 2,
+      "More glucose is released into the blood.", "So muscles have more glucose for respiration to fight or run.")
+  ]);
+  addTo("Blood glucose control: insulin, diabetes", [
+    fill("Insulin causes glucose to move from the blood into [cells/cell/body cells]."),
+    mc("What happens to blood glucose when insulin is released?", ["It falls", "It rises", "Nothing", "It doubles"], "It falls"),
+    mc("Which organ stores glucose as glycogen?", ["The liver", "The pancreas", "The kidneys", "The heart"], "The liver"),
+    mc("Which part of the pancreas monitors blood glucose?", ["Cells that release insulin and glucagon", "The bile duct", "Digestive enzyme cells", "Muscle cells"], "Cells that release insulin and glucagon"),
+    num("A person's blood glucose rises from 90 to 135 mg/100 cm³ after a meal. Work out the percentage increase.", 50),
+    ex("A graph shows a person's blood glucose rising after a meal and then falling back. Explain why it falls.", 2,
+      "The pancreas releases insulin.", "Cells take up glucose and the liver stores it as glycogen."),
+    ex("A person with diabetes has a sugary drink when they feel dizzy. Suggest why.", 2,
+      "Their blood glucose may be too low (e.g. after insulin or exercise).", "The drink raises blood glucose quickly."),
+    ex("Explain why insulin cannot be taken as a tablet.", 2,
+      "Insulin is a protein.", "It would be digested by protease in the stomach and gut.")
+  ]);
+
+  addTo("Type 1 vs Type 2 diabetes: causes and treatments", [
+    fill("Type 1 diabetes is usually diagnosed in [childhood/children/young people]."),
+    mc("A 55-year-old who is overweight is found to have high blood glucose. Which type of diabetes is most likely?", ["Type 1", "Type 2", "Neither", "Both"], "Type 2"),
+    mc("In type 2 diabetes, what is wrong?", ["The body cells no longer respond properly to insulin", "The pancreas makes no insulin at all", "There is too much glucagon", "The kidneys fail"], "The body cells no longer respond properly to insulin"),
+    mc("Which treatment might a doctor add if diet and exercise don't control type 2 diabetes?", ["Drugs (and sometimes insulin)", "Antibiotics", "A heart transplant", "Vaccines"], "Drugs (and sometimes insulin)"),
+    num("In a group of 400 people with diabetes, 360 have type 2. What percentage is that?", 90),
+    ex("A new treatment for type 1 diabetes transplants pancreas cells from a donor. Give one benefit and one problem.", 2,
+      "Benefit: the patient could make their own insulin and stop injecting.", "Problem: the cells could be rejected, so immunosuppressants are needed (and there are few donors)."),
+    ex("Explain why people with type 1 diabetes need to monitor their blood glucose.", 2,
+      "So they can inject the right amount of insulin.", "And avoid blood glucose going too high or too low."),
+    ex("Explain why type 2 diabetes is becoming more common in the UK.", 2,
+      "More people are obese.", "Due to diets high in sugar and fat and less exercise.")
+  ]);
+  addTo("Glucagon and insulin: negative feedback", [
+    fill("Insulin and glucagon are both made in the [pancreas]."),
+    mc("If blood glucose is too high, which hormone is released?", ["Insulin", "Glucagon", "Adrenaline", "ADH"], "Insulin"),
+    mc("Which effect does glucagon have?", ["Glycogen is broken down into glucose", "Glucose is converted to glycogen", "Glucose is excreted", "Cells take up more glucose"], "Glycogen is broken down into glucose"),
+    mc("What triggers the release of glucagon?", ["Low blood glucose", "High blood glucose", "Eating a meal", "Cold weather"], "Low blood glucose"),
+    ex("A graph shows blood glucose and glucagon levels during a long fast. Glucagon rises as glucose falls. Explain this relationship.", 2,
+      "Falling glucose is detected by the pancreas.", "It releases more glucagon to raise glucose by breaking down glycogen."),
+    ex("Explain why insulin and glucagon are described as having antagonistic effects.", 2,
+      "They have opposite effects on blood glucose.", "Insulin lowers it, glucagon raises it."),
+    ex("Describe how blood glucose is brought back to normal after a sugary snack.", 3,
+      "The pancreas detects the rise in blood glucose.", "It releases insulin into the blood.", "Cells take up glucose and the liver and muscles store it as glycogen."),
+    ex("Explain what would happen to blood glucose if a person had no glucagon.", 2,
+      "Glycogen couldn't be broken down when glucose fell.", "So blood glucose could fall dangerously low between meals.")
+  ]);
+  addTo("Osmoregulation: kidneys and water balance", [
+    fill("Water leaves the body from the [lungs] when we breathe out."),
+    mc("Which is filtered out of the blood but not reabsorbed?", ["Most urea", "All glucose", "Most water", "Some ions"], "Most urea"),
+    mc("Which method of treating kidney failure must be done several times a week?", ["Dialysis", "A transplant", "Statins", "Insulin"], "Dialysis"),
+    mc("Why can't proteins pass into the filtrate?", ["They are too large", "They are too small", "They are charged", "They are used up"], "They are too large"),
+    num("A dialysis session lasts 4 hours, 3 times a week. Work out the total hours of dialysis per year (52 weeks).", 624),
+    ex("Explain how the kidneys produce urine.", 3,
+      "Blood is filtered: small molecules (water, glucose, ions, urea) enter the tubule.", "Useful substances (all glucose, some ions and water) are selectively reabsorbed.", "The rest leaves as urine."),
+    ex("Explain why the fluid in a dialysis machine flows in the opposite direction to the blood.", 2,
+      "It keeps a concentration gradient all along the membrane.", "So urea keeps diffusing out of the blood."),
+    ex("Explain why a person with kidney failure must control the salt and protein in their diet.", 2,
+      "Excess salt (ions) and protein (urea) can't be removed by the kidneys.", "They would build up in the blood and harm cells.")
+  ]);
+  addTo("Osmoregulation in depth: urea formation and ADH", [
+    fill("ADH stands for [antidiuretic hormone/anti-diuretic hormone]."),
+    mc("What does deamination remove from amino acids?", ["The amino group", "The carbon", "The oxygen", "The sugar"], "The amino group"),
+    mc("When you are dehydrated, what happens to your urine?", ["Small volume, concentrated", "Large volume, dilute", "No change", "It contains glucose"], "Small volume, concentrated"),
+    mc("Which part of the kidney does ADH act on?", ["The collecting ducts (tubules)", "The bladder", "The ureter", "The renal artery"], "The collecting ducts (tubules)"),
+    num("A person produces 1500 cm³ of urine in a day. After drinking more, they produce 2400 cm³. Work out the percentage increase.", 60),
+    ex("After a long run on a hot day, a runner's urine is dark. Explain the role of ADH.", 3,
+      "The runner loses water in sweat, so blood becomes concentrated.", "The pituitary releases more ADH.", "The tubules reabsorb more water, so the urine is concentrated."),
+    ex("Explain why ammonia must be converted to urea.", 2,
+      "Ammonia is very toxic.", "Urea is less toxic and can be safely carried in the blood to the kidneys."),
+    ex("Explain why eating a lot of protein increases the amount of urea in urine.", 2,
+      "Excess amino acids can't be stored.", "They are deaminated in the liver, making more urea.")
+  ]);
+  addTo("Hormones in reproduction: FSH, LH, oestrogen and progesterone", [
+    fill("LH stands for [luteinising hormone]."),
+    mc("Which hormone is made by the ovaries after ovulation?", ["Progesterone", "FSH", "LH", "Testosterone"], "Progesterone"),
+    mc("What does FSH stimulate the ovaries to produce?", ["Oestrogen", "Testosterone", "Insulin", "ADH"], "Oestrogen"),
+    mc("What does testosterone stimulate?", ["Sperm production", "Egg maturation", "Ovulation", "Lactation"], "Sperm production"),
+    ex("A woman has low levels of FSH. Suggest how this affects her fertility.", 2,
+      "Eggs don't mature in the ovaries.", "So she doesn't ovulate and can't get pregnant without treatment."),
+    ex("Explain why reproductive hormones cause changes in the body at puberty.", 2,
+      "Hormone levels (oestrogen / testosterone) rise.", "They cause secondary sexual characteristics to develop."),
+    ex("Explain why FSH and LH are made in the pituitary gland but act on the ovaries.", 2,
+      "They are hormones carried in the blood.", "The ovaries are their target organ (they have the receptors)."),
+    ex("Give two roles of oestrogen in the menstrual cycle.", 2,
+      "Causes the uterus lining to thicken.", "Inhibits FSH and stimulates LH release.")
+  ]);
+  addTo("How hormones interact to control the menstrual cycle", [
+    fill("A period is when the uterus lining [breaks down/is shed/is lost]."),
+    mc("Which hormone peaks just before ovulation?", ["LH", "Progesterone", "Testosterone", "Insulin"], "LH"),
+    mc("What would happen if progesterone stayed high?", ["The lining would be kept and no period", "Ovulation would happen", "FSH would rise", "Testosterone would rise"], "The lining would be kept and no period"),
+    mc("Roughly how many days does menstruation (bleeding) last?", ["About 4–7 days", "About 14 days", "About 28 days", "About 1 hour"], "About 4–7 days"),
+    num("A woman's cycle is 32 days long. Ovulation happens 14 days before the next period. On which day does she ovulate?", 18, 1),
+    ex("A graph shows hormone levels through the menstrual cycle. Explain why the oestrogen peak comes just before the LH peak.", 2,
+      "Rising oestrogen stimulates the pituitary to release LH.", "So LH rises after oestrogen."),
+    ex("Explain how negative feedback controls FSH in the menstrual cycle.", 2,
+      "FSH stimulates oestrogen production.", "Oestrogen then inhibits FSH, so FSH falls."),
+    ex("Explain why progesterone falls at the end of the cycle if the egg is not fertilised.", 2,
+      "The structure in the ovary that makes progesterone breaks down.", "So progesterone falls and the lining is shed.")
+  ]);
+  addTo("Contraception: hormonal and non-hormonal", [
+    fill("The contraceptive [injection] releases progesterone and lasts several months."),
+    mc("How does a copper IUD prevent pregnancy?", ["It stops fertilisation or implantation of an embryo", "It kills all bacteria", "It increases FSH", "It removes eggs"], "It stops fertilisation or implantation of an embryo"),
+    mc("Which method contains only progesterone?", ["The mini pill (progesterone-only pill)", "Condom", "Diaphragm", "Copper IUD"], "The mini pill (progesterone-only pill)"),
+    mc("How does progesterone in contraceptives help prevent pregnancy?", ["It makes the mucus in the cervix thick so sperm can't get through", "It kills eggs", "It causes ovulation", "It thins the uterus lining immediately"], "It makes the mucus in the cervix thick so sperm can't get through"),
+    num("The pill is 99% effective. In a year, how many of 2000 women using it perfectly would you expect to become pregnant?", 20),
+    ex("A woman wants contraception that also protects her from STIs. Suggest what she should use and why.", 2,
+      "A condom.", "It is a barrier that stops body fluids (and pathogens) passing between partners."),
+    ex("Compare the pill with the copper IUD. Give one advantage of each.", 2,
+      "Pill: easy to stop, cycle returns quickly.", "IUD: lasts years, no daily remembering, no hormones."),
+    ex("Explain why some people choose non-hormonal methods of contraception.", 2,
+      "Hormonal methods can have side effects (e.g. mood changes, blood clots).", "Some people prefer not to change their hormone levels.")
+  ]);
+  addTo("Fertility treatments: IVF, fertility drugs", [
+    fill("IVF stands for in vitro [fertilisation/fertilization]."),
+    mc("A woman doesn't make enough FSH. What treatment might help first?", ["Fertility drugs containing FSH and LH", "Antibiotics", "A stent", "Statins"], "Fertility drugs containing FSH and LH"),
+    mc("Which is a disadvantage of IVF?", ["It is emotionally and physically stressful", "It always works", "It is free everywhere", "It cures infertility forever"], "It is emotionally and physically stressful"),
+    mc("Why are embryos checked under a microscope before being put in the uterus in IVF?", ["To check they are healthy and developing", "To count the chromosomes in sperm", "To find bacteria", "To measure FSH"], "To check they are healthy and developing"),
+    num("A clinic's IVF success rate is 32%. Out of 150 women treated, how many would you expect to become pregnant?", 48),
+    ex("Success rates of IVF fall as women get older. Suggest why.", 2,
+      "Older women have fewer eggs and those eggs are more likely to have faults.", "So embryos are less likely to develop or implant."),
+    ex("Explain how fertility drugs can increase the chance of twins or triplets.", 2,
+      "FSH and LH can make several eggs mature and be released at once.", "If more than one is fertilised, there are multiple births."),
+    ex("Give one advantage and one disadvantage of IVF.", 2,
+      "Advantage: allows infertile couples to have children.", "Disadvantage: expensive / low success rate / multiple births / ethical concerns about unused embryos.")
+  ]);
+  addTo("Plant hormones: auxin, gravitropism, phototropism", [
+    fill("Auxin is made in the [tip/tips] of shoots and roots."),
+    mc("In shoots, what effect does auxin have on cell elongation?", ["It increases it", "It decreases it", "No effect", "It stops photosynthesis"], "It increases it"),
+    mc("Which hormone is used as a selective weedkiller?", ["Auxin", "Ethene", "Insulin", "Gibberellin"], "Auxin"),
+    mc("How do rooting powders help cuttings?", ["They contain auxin to make roots grow", "They kill pathogens", "They contain glucose", "They make leaves grow"], "They contain auxin to make roots grow"),
+    ex("A student shines light on a seedling from one side but covers its tip with foil. The seedling grows straight up. Explain why.", 2,
+      "The tip detects light and makes auxin.", "With the tip covered, auxin isn't redistributed to the shaded side, so the shoot doesn't bend."),
+    ex("Explain why fruit is picked unripe and then ripened with ethene.", 2,
+      "Unripe fruit is firmer, so it is damaged less in transport.", "Ethene ripens it just before it is sold."),
+    ex("Explain how selective weedkillers can kill weeds in a lawn without killing the grass.", 2,
+      "They contain auxins that affect only broad-leaved plants.", "The weeds grow too fast and die; narrow-leaved grass isn't affected."),
+    ex("Explain why roots growing downwards is useful to a plant.", 2,
+      "Roots reach water and mineral ions in the soil.", "And anchor the plant.")
+  ]);
+
+  // ---------- 4.6 Inheritance, variation and evolution ----------
+  addTo("Sexual vs asexual reproduction: advantages", [
+    fill("Offspring made by asexual reproduction are [clones/clone/identical]."),
+    mc("Which of these reproduces asexually by budding?", ["Yeast", "Humans", "Birds", "Dogs"], "Yeast"),
+    mc("Which type of cell division is used in asexual reproduction?", ["Mitosis", "Meiosis", "Both", "Neither"], "Mitosis"),
+    mc("Which is an advantage of sexual reproduction?", ["Variation in offspring", "Only one parent needed", "Faster", "Identical offspring"], "Variation in offspring"),
+    ex("Fungi reproduce asexually by spores but can also reproduce sexually. Suggest when sexual reproduction would be most useful.", 2,
+      "When conditions change or become harsh.", "Variation increases the chance some offspring survive."),
+    ex("Many plants produce seeds sexually but also spread by bulbs or runners. Give one advantage of each.", 2,
+      "Seeds: variation, and they can be dispersed to new areas.", "Bulbs/runners: fast, no pollinator needed, offspring identical to a successful parent."),
+    ex("Humans can use selective breeding only with sexual reproduction. Explain why.", 2,
+      "Selective breeding combines characteristics from two parents.", "Asexual reproduction only produces copies of one parent."),
+    ex("A disease kills a whole field of genetically identical banana plants. Explain why this happened.", 2,
+      "The plants were clones (asexual), so had no genetic variation.", "None had resistance to the disease.")
+  ]);
+  addTo("Meiosis: stages and importance of variation", [
+    fill("Meiosis takes place in the [testes/ovaries/testes and ovaries/reproductive organs]."),
+    mc("Are the cells made by meiosis identical?", ["No, they are all genetically different", "Yes, all identical", "Only two are identical", "They are clones"], "No, they are all genetically different"),
+    mc("After fertilisation, what does the new cell do?", ["Divides by mitosis", "Divides by meiosis", "Stops dividing", "Becomes a gamete"], "Divides by mitosis"),
+    num("A cell with 46 chromosomes undergoes meiosis. How many chromosomes in total are in the four gametes made?", 92),
+    num("A fruit fly has 8 chromosomes in its body cells. How many in each gamete?", 4, 1),
+    ex("Describe what happens to the chromosomes during meiosis.", 3,
+      "The chromosomes are copied.", "The cell divides twice.", "Four gametes are formed, each with a single set of chromosomes."),
+    ex("Explain why brothers and sisters (not identical twins) are genetically different.", 2,
+      "Each gamete made by meiosis is genetically different.", "And fertilisation is random, so different combinations of alleles occur."),
+    ex("Explain why meiosis is important for sexual reproduction.", 2,
+      "It halves the chromosome number, so fertilisation restores the full number.", "It creates genetic variation.")
+  ]);
+  addTo("DNA structure and chromosome pairs (basic)", [
+    fill("Chromosomes are found in [pairs/pair] in body cells."),
+    mc("What shape is a DNA molecule?", ["A double helix", "A single straight line", "A ring", "A sheet"], "A double helix"),
+    mc("How many chromosomes are in a human body cell?", ["23", "46", "92", "44"], "46"),
+    mc("What does a gene code for?", ["A particular sequence of amino acids to make a protein", "A carbohydrate", "A fat", "A whole chromosome"], "A particular sequence of amino acids to make a protein"),
+    num("A human cell has 23 pairs of chromosomes. How many chromosomes are in 5 body cells altogether?", 230, 1),
+    ex("Scientists have sequenced the whole human genome. Give three uses of this knowledge.", 3,
+      "Searching for genes linked to different diseases.", "Understanding and treating inherited disorders.", "Tracing human migration patterns from the past."),
+    ex("Explain why each chromosome in a pair carries the same genes but may carry different alleles.", 2,
+      "One chromosome of each pair comes from each parent.", "The parents may have different versions (alleles) of each gene."),
+    ex("Explain why DNA is described as a polymer.", 2,
+      "It is a long molecule made of many repeating units.", "These units are nucleotides.")
+  ]);
+  addTo("DNA structure in detail (nucleotides) and protein synthesis", [
+    fill("In DNA, base C always pairs with base [G/guanine]."),
+    mc("Which bases are in DNA?", ["A, T, C and G", "A, B, C and D", "A, U, C and G only", "X and Y"], "A, T, C and G"),
+    mc("What holds the two strands of DNA together?", ["Complementary base pairs", "Sugars", "Phosphates", "Proteins"], "Complementary base pairs"),
+    mc("What do carrier molecules bring to the ribosome?", ["Amino acids", "Glucose", "DNA", "Bases"], "Amino acids"),
+    num("A section of DNA has 120 bases on one strand. How many amino acids could it code for?", 40, 1),
+    num("In a DNA sample, 30% of the bases are A. What percentage are T?", 30, 1),
+    ex("In a DNA sample, 20% of bases are C. Work out the percentage of A. Show your working.", 2,
+      "C = G = 20%, so C + G = 40%.", "A + T = 60%, so A = 30%."),
+    ex("Explain how a change in one base could change a protein's function.", 3,
+      "It may change the amino acid that is coded for.", "The protein may fold into a different shape.", "E.g. an enzyme's active site changes, so the substrate no longer fits.")
+  ]);
+  addTo("How mutations affect the protein made", [
+    fill("A mutation may change the [amino acid/amino acids] coded for."),
+    mc("A mutation stops an enzyme being made. What is the likely effect on a cell?", ["The reaction it controls doesn't happen", "The cell grows faster", "No effect", "The cell divides forever"], "The reaction it controls doesn't happen"),
+    mc("Mutations in which part of DNA can change how much protein is made?", ["Non-coding parts that switch genes on and off", "Only the sugar", "Only the phosphate", "None"], "Non-coding parts that switch genes on and off"),
+    mc("How often do mutations happen?", ["Continuously", "Never", "Only in old age", "Only in bacteria"], "Continuously"),
+    ex("Cystic fibrosis is caused by a mutation that changes one protein in cell membranes. Explain why this causes thick mucus.", 2,
+      "The membrane protein no longer works properly (wrong shape).", "So the balance of ions and water across membranes is affected, making mucus thick and sticky."),
+    ex("Explain why most mutations don't change the protein.", 2,
+      "Many happen in non-coding DNA.", "Or they code for the same amino acid / don't change its shape much."),
+    ex("A mutation makes a bacterium resistant to an antibiotic. Suggest how a change in a protein could do this.", 2,
+      "The changed protein could break down the antibiotic.", "Or change the target so the antibiotic no longer binds."),
+    ex("Explain why a mutation in an enzyme's active site is more likely to affect its function than one elsewhere.", 2,
+      "The active site must match the substrate's shape.", "Small changes there stop the substrate fitting.")
+  ]);
+  addTo("Genes, alleles: dominant and recessive", [
+    fill("An organism with two identical alleles for a gene is [homozygous]."),
+    mc("What is a genotype?", ["The combination of alleles", "The physical feature", "A type of cell", "A protein"], "The combination of alleles"),
+    mc("Which genotype has a recessive phenotype?", ["AA", "Aa", "aa", "aA"], "aa"),
+    mc("Which is a characteristic controlled by a single gene?", ["Red-green colour blindness", "Height", "Intelligence", "Body mass"], "Red-green colour blindness"),
+    ex("Use the terms 'genotype' and 'phenotype' to describe a heterozygous person with brown eyes (B is dominant).", 2,
+      "The genotype is Bb.", "The phenotype is brown eyes."),
+    ex("Explain why a person can carry an allele without showing its effect.", 2,
+      "The allele is recessive.", "It is hidden by the dominant allele in a heterozygous person."),
+    ex("Two short pea plants (tt) are crossed. Explain why all their offspring are short.", 2,
+      "Both parents can only pass on t.", "So all offspring are tt and short."),
+    ex("Gregor Mendel's work was not recognised until after his death. Suggest why.", 2,
+      "Genes and chromosomes had not yet been discovered.", "So scientists couldn't explain how his 'hereditary units' worked.")
+  ]);
+  addTo("Punnett squares and probability of inheritance", [
+    fill("A ratio of 3 : 1 is expected from a cross between two [heterozygous] parents."),
+    mc("Two parents Gg × gg. What ratio of offspring is expected?", ["3 : 1", "1 : 1", "All dominant", "All recessive"], "1 : 1"),
+    mc("What is the probability of a child being homozygous dominant from Aa × Aa?", ["0%", "25%", "50%", "75%"], "25%"),
+    num("A cross Tt × Tt gives 240 seeds. How many are expected to be tall?", 180),
+    num("A cross Rr × rr gives 60 offspring. How many are expected to be Rr?", 30),
+    num("Two carriers of a recessive disorder have a child. Work out the percentage chance the child is a carrier.", 50, 1),
+    ex("A cat breeder crosses two black cats. One kitten is white. What can you say about the parents' genotypes? Explain.", 2,
+      "Both parents are heterozygous (Bb).", "The white kitten is bb, so each parent must have passed on b."),
+    ex("Explain why a family tree can be used to work out genotypes.", 2,
+      "It shows which members have the phenotype across generations.", "Patterns (e.g. unaffected parents with affected children) reveal recessive alleles.")
+  ]);
+  addTo("Constructing Punnett squares from scratch", [
+    num("In a Punnett square for Hh × Hh, how many squares contain hh?", 1, 1),
+    num("In a cross Ee × ee, what fraction of offspring are ee? Give as a percentage.", 50, 1),
+    num("A cross BB × Bb gives 100 offspring. How many are expected to be BB?", 50),
+    mc("A cross gives all offspring Gg. What were the parents?", ["GG × gg", "Gg × Gg", "Gg × gg", "gg × gg"], "GG × gg"),
+    ex("Purple flowers (P) are dominant to white (p). Draw a Punnett square for Pp × Pp and state the ratio of purple to white.", 3,
+      "Gametes P and p from each parent.", "Offspring PP, Pp, Pp, pp.", "Ratio 3 purple : 1 white."),
+    ex("A man with polydactyly (Dd) has children with a woman without (dd). Draw a Punnett square and give the probability of a child having polydactyly.", 3,
+      "Gametes D, d and d, d.", "Offspring Dd, Dd, dd, dd.", "Probability 1/2 (50%)."),
+    ex("A Punnett square predicts 50% of offspring will be white, but a litter of 4 has none. Explain why this can happen.", 2,
+      "Each fertilisation is random.", "With small numbers, results often differ from predicted ratios."),
+    ex("Explain why the gametes are written on the outside of a Punnett square.", 2,
+      "Each gamete carries one allele of the gene.", "The inside shows the combinations that fertilisation can produce.")
+  ]);
+  addTo("Inherited disorders: cystic fibrosis, polydactyly", [
+    fill("Cystic fibrosis is caused by a [recessive] allele."),
+    mc("Two carriers of cystic fibrosis have a child. What is the chance the child has cystic fibrosis?", ["0%", "25%", "50%", "100%"], "25%"),
+    mc("Which test checks embryos for inherited disorders during IVF?", ["Embryo screening", "Biuret test", "A Punnett square", "Blood glucose test"], "Embryo screening"),
+    mc("What is the genotype of a person with cystic fibrosis?", ["Ff", "FF", "ff", "fF"], "ff"),
+    num("A couple are both carriers of cystic fibrosis. They have 4 children. How many would you expect to have cystic fibrosis?", 1, 1),
+    ex("A couple with a family history of cystic fibrosis want to have children. Explain how genetic testing could help them.", 2,
+      "Tests can show whether each is a carrier.", "So they can know the chance of having an affected child and make decisions."),
+    ex("Give two economic or social issues linked with embryo screening.", 2,
+      "Screening is expensive; but treating disorders is also costly.", "Some worry it could lead to choosing embryos for other features (designer babies)."),
+    ex("Polydactyly can be removed by surgery. Explain why it is still passed on to children.", 2,
+      "Surgery doesn't change the person's DNA.", "The dominant allele is still in their gametes.")
+  ]);
+
+  addTo("Sex determination: X and Y chromosomes", [
+    fill("A female has the sex chromosomes [XX/X and X]."),
+    mc("How many pairs of chromosomes in humans control sex?", ["1", "2", "22", "23"], "1"),
+    mc("What fraction of sperm cells carry a Y chromosome?", ["None", "About half", "All", "A quarter"], "About half"),
+    mc("Which sex chromosomes does a boy inherit from his father?", ["Y", "X", "XX", "XY"], "Y"),
+    num("Out of 1000 babies born, how many would you expect to be boys?", 500, 1),
+    ex("A man says his wife is responsible for them only having daughters. Explain why he is wrong.", 2,
+      "The egg always carries an X chromosome.", "The sperm decides the sex: X sperm gives a girl, Y sperm a boy."),
+    ex("Explain why a hospital might record slightly more than 50% boys one year.", 2,
+      "Sex is decided randomly at fertilisation.", "So actual numbers vary around 50%."),
+    ex("Human body cells have 22 pairs of chromosomes that are not sex chromosomes. How many chromosomes in total are in a sperm cell, and which sex chromosome could it carry?", 2,
+      "23 chromosomes (22 + 1 sex chromosome).", "Either X or Y.")
+  ]);
+  addTo("Variation: genetic, environmental, combination", [
+    fill("Variation caused by the genes an organism inherits is [genetic/inherited] variation."),
+    mc("Which of these is caused only by the environment?", ["A pierced ear", "Natural eye colour", "Blood group", "Gender"], "A pierced ear"),
+    mc("Plants of the same type grow taller in a sunny spot. What kind of variation is this?", ["Environmental", "Genetic", "Neither", "Mutation"], "Environmental"),
+    mc("What creates new variation in a population?", ["Mutations", "Only the environment", "Cloning", "Asexual reproduction"], "Mutations"),
+    ex("A student wants to show that height in pea plants is affected by both genes and environment. Describe what she could do.", 3,
+      "Grow plants from the same parent (similar genes) in different conditions, e.g. light.", "Grow plants from different parents in the same conditions.", "Compare the heights in each group."),
+    ex("Explain why identical twins are useful for studying variation.", 2,
+      "They have the same genes.", "So any differences between them must be caused by the environment."),
+    ex("Explain why a person's weight shows continuous variation.", 2,
+      "It can take any value in a range.", "Because it is affected by many genes and the environment."),
+    ex("Explain why genetic variation is important for natural selection.", 2,
+      "Individuals differ in characteristics.", "Those best suited survive and pass on their alleles; without variation, no selection can happen.")
+  ]);
+  addTo("Mutations: causes and effects (basic)", [
+    fill("Some mutations can be harmful, some [beneficial/useful/helpful], and most have no effect."),
+    mc("Which of these is most likely to cause a mutation?", ["Exposure to X-rays", "Eating vegetables", "Sleeping", "Drinking water"], "Exposure to X-rays"),
+    mc("A mutation happens in a gamete. What could happen?", ["It could be passed to the offspring", "It disappears", "It always causes cancer", "Nothing ever"], "It could be passed to the offspring"),
+    mc("Which chemical in cigarette smoke can cause mutations?", ["Tar (carcinogens)", "Oxygen", "Water", "Nitrogen"], "Tar (carcinogens)"),
+    ex("A mutation gives a hare whiter fur in winter. Explain how this could spread through the population.", 3,
+      "Whiter hares are better camouflaged in snow.", "So they are less likely to be eaten, and survive to reproduce.", "They pass on the allele, so it becomes more common."),
+    ex("Explain why people working with radioactive materials wear radiation badges.", 2,
+      "Ionising radiation causes mutations.", "The badge shows how much radiation they have been exposed to, so it can be limited."),
+    ex("Explain how a mutation can cause cancer.", 2,
+      "It can affect genes that control cell division.", "The cell divides uncontrollably, forming a tumour."),
+    ex("Suggest why mutations happen more often in cells that divide frequently.", 2,
+      "DNA is copied each time a cell divides.", "Each copy is a chance for errors.")
+  ]);
+  addTo("Natural selection and evolution", [
+    fill("Darwin wrote the book 'On the Origin of [Species]'."),
+    mc("Which is the first step in natural selection?", ["Variation within a population", "Extinction", "Speciation", "Death of all individuals"], "Variation within a population"),
+    mc("What is speciation?", ["The formation of a new species", "Extinction", "Cloning", "Selective breeding"], "The formation of a new species"),
+    mc("Which can lead to two populations becoming separate species?", ["Being isolated so they can't interbreed", "Living together", "Eating the same food", "Being the same size"], "Being isolated so they can't interbreed"),
+    ex("Bacteria in a patient become resistant to an antibiotic. Use natural selection to explain how.", 4,
+      "A mutation makes some bacteria resistant.", "The antibiotic kills non-resistant bacteria.", "Resistant bacteria survive and reproduce.", "So the population becomes mostly resistant."),
+    ex("A population of birds is split by a mountain range. Over time, the two groups become different species. Explain how.", 3,
+      "The groups can't interbreed.", "Different conditions select for different characteristics (natural selection).", "Over a long time they become so different they can no longer interbreed to produce fertile offspring."),
+    ex("Explain why some species become extinct.", 2,
+      "The environment changes faster than they can adapt (or a new predator, disease, competitor).", "So they can't survive and reproduce."),
+    ex("Explain the difference between natural selection and selective breeding.", 2,
+      "In natural selection, the environment decides which individuals survive.", "In selective breeding, humans choose which individuals breed.")
+  ]);
+  addTo("Evidence for evolution: fossils, antibiotic resistance", [
+    fill("Fossils can show how much or how little organisms have [changed/evolved] over time."),
+    mc("Why is it hard to find out how life began on Earth?", ["Early organisms were soft-bodied and left few traces", "Life began recently", "All fossils are perfect", "Rocks don't form"], "Early organisms were soft-bodied and left few traces"),
+    mc("Which kind of fossil is a footprint?", ["Trace fossil", "Mineral replacement", "Preserved in amber", "Ice fossil"], "Trace fossil"),
+    mc("Which of these conditions can stop organisms decaying, so they form fossils?", ["Lack of oxygen or very cold conditions", "Warm, wet conditions", "Lots of oxygen", "Being in the sun"], "Lack of oxygen or very cold conditions"),
+    ex("A mammoth was found preserved in ice. Explain why it had not decayed.", 2,
+      "Decay needs microorganisms.", "It was too cold for them to grow and break down the body."),
+    ex("Explain how studying the fossils of horses shows evolution.", 2,
+      "Older fossils show smaller animals with several toes.", "Newer fossils show gradual changes to larger animals with one hoof."),
+    ex("Scientists can now compare DNA from different species. Explain how this supports evolution.", 2,
+      "Closely related species have more similar DNA.", "This matches relationships shown by fossils, showing common ancestors."),
+    ex("Explain why the evolution of antibiotic resistance worries doctors.", 2,
+      "Infections become harder or impossible to treat.", "New antibiotics are slow and expensive to develop.")
+  ]);
+  addTo("Selective breeding: process and examples", [
+    fill("Humans have used selective breeding for thousands of years to produce food crops from wild [plants/plant]."),
+    mc("Which feature might dog breeders select for?", ["Gentle nature", "Antibiotic resistance", "Disease", "Short life"], "Gentle nature"),
+    mc("Which crop feature might be selected to help farmers?", ["Large or tasty fruit", "Small yield", "No resistance to disease", "Thin stems"], "Large or tasty fruit"),
+    mc("Which is the main difference between selective breeding and genetic engineering?", ["Genetic engineering moves genes directly; selective breeding uses breeding over generations", "There is no difference", "Selective breeding is faster", "Genetic engineering needs two parents"], "Genetic engineering moves genes directly; selective breeding uses breeding over generations"),
+    ex("Explain why selective breeding takes a long time.", 2,
+      "It needs many generations.", "Each generation takes time to grow and reproduce."),
+    ex("Wild cabbage was bred into broccoli, cauliflower and kale. Explain how.", 2,
+      "Farmers chose plants with features they wanted (e.g. large flower heads, large leaves).", "They bred them over many generations, producing different varieties."),
+    ex("A farmer selectively breeds sheep for thick wool. After many generations all her sheep are very similar. Give one problem this could cause.", 2,
+      "Reduced variation / inbreeding.", "A new disease could affect all of them, or inherited defects may appear."),
+    ex("Give one advantage of selective breeding for animal welfare and one disadvantage.", 2,
+      "Advantage: animals with disease resistance or gentle nature.", "Disadvantage: some breeds suffer health problems, e.g. breathing problems in flat-faced dogs.")
+  ]);
+  addTo("Genetic engineering: what it is, GM crops, insulin", [
+    fill("Organisms that have had a gene from another organism inserted are [genetically modified/GM/genetically engineered/transgenic]."),
+    mc("Which product is made by GM bacteria and used to treat diabetes?", ["Insulin", "Glucagon", "Penicillin", "Aspirin"], "Insulin"),
+    mc("Why are some GM crops made resistant to herbicides?", ["So farmers can kill weeds without killing the crop", "So they grow without water", "To make insulin", "To make them taste better"], "So farmers can kill weeds without killing the crop"),
+    mc("Which is a concern about GM food?", ["The long-term effects of eating it are not fully known", "It contains no nutrients", "It can't be grown", "It causes diabetes"], "The long-term effects of eating it are not fully known"),
+    ex("Give two arguments for and two against growing GM crops.", 4,
+      "For: higher yields.", "For: less pesticide needed / added nutrients.", "Against: genes could spread to wild plants.", "Against: effects on insects and wildflowers / long-term health effects unknown."),
+    ex("Explain why GM crops could help feed a growing world population.", 2,
+      "They can give higher yields.", "Or grow in difficult conditions (e.g. drought), producing more food."),
+    ex("Explain how gene therapy could treat an inherited disorder.", 2,
+      "A working copy of the gene is inserted into the patient's cells.", "So the cells make the correct protein."),
+    ex("Suggest why some people worry about genetically modifying animals.", 2,
+      "Ethical concerns about changing animals' genes.", "Possible effects on the animal's health or welfare.")
+  ]);
+  addTo("The steps of genetic engineering (enzymes, vectors)", [
+    fill("The gene is cut from the DNA using [restriction enzymes/restriction enzyme/enzymes]."),
+    mc("Which of these is used as a vector?", ["A plasmid", "A ribosome", "A chloroplast", "A red blood cell"], "A plasmid"),
+    mc("What does ligase do?", ["Joins DNA together", "Cuts DNA", "Digests fat", "Copies proteins"], "Joins DNA together"),
+    mc("After the plasmid is put into bacteria, what happens?", ["The bacteria multiply and make the protein", "The bacteria die", "The gene is removed", "The bacteria become plants"], "The bacteria multiply and make the protein"),
+    ex("Scientists check which bacteria have taken up the plasmid by adding an antibiotic resistance gene to it. Explain how this works.", 2,
+      "Bacteria are grown on agar with the antibiotic.", "Only those with the plasmid (and the resistance gene) survive."),
+    ex("Explain why a virus can be used as a vector.", 2,
+      "Viruses insert their genetic material into cells.", "So they can carry the useful gene into the target cell."),
+    ex("Explain why the same restriction enzyme must cut both the gene and the plasmid.", 2,
+      "It cuts at the same base sequence.", "Leaving complementary sticky ends that can join."),
+    ex("Describe how a crop plant could be genetically engineered to be resistant to insects.", 3,
+      "Cut the resistance gene from a bacterium using restriction enzymes.", "Insert it into a vector and put it into plant cells at an early stage.", "Grow the cells into plants; all their cells contain the gene.")
+  ]);
+  addTo("Classification: kingdoms, phylogenetic trees", [
+    fill("Organisms are named using the [binomial] system."),
+    mc("Which is the correct order from largest group to smallest?", ["Kingdom, phylum, class, order, family, genus, species", "Species, genus, family, order, class, phylum, kingdom", "Kingdom, class, phylum, order, genus, family, species", "Phylum, kingdom, class, order, family, species, genus"], "Kingdom, phylum, class, order, family, genus, species"),
+    mc("Which domain includes plants, animals, fungi and protists?", ["Eukaryota", "Bacteria", "Archaea", "Prokaryota"], "Eukaryota"),
+    mc("Which group contains primitive bacteria often found in extreme environments?", ["Archaea", "Eukaryota", "Fungi", "Plants"], "Archaea"),
+    ex("Two species are in the same genus. What does this tell you about them?", 2,
+      "They are closely related.", "They share many characteristics and a recent common ancestor."),
+    ex("Explain what an evolutionary (phylogenetic) tree shows.", 2,
+      "How closely related organisms are.", "And their common ancestors, using fossil and DNA evidence."),
+    ex("Explain why Carl Woese proposed a three-domain system.", 2,
+      "Chemical analysis showed some organisms thought to be bacteria were very different.", "So they were put in a separate domain, the Archaea."),
+    ex("A lion's binomial name is Panthera leo and a tiger's is Panthera tigris. What does this tell you?", 2,
+      "They are in the same genus, Panthera.", "So they are closely related but separate species.")
+  ]);
+
+  // ---------- 4.7 Ecology ----------
+  addTo("Ecosystems: habitats, populations, communities", [
+    fill("The place where an organism lives is its [habitat]."),
+    mc("What is the interaction of a community with the non-living parts of its environment called?", ["An ecosystem", "A population", "A habitat", "A species"], "An ecosystem"),
+    mc("Which is an example of a population?", ["All the oak trees in a wood", "All the animals in a wood", "A wood", "The soil in a wood"], "All the oak trees in a wood"),
+    mc("Plants in a garden compete for which resource?", ["Light", "Mates", "Territory", "Prey"], "Light"),
+    num("A pond has 150 frogs in an area of 30 m². Work out the population density in frogs per m².", 5, 1),
+    ex("Mistletoe grows on trees and takes water and nutrients from them. Birds eat mistletoe berries and spread its seeds. Describe the interdependence in this example.", 2,
+      "Mistletoe depends on the tree for water and nutrients.", "Mistletoe depends on birds for seed dispersal; birds depend on it for food."),
+    ex("Explain why removing one species from a food web can affect a whole community.", 2,
+      "Species are interdependent.", "The loss affects its predators (less food) and its prey (fewer eaten), and so on."),
+    ex("Explain why a garden pond can be studied as an ecosystem.", 2,
+      "It has a community of different species.", "Interacting with non-living factors such as water, light and temperature.")
+  ]);
+  addTo("Abiotic factors: temperature, light, pH, moisture", [
+    fill("Light [intensity] affects how fast plants can photosynthesise."),
+    mc("Which abiotic factor is measured with a light meter?", ["Light intensity", "Temperature", "pH", "Moisture"], "Light intensity"),
+    mc("Which abiotic factor would most affect plants on a windy hilltop?", ["Wind intensity", "Number of predators", "Disease", "Competition"], "Wind intensity"),
+    mc("Which abiotic factor affects how much oxygen dissolves in water?", ["Temperature", "Number of fish", "Pathogens", "Food"], "Temperature"),
+    num("A light meter reads 800 lux in an open field and 200 lux under trees. Work out the percentage decrease.", 75),
+    ex("Moss grows mainly on the north side of trees in the UK. Suggest two abiotic factors that explain this.", 2,
+      "Less light on the north side, so it stays shaded.", "More moisture (it stays damp)."),
+    ex("Suggest why few plants grow in very acidic soil.", 2,
+      "Soil pH affects enzymes and mineral uptake.", "Most plants are not adapted to low pH."),
+    ex("Explain how an increase in temperature could change the distribution of a plant species.", 2,
+      "The plant may no longer survive in areas that become too hot or dry.", "It may spread to cooler areas, e.g. further north or higher up.")
+  ]);
+  addTo("Biotic factors: predation, competition, disease", [
+    fill("Organisms of the same species compete for [mates/mate/food/territory]."),
+    mc("Which is an example of a new predator affecting a community?", ["Mink escaping from fur farms and eating water voles", "A drought", "A cold winter", "Low soil pH"], "Mink escaping from fur farms and eating water voles"),
+    mc("Ash dieback is a fungal disease. What kind of factor is it?", ["Biotic", "Abiotic", "Neither", "Both"], "Biotic"),
+    mc("What happens if food availability decreases?", ["Competition increases", "Populations grow", "Disease disappears", "Predators increase"], "Competition increases"),
+    ex("A fungus kills many ash trees in a woodland. Suggest two effects on other organisms.", 2,
+      "Animals that feed or live on ash trees lose food and shelter.", "More light reaches the ground, so other plants can grow."),
+    ex("Explain why introducing a new species to an area can harm native species.", 2,
+      "The new species may outcompete natives for food or space.", "Or eat them or bring new diseases, as there are no natural controls."),
+    ex("Explain why plants of the same species compete with each other more strongly than with other species.", 2,
+      "They need exactly the same resources.", "At the same time and in the same place."),
+    ex("Give two biotic factors that could cause a population of rabbits to fall.", 2,
+      "More predators (foxes).", "Disease (myxomatosis) / less food / competition.")
+  ]);
+  addTo("Adaptations: structural, behavioural, functional", [
+    fill("Adaptations help organisms [survive] in the conditions where they normally live."),
+    mc("Which is a structural adaptation of a desert plant?", ["Deep or widespread roots", "Opening stomata at night", "Migration", "Hibernation"], "Deep or widespread roots"),
+    mc("Which adaptation helps polar bears keep warm?", ["Thick layer of fat", "Large ears", "Thin fur", "Long legs"], "Thick layer of fat"),
+    mc("What is hibernation?", ["A behavioural adaptation: sleeping through winter", "A structural adaptation", "A type of mutation", "A functional adaptation of plants"], "A behavioural adaptation: sleeping through winter"),
+    ex("Penguins huddle together in winter. Explain how this helps them survive.", 2,
+      "It reduces their exposed surface area.", "So less heat is lost to the cold air."),
+    ex("Some desert plants open their stomata only at night. Explain why.", 2,
+      "Nights are cooler and more humid.", "So less water is lost by transpiration."),
+    ex("Explain how a cheetah is adapted to catch its prey.", 2,
+      "Long legs and flexible spine for speed.", "Camouflaged coat / eyes facing forwards to judge distance."),
+    ex("Explain why some extremophiles are adapted to high salt concentrations.", 2,
+      "They live in very salty environments (e.g. salt lakes).", "Their cells are adapted so water doesn't leave them by osmosis.")
+  ]);
+  addTo("Food chains and food webs", [
+    fill("Producers are usually green plants or [algae/alga]."),
+    mc("In grass → grasshopper → frog → snake, which is the secondary consumer?", ["Frog", "Grasshopper", "Snake", "Grass"], "Frog"),
+    mc("Which is the apex predator in seaweed → limpet → crab → seagull?", ["Seagull", "Crab", "Limpet", "Seaweed"], "Seagull"),
+    mc("What do producers use to make glucose?", ["Light energy (photosynthesis)", "Other organisms", "Decomposers", "Respiration only"], "Light energy (photosynthesis)"),
+    num("A food chain has 4 trophic levels. How many consumers are there?", 3, 1),
+    ex("Explain why a food chain must start with a producer.", 2,
+      "Producers make their own food using light energy.", "All other organisms get their biomass from producers, directly or indirectly."),
+    ex("In a food web, a pesticide kills all the caterpillars. Predict two effects.", 2,
+      "Birds that eat caterpillars have less food and may decrease.", "Plants that caterpillars eat may grow more."),
+    ex("Explain why the number of top predators in a food chain is usually small.", 2,
+      "Energy (biomass) is lost at each level.", "So little is left to support many top predators.")
+  ]);
+  addTo("Predator-prey relationships and population cycles", [
+    fill("In a stable community, predator and prey numbers go up and down in [cycles/cycle]."),
+    mc("Which population usually changes first in a predator-prey graph?", ["The prey", "The predator", "Both at once", "Neither"], "The prey"),
+    mc("What is likely to happen to a prey population if a disease kills most of its predators?", ["It increases", "It decreases", "It stays the same", "It becomes extinct"], "It increases"),
+    num("A hare population rises from 2000 to 5000. Work out the percentage increase.", 150),
+    num("A lynx population falls from 80 to 20. Work out the percentage decrease.", 75),
+    ex("A graph shows hares and lynx over 30 years. Lynx numbers peak about 2 years after hares. Explain this lag.", 2,
+      "Lynx need time to reproduce and raise young after food increases.", "So their numbers rise after the hare population has risen."),
+    ex("Suggest one reason, other than predation, for a fall in prey numbers.", 2,
+      "Lack of food (the prey has eaten too much of its food).", "Disease / harsh weather."),
+    ex("Explain why predator-prey cycles might stop if humans hunt the predator.", 2,
+      "Predator numbers would stay low.", "So prey numbers rise and are limited by food or disease instead.")
+  ]);
+  addTo("Required practical: sampling using quadrats and transects", [
+    fill("A square frame used to sample organisms is a [quadrat]."),
+    num("A field is 40 m by 25 m. A mean of 6 dandelions is found per 1 m² quadrat. Estimate the number of dandelions in the field.", 6000),
+    num("In 10 quadrats, a plant was found in 7. Work out its frequency as a percentage.", 70),
+    num("Quadrats of 0.5 m × 0.5 m have a mean of 2 plants each. Estimate the number of plants per m².", 8),
+    mc("Why is a transect used instead of random quadrats on a seashore?", ["To see how organisms change across the shore", "Because it is faster", "To avoid bias only", "To count animals that move"], "To see how organisms change across the shore"),
+    ex("Describe how to estimate the percentage cover of grass in a quadrat.", 2,
+      "Divide the quadrat into a grid of squares (e.g. 100).", "Count squares more than half covered by grass and work out the percentage."),
+    ex("A student finds more plantains near a footpath than further away. Suggest one abiotic and one biotic reason.", 2,
+      "Abiotic: soil is trampled and compacted / more light.", "Biotic: less competition from taller plants that can't survive trampling."),
+    ex("Explain why the median may be better than the mean for some quadrat data.", 2,
+      "Quadrat counts can have extreme values.", "The median is less affected by outliers.")
+  ]);
+  addTo("Carbon cycle", [
+    fill("Carbon is stored in the remains of dead organisms as [fossil fuels/fossil fuel/coal/oil]."),
+    mc("Which process removes carbon dioxide from the air?", ["Photosynthesis", "Respiration", "Combustion", "Decay"], "Photosynthesis"),
+    mc("What do decomposers release when they respire?", ["Carbon dioxide", "Oxygen", "Nitrogen", "Glucose"], "Carbon dioxide"),
+    mc("Which part of a plant stores carbon taken in during photosynthesis?", ["Carbohydrates, proteins and fats in its tissues", "Only the roots", "The stomata", "None"], "Carbohydrates, proteins and fats in its tissues"),
+    ex("Explain why carbon dioxide levels in the air are lower in summer than in winter (in the northern hemisphere).", 2,
+      "More photosynthesis happens in summer (more light, leaves on trees).", "So more carbon dioxide is taken out of the air."),
+    ex("Describe how carbon in a rabbit's body could end up in a plant.", 3,
+      "The rabbit respires, releasing CO₂ (or dies and is decomposed).", "Decomposers respire and release CO₂ into the air.", "The plant takes in the CO₂ for photosynthesis."),
+    ex("Explain why burning fossil fuels upsets the balance of the carbon cycle.", 2,
+      "Carbon stored for millions of years is released quickly as CO₂.", "Faster than photosynthesis can remove it, so CO₂ levels rise."),
+    ex("Explain the role of microorganisms in the carbon cycle.", 2,
+      "They decompose dead organisms and waste.", "Respiring and releasing carbon dioxide back into the air.")
+  ]);
+
+  addTo("Water cycle", [
+    fill("Liquid water turns into water vapour by [evaporation]."),
+    mc("Which process returns water from animals to the air?", ["Breathing out and sweating", "Photosynthesis", "Condensation", "Precipitation"], "Breathing out and sweating"),
+    mc("What is the main source of energy for the water cycle?", ["The Sun", "The Moon", "Plants", "Decomposers"], "The Sun"),
+    mc("How does water move from the soil into a plant?", ["Through the roots by osmosis", "Through the stomata", "By active transport only", "By diffusion through leaves"], "Through the roots by osmosis"),
+    ex("Explain why the water cycle is described as a cycle.", 2,
+      "Water moves between the sea, air, land and living things.", "And returns to where it started, so it is constantly recycled."),
+    ex("Describe the part played by plants in the water cycle.", 2,
+      "Plants take up water from the soil through their roots.", "Water evaporates from leaves (transpiration), returning water vapour to the air."),
+    ex("A town gets its drinking water from a reservoir. Explain why a hot, dry summer can make the reservoir level fall.", 2,
+      "Less precipitation refills the reservoir.", "More water evaporates in the heat."),
+    ex("Explain why precipitation often happens over mountains.", 2,
+      "Air rises over the mountains and cools.", "Water vapour condenses into clouds and falls as rain or snow.")
+  ]);
+  addTo("Nitrogen cycle: decomposers, nitrifying bacteria", [
+    fill("Bacteria that convert nitrates back into nitrogen gas are [denitrifying] bacteria."),
+    mc("What do decomposers turn proteins in dead organisms into?", ["Ammonia (ammonium compounds)", "Nitrates directly", "Nitrogen gas", "Glucose"], "Ammonia (ammonium compounds)"),
+    mc("Which natural event can fix nitrogen from the air?", ["Lightning", "Rain", "Wind", "Earthquakes"], "Lightning"),
+    mc("Why do farmers add manure or fertilisers to fields?", ["To replace nitrates used by crops", "To kill weeds", "To add oxygen", "To make the soil acidic"], "To replace nitrates used by crops"),
+    ex("Explain why ploughing a field (which adds air to the soil) can increase nitrates.", 2,
+      "Nitrifying bacteria need oxygen.", "More oxygen means more ammonia is converted to nitrates."),
+    ex("Explain why legumes such as clover can grow well in soil with few nitrates.", 2,
+      "They have nitrogen-fixing bacteria in their root nodules.", "These turn nitrogen from the air into nitrogen compounds the plant can use."),
+    ex("Explain why animals need nitrogen.", 2,
+      "Nitrogen is needed to make amino acids and proteins.", "Animals get it by eating plants or other animals."),
+    ex("Too much fertiliser washed into a river can cause algae to grow quickly. Suggest why.", 2,
+      "Fertiliser adds nitrates to the water.", "Algae use nitrates to make proteins and grow.")
+  ]);
+  addTo("How environmental change affects where species are found", [
+    fill("Changes in the distribution of species can be caused by [seasonal/seasons], geographic or human changes."),
+    mc("Which is a geographic change that affects distribution?", ["Soil structure or the height of the land", "Winter", "Pollution from a factory", "Building a road"], "Soil structure or the height of the land"),
+    mc("Which is a likely result of warmer sea temperatures?", ["Some fish moving to cooler waters", "All fish dying instantly", "More ice", "Fewer storms"], "Some fish moving to cooler waters"),
+    mc("Mosquitoes that carry malaria are spreading into new areas. What is the most likely cause?", ["A warmer climate", "More vaccines", "Colder winters", "Fewer people"], "A warmer climate"),
+    ex("A species of alpine plant is found only higher and higher up mountains over 50 years. Suggest why.", 2,
+      "The climate has warmed.", "Lower areas are now too warm for it, so it only survives in cooler places higher up."),
+    ex("Explain how a change in rainfall could affect where a species of frog is found.", 2,
+      "Frogs need water to breed and stay moist.", "Less rainfall dries up ponds, so frogs move or die out there."),
+    ex("Give one way humans can change where species are found and explain it.", 2,
+      "E.g. building on land / pollution / introducing species.", "This destroys or changes habitats, so species move or die out."),
+    ex("Explain why scientists use data from many years, rather than one year, to show a species' range is changing.", 2,
+      "Weather varies from year to year.", "Long-term data shows a real trend rather than a one-off change.")
+  ]);
+  addTo("Biodiversity: importance and preservation", [
+    fill("Planting hedgerows provides [habitats/habitat/shelter] for many species."),
+    mc("What has reduced biodiversity the most?", ["Human activity", "Volcanoes", "Seasons", "Rain"], "Human activity"),
+    mc("Which is a way to protect rare habitats?", ["Making them nature reserves", "Building houses", "Draining wetlands", "Cutting down trees"], "Making them nature reserves"),
+    mc("Why do scientists keep seeds in seed banks?", ["To protect plant species from extinction", "To sell them", "To make biogas", "To feed animals"], "To protect plant species from extinction"),
+    ex("A farmer leaves wide strips of wild flowers around her fields. Explain how this increases biodiversity.", 2,
+      "Wild flowers provide food (nectar) and habitats.", "So more species of insects and other animals live there."),
+    ex("Explain why rainforests have very high biodiversity.", 2,
+      "Warm, wet conditions allow fast growth all year.", "Many different habitats and food sources support many species."),
+    ex("Explain how reducing carbon dioxide emissions helps protect biodiversity.", 2,
+      "It slows global warming.", "So fewer habitats are lost and fewer species are forced to move or become extinct."),
+    ex("Give one reason why it can be difficult to protect biodiversity.", 2,
+      "Conflict with human needs for land, food and jobs.", "Conservation can be expensive.")
+  ]);
+  addTo("Human impact: deforestation, global warming, land use", [
+    fill("Gases such as carbon dioxide and methane that trap heat are [greenhouse] gases."),
+    mc("Which gas is released by cattle and rice fields?", ["Methane", "Oxygen", "Hydrogen", "Argon"], "Methane"),
+    mc("Why does deforestation increase carbon dioxide in the air?", ["Trees are burned and fewer trees photosynthesise", "Trees release oxygen", "Soil absorbs CO₂", "Animals breathe less"], "Trees are burned and fewer trees photosynthesise"),
+    mc("Which is a source of water pollution?", ["Sewage and fertilisers", "Hedgerows", "Recycling", "Planting trees"], "Sewage and fertilisers"),
+    num("A country loses 3% of its 50 000 km² of forest each year. How many km² is lost in one year?", 1500),
+    ex("Explain how deforestation to grow crops for biofuels can still contribute to global warming.", 2,
+      "Burning the forest releases carbon dioxide.", "Fewer trees remove CO₂ by photosynthesis."),
+    ex("Explain why peat-free compost is better for the environment.", 2,
+      "Peat bogs are a store of carbon and a habitat for rare species.", "Using peat-free compost means bogs aren't destroyed and CO₂ isn't released."),
+    ex("Explain how sewage or fertiliser getting into a lake can kill fish.", 3,
+      "Algae grow rapidly and block light, so plants below die.", "Bacteria decompose the dead plants and use up oxygen.", "Fish die from lack of oxygen.")
+  ]);
+  addTo("Pollution indicators: lichen, invertebrates", [
+    fill("Lichens that grow on trees are a good indicator of [air] pollution."),
+    mc("Which of these indicates very clean air?", ["Lots of bushy lichens", "No lichens", "Only crusty lichens", "Lots of sludgeworms"], "Lots of bushy lichens"),
+    mc("Which invertebrate can survive in water with very little oxygen?", ["Sludgeworm", "Stonefly larva", "Mayfly larva", "Freshwater shrimp"], "Sludgeworm"),
+    mc("What does an oxygen meter measure in a river?", ["Dissolved oxygen", "pH only", "Temperature only", "Water flow"], "Dissolved oxygen"),
+    num("At site A, 45 of 50 invertebrates were stonefly larvae. Work out the percentage.", 90),
+    ex("A student samples a river above and below a sewage pipe. Above: many mayfly larvae. Below: mostly sludgeworms. Explain the results.", 3,
+      "Above the pipe the water is clean, with plenty of oxygen, so mayfly larvae survive.", "Below the pipe, bacteria break down sewage and use up oxygen.", "Only sludgeworms survive in low oxygen."),
+    ex("Explain why the number of lichen species increases with distance from a city centre.", 2,
+      "Sulfur dioxide levels fall further from the city.", "Lichens are sensitive to sulfur dioxide, so more species survive."),
+    ex("Suggest why an indicator species is used alongside chemical tests.", 2,
+      "Indicator species show the effect of pollution over time.", "Chemical tests give exact levels at that moment.")
+  ]);
+  addTo("Trophic levels and energy transfer", [
+    fill("Level 2 organisms are primary consumers, also called [herbivores/herbivore]."),
+    mc("Roughly what percentage of biomass is transferred from one trophic level to the next?", ["About 10%", "About 50%", "About 90%", "100%"], "About 10%"),
+    mc("Which are level 3 organisms?", ["Carnivores that eat herbivores", "Producers", "Herbivores", "Decomposers"], "Carnivores that eat herbivores"),
+    num("A herbivore eats 2000 kJ. It loses 1100 kJ in faeces and 700 kJ in respiration. How many kJ go into growth?", 200),
+    num("Plants have 20 000 kg biomass; herbivores have 1800 kg. Work out the efficiency of transfer as a percentage.", 9),
+    ex("Explain why mammals and birds have a lower efficiency of energy transfer than fish.", 2,
+      "Mammals and birds keep a constant body temperature.", "They use a lot of energy (from respiration) to keep warm."),
+    ex("Explain why not all the biomass in a plant is eaten by herbivores.", 2,
+      "Some parts, such as roots or woody stems, are not eaten.", "Some are hard to digest and lost as faeces."),
+    ex("Explain the role of decomposers in a food chain.", 2,
+      "They break down dead organisms and waste from every level.", "Releasing nutrients (and CO₂) back into the environment.")
+  ]);
+  addTo("Pyramids of biomass", [
+    fill("The top bar of a pyramid of biomass is the smallest because biomass is [lost] at each level."),
+    num("A pyramid has 1200 kg of producers and 96 kg of primary consumers. Work out the percentage transferred.", 8),
+    num("Secondary consumers have 30 kg biomass and the efficiency of transfer from primary consumers is 10%. Work out the biomass of primary consumers in kg.", 300),
+    mc("What does a pyramid of biomass show that a pyramid of numbers doesn't?", ["The mass of living material at each level", "How many organisms there are", "The names of species", "Where they live"], "The mass of living material at each level"),
+    mc("Why is biomass usually measured as dry mass?", ["Water content varies", "It is lighter to carry", "Wet mass can't be measured", "It's quicker"], "Water content varies"),
+    ex("A student draws a pyramid of biomass to scale. Producers are 500 kg and primary consumers 50 kg. Explain how the bars should compare.", 2,
+      "The bars must be drawn to scale.", "So the primary consumer bar is one-tenth the width of the producer bar."),
+    ex("Give one disadvantage of using dry mass to measure biomass.", 2,
+      "The organisms have to be killed (dried in an oven).", "Which can harm the ecosystem being studied."),
+    ex("Explain why a pyramid of biomass gives a better picture of energy transfer than a pyramid of numbers.", 2,
+      "It takes into account the size (mass) of organisms.", "So it reflects the amount of biomass (energy) at each level.")
+  ]);
+
+
   // ======================= OTHER ACCEPTED ANSWERS =======================
   // Typed answers already allow any case, hyphens, a plural "s" and small spelling slips. These lists add other
   // answers that should also get the mark. Neither changes a question's wording, so saved answers are kept.
