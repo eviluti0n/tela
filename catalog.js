@@ -177,6 +177,99 @@ SAMPLE_TOPICS.Biology = Object.entries(BIOLOGY_BY_PAPER).flatMap(([paper, topics
     : item.startsWith("★ ") ? ["Required practical: " + item[2].toLowerCase() + item.slice(3), category, "Both", "Required practical", "todo", paper]
     : [item, category, "Both", "", "todo", paper])));
 
+// The same Biology topics laid out for Pearson Edexcel GCSE Biology (1BI0): Topic 1 Key concepts is on both papers,
+// Topics 2-5 on Paper 1 and 6-9 on Paper 2. Titles are the tile titles above (so questions and progress are shared);
+// "H: " marks Higher tier only on Edexcel. AQA-only content (the reaction time required practical) is left out.
+const BIOLOGY_EDEXCEL = {
+  "Paper 1 & 2": {
+    "Key concepts in biology": [
+      "Prokaryotic vs eukaryotic cells", "Animal and plant cell structures and functions",
+      "Differentiation and specialised cells", "Microscopy: magnification and resolution",
+      "Microscopy calculations using standard form", "Required practical: using a microscope to observe cells",
+      "Enzyme action: lock and key, temperature, pH", "Required practical: effect of pH on enzyme activity",
+      "Digestive system: organs and enzymes", "Required practical: food tests (Benedict's, Biuret, iodine)",
+      "Diffusion: factors affecting rate", "Osmosis: definition and examples", "Required practical: osmosis in plant tissue",
+      "Active transport: differences from diffusion", "Cells → tissues → organs → organ systems"
+    ]
+  },
+  "Paper 1": {
+    "Cells and control": [
+      "Mitosis and the cell cycle", "Cancer: benign vs malignant tumours", "Stem cells: types and uses (embryonic & adult)",
+      "The brain: regions and functions", "The nervous system: CNS, neurones, synapses",
+      "Reflex arc: sensory, relay, motor neurones", "The eye: structure and function, accommodation"
+    ],
+    "Genetics": [
+      "Sexual vs asexual reproduction: advantages", "Meiosis: stages and importance of variation",
+      "DNA structure and chromosome pairs (basic)", "H: DNA structure in detail (nucleotides) and protein synthesis",
+      "Mutations: causes and effects (basic)", "H: How mutations affect the protein made",
+      "Genes, alleles: dominant and recessive", "Punnett squares and probability of inheritance",
+      "Constructing Punnett squares from scratch", "Inherited disorders: cystic fibrosis, polydactyly",
+      "Sex determination: X and Y chromosomes", "Variation: genetic, environmental, combination"
+    ],
+    "Natural selection and genetic modification": [
+      "Natural selection and evolution", "Evidence for evolution: fossils, antibiotic resistance",
+      "Classification: kingdoms, phylogenetic trees", "Selective breeding: process and examples",
+      "Genetic engineering: what it is, GM crops, insulin", "H: The steps of genetic engineering (enzymes, vectors)"
+    ],
+    "Health, disease and the development of medicines": [
+      "Health: communicable vs non-communicable disease", "Pathogens: bacteria, viruses, fungi, protists",
+      "Examples of communicable diseases", "Plant disease: detection and defence",
+      "Human defence systems: non-specific (skin, mucus, stomach acid)", "The immune response: white blood cells, antibodies",
+      "Vaccination and herd immunity", "H: Monoclonal antibodies: production and uses",
+      "Antibiotics: how they work and resistance", "Drug development: clinical trials, double-blind",
+      "Coronary heart disease and treatments"
+    ]
+  },
+  "Paper 2": {
+    "Plant structures and their functions": [
+      "Photosynthesis equation (word and symbol)", "Adaptations of the leaf for photosynthesis",
+      "Limiting factors: light, CO₂, temperature",
+      "H: Limiting factors in depth: interactions, the inverse square law and greenhouse costs",
+      "Required practical: investigating the rate of photosynthesis", "Plant tissues: leaf structure and transpiration",
+      "Plant hormones: auxin, gravitropism, phototropism"
+    ],
+    "Animal coordination, control and homeostasis": [
+      "Hormones: endocrine glands and target organs", "Hormones in reproduction: FSH, LH, oestrogen and progesterone",
+      "H: How hormones interact to control the menstrual cycle", "Contraception: hormonal and non-hormonal",
+      "H: Fertility treatments: IVF, fertility drugs", "Homeostasis: definition and importance",
+      "Thermoregulation: vasodilation, sweating, shivering", "Blood glucose control: insulin, diabetes",
+      "H: Glucagon and insulin: negative feedback", "Type 1 vs Type 2 diabetes: causes and treatments",
+      "Osmoregulation: kidneys and water balance", "H: Osmoregulation in depth: urea formation and ADH"
+    ],
+    "Exchange and transport in animals": [
+      "Blood: components and functions", "Blood vessels: arteries, veins, capillaries",
+      "Heart structure and the circulatory system", "Aerobic respiration equation",
+      "Anaerobic respiration: fermentation, muscle fatigue", "Exercise: effects on breathing rate and heart rate",
+      "Oxygen debt: lactic acid converted back to glucose in the liver"
+    ],
+    "Ecosystems and material cycles": [
+      "Ecosystems: habitats, populations, communities", "Abiotic factors: temperature, light, pH, moisture",
+      "Biotic factors: predation, competition, disease", "Adaptations: structural, behavioural, functional",
+      "Required practical: sampling using quadrats and transects", "Food chains and food webs",
+      "Predator-prey relationships and population cycles", "Trophic levels and energy transfer", "Pyramids of biomass",
+      "Biodiversity: importance and preservation", "Human impact: deforestation, global warming, land use",
+      "How environmental change affects where species are found", "Pollution indicators: lichen, invertebrates",
+      "Carbon cycle", "Water cycle", "Nitrogen cycle: decomposers, nitrifying bacteria"
+    ]
+  }
+};
+
+// Each exam board's Biology layout as title → { grade (paper), category, tier, description, rank (spec order) }.
+// The dashboard shows a Biology topic only on boards that list it, with that board's paper and category.
+const BIOLOGY_BOARDS = {
+  AQA: new Map(SAMPLE_TOPICS.Biology.map(([title, category, tier, description, , grade], rank) =>
+    [title, { grade, category, tier, description, rank }])),
+  Edexcel: new Map(Object.entries(BIOLOGY_EDEXCEL).flatMap(([grade, topicsIn]) =>
+    Object.entries(topicsIn).flatMap(([category, items]) => items.map(item => {
+      const title = item.replace(/^H: /, "");
+      return [title, { grade, category, tier: item.startsWith("H: ") ? "Higher" : "Both",
+        description: item.startsWith("H: ") ? "Higher tier only" : title.startsWith("Required practical: ") ? "Core practical" : "" }];
+    }))).map(([title, info], rank) => [title, { ...info, rank }]))
+};
+BIOLOGY_BOARDS.Edexcel.forEach((_, title) => {
+  if (!BIOLOGY_BOARDS.AQA.has(title)) console.warn("Edexcel Biology topic with no tile:", title);
+});
+
 // GCSE Chemistry (Pearson Edexcel 1CH0) topics, by paper and then by spec topic (Topic 1 Key concepts to Topic 9
 // Separate chemistry 2), each list in spec order. Topic 1 (and the formulae and equations in 0.1–0.6) is examined in
 // both papers. "H: " marks content that is Higher tier only (bold in the spec), and "★ " a Core Practical.

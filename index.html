@@ -680,6 +680,8 @@
   .side-btn.active { background: var(--green-100); color: var(--green-800); }
   .side-btn:focus-visible { outline: 3px solid var(--green-600); outline-offset: 1px; }
   .side-btn { position: relative; }
+  /* Settings sits at the bottom of the sidebar */
+  .side-end { margin-top: auto; }
   /* Count of homework still to do */
   .side-badge {
     margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 99px;
@@ -843,6 +845,7 @@
     .side-collapsed .side-btn { padding: 6px; }
     .side-badge, .side-collapsed .side-badge { position: absolute; top: 2px; left: calc(50% + 6px); right: auto; margin: 0; min-width: 17px; height: 17px; padding: 0 4px; font-size: 10px; }
     .side-btn { flex-direction: column; justify-content: center; gap: 2px; font-size: 12px; padding: 6px; }
+    .side-end { margin-top: 0; }
     .drawer-overlay { inset: 0 0 64px 0; }
     .drawer { width: 100%; }
     .drawer-head { padding: 18px 16px 12px; }
@@ -890,7 +893,7 @@
     <span>Messages</span>
     <b class="side-badge" id="msgBadge" hidden></b>
   </button>
-  <button type="button" class="side-btn" data-view="settings">
+  <button type="button" class="side-btn side-end" data-view="settings">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     <span>Settings</span>
   </button>
@@ -958,6 +961,10 @@
       </div>
       <!-- The rest of the filters slide open once a subject is picked, with that subject's grades and categories -->
       <div class="subject-filters" id="subjectFilters"><div class="sf-inner">
+      <div class="filter-group" id="boardGroup">
+        <div class="filter-label">Exam board</div>
+        <div class="chips" id="boardChips"></div>
+      </div>
       <div class="filter-group" id="gradeGroup">
         <div class="filter-label">Grade</div>
         <div class="chips" id="gradeChips"></div>
@@ -1055,14 +1062,14 @@
     if (/questions\.js/.test(e.filename || "")) window.QUESTION_BANK.loadError = e.message;
   });
 </script>
-<script src="questions.js?v=20261111a"></script>
-<script src="questions-biology.js?v=20261111a"></script>
+<script src="questions.js?v=20261115"></script>
+<script src="questions-biology.js?v=20261115"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js?v=20261111a"></script>
-<script src="activity.js?v=20261111a"></script>
-<script src="catalog.js?v=20261111a"></script>
-<script src="messages.js?v=20261111a"></script>
-<script src="dropdown.js?v=20261111a"></script>
+<script src="db.js?v=20261115"></script>
+<script src="activity.js?v=20261115"></script>
+<script src="catalog.js?v=20261115"></script>
+<script src="messages.js?v=20261115"></script>
+<script src="dropdown.js?v=20261115"></script>
 <script>
 // The page starts once the signed-in student's topics, answers, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("student").then(() => {
@@ -1145,20 +1152,33 @@ TelaDB.start("student").then(() => {
   topics = topics.filter(t => isShownSubject(t.subject));
   if (firstVisit || synced) save();
 
-  const state = { query: "", subject: "All", grade: "All", category: "All", status: "All", sort: "category" };
+  // The exam board picked for Biology is remembered for the student (kv "board").
+  const BOARD_KEY = "board";
+  const state = { query: "", subject: "All", grade: "All", category: "All", status: "All", sort: "category",
+    board: BIOLOGY_BOARDS[TelaDB.kvGet(BOARD_KEY)] ? TelaDB.kvGet(BOARD_KEY) : "AQA" };
+
+  // Biology topics as the picked board lays them out (its paper, category and tier); null for a catalog topic that
+  // board doesn't have. Other subjects, and Biology topics not in the catalog, are shown as saved.
+  function boardView(t) {
+    if (t.subject !== "Biology" || !BIOLOGY_BOARDS.AQA.has(t.title)) return t;
+    const b = BIOLOGY_BOARDS[state.board].get(t.title);
+    return b ? { ...t, grade: b.grade, category: b.category, tier: b.tier, description: b.description } : null;
+  }
+  const shownTopics = () => topics.map(boardView).filter(Boolean);
 
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const uniq = arr => [...new Set(arr)].sort((a, b) => a.localeCompare(b));
   // Biology and Chemistry categories go in spec order (Biology 4.1 to 4.7, then Chemistry Topic 1 to 9); any others
   // go alphabetically after them.
-  const SPEC_ORDER = [BIOLOGY_BY_PAPER, CHEMISTRY_BY_PAPER].flatMap(byPaper => Object.values(byPaper).flatMap(Object.keys));
+  const SPEC_ORDER = [BIOLOGY_BY_PAPER, BIOLOGY_EDEXCEL, CHEMISTRY_BY_PAPER].flatMap(byPaper => Object.values(byPaper).flatMap(Object.keys));
   const specRank = c => SPEC_ORDER.indexOf(c) + 1 || 99;
   const byCategory = (a, b) => specRank(a) - specRank(b) || a.localeCompare(b);
   // Within a category, Biology and Chemistry topics keep their place in the spec.
   const SPEC_INDEX = { Biology: new Map(SAMPLE_TOPICS.Biology.map(([title], i) => [title, i])),
     Chemistry: new Map(SAMPLE_TOPICS.Chemistry.map(([title], i) => [title, i])) };
-  const specIndex = t => SPEC_INDEX[t.subject] ? SPEC_INDEX[t.subject].get(t.title) ?? 999 : 0;
+  const specIndex = t => t.subject === "Biology" && BIOLOGY_BOARDS[state.board].has(t.title) ? BIOLOGY_BOARDS[state.board].get(t.title).rank
+    : SPEC_INDEX[t.subject] ? SPEC_INDEX[t.subject].get(t.title) ?? 999 : 0;
 
   function countBy(list, key) {
     return list.reduce((m, t) => (m[t[key]] = (m[t[key]] || 0) + 1, m), {});
@@ -1177,11 +1197,18 @@ TelaDB.start("student").then(() => {
       COMING_SOON.filter(s => !subjects.includes(s))
         .map(s => `<span class="chip-soon" title="${esc(s)} is coming soon">${esc(s)}<small>Soon</small></span>`).join("");
 
+    // Exam board, for Biology only. Picking one changes which topics show and which paper each is on.
+    $("boardChips").innerHTML = Object.keys(BIOLOGY_BOARDS).map(b => chipHTML(b, b, state.board === b, null, "small")).join("");
+    $("boardGroup").style.display = state.subject === "Biology" ? "" : "none";
+
     // Grades within the selected subject (hidden when none of those topics have a grade). Biology keeps its
     // exam paper ("Paper 1", "Paper 2") where Maths keeps its grade, so for Biology this filters by paper.
-    const inScope = topics.filter(t => state.subject === "All" || t.subject === state.subject);
+    const inScope = shownTopics().filter(t => state.subject === "All" || t.subject === state.subject);
+    // Papers in the board's order ("Paper 1 & 2" first for Edexcel), not alphabetical.
+    const paperOrder = state.subject === "Biology" ? [...new Set([...BIOLOGY_BOARDS[state.board].values()].map(b => b.grade))] : [];
     const grades = [...GRADES.filter(g => inScope.some(t => t.grade === g)),
-      ...uniq(inScope.map(t => t.grade).filter(g => g && !GRADES.includes(g)))];
+      ...paperOrder.filter(g => inScope.some(t => t.grade === g)),
+      ...uniq(inScope.map(t => t.grade).filter(g => g && !GRADES.includes(g) && !paperOrder.includes(g)))];
     if (state.grade !== "All" && !grades.includes(state.grade)) state.grade = "All";
     const byPaper = grades.length > 0 && grades.every(g => /^Paper /.test(g));
     $("gradeGroup").querySelector(".filter-label").textContent = byPaper ? "Paper" : "Grade";
@@ -1215,7 +1242,7 @@ TelaDB.start("student").then(() => {
 
   function filtered() {
     const q = state.query.trim().toLowerCase();
-    const list = topics.filter(t =>
+    const list = shownTopics().filter(t =>
       (state.subject === "All" || t.subject === state.subject) &&
       (state.grade === "All" || t.grade === state.grade) &&
       (state.category === "All" || t.category === state.category) &&
@@ -1233,7 +1260,8 @@ TelaDB.start("student").then(() => {
 
   function renderCards() {
     const list = filtered();
-    $("resultCount").textContent = `Showing ${list.length} of ${topics.length} topic${topics.length === 1 ? "" : "s"}`;
+    const all = shownTopics().length;
+    $("resultCount").textContent = `Showing ${list.length} of ${all} topic${all === 1 ? "" : "s"}`;
 
     if (!list.length) {
       $("grid").innerHTML = topics.length
@@ -1244,8 +1272,10 @@ TelaDB.start("student").then(() => {
 
     // A science subject (its topics have a paper where Maths has a grade) shows a section for each paper, in the
     // catalog's order, unless one paper is already picked.
-    const inSubject = topics.filter(t => t.subject === state.subject);
-    const papers = uniq([...(SAMPLE_TOPICS[state.subject] || []).map(r => r[5]), ...inSubject.map(t => t.grade)].filter(Boolean));
+    const inSubject = shownTopics().filter(t => t.subject === state.subject);
+    const catalogPapers = state.subject === "Biology" ? [...BIOLOGY_BOARDS[state.board].values()].map(b => b.grade)
+      : (SAMPLE_TOPICS[state.subject] || []).map(r => r[5]);
+    const papers = [...new Set([...catalogPapers, ...inSubject.map(t => t.grade)].filter(Boolean))];
     const byPaper = state.subject !== "All" && state.grade === "All" && papers.length > 1 && inSubject.every(t => /^Paper /.test(t.grade || ""));
     if (byPaper) {
       $("grid").innerHTML = papers.map(p => [p, list.filter(t => t.grade === p)]).filter(([, l]) => l.length).map(([p, l]) =>
@@ -4543,6 +4573,15 @@ TelaDB.start("student").then(() => {
   }
   bindChips("subjectChips", "subject");
   bindChips("gradeChips", "grade");
+  // A new board has its own papers and categories, so those filters start again.
+  $("boardChips").addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip || chip.dataset.value === state.board) return;
+    state.board = chip.dataset.value;
+    state.grade = state.category = "All";
+    TelaDB.kvSet(BOARD_KEY, state.board);
+    render();
+  });
   bindChips("categoryChips", "category");
   bindChips("statusChips", "status");
 
