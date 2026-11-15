@@ -1066,14 +1066,14 @@
     if (/questions\.js/.test(e.filename || "")) window.QUESTION_BANK.loadError = e.message;
   });
 </script>
-<script src="questions.js?v=20261115d"></script>
-<script src="questions-biology.js?v=20261115d"></script>
+<script src="questions.js?v=20261115e"></script>
+<script src="questions-biology.js?v=20261115e"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js?v=20261115d"></script>
-<script src="activity.js?v=20261115d"></script>
-<script src="catalog.js?v=20261115d"></script>
-<script src="messages.js?v=20261115d"></script>
-<script src="dropdown.js?v=20261115d"></script>
+<script src="db.js?v=20261115e"></script>
+<script src="activity.js?v=20261115e"></script>
+<script src="catalog.js?v=20261115e"></script>
+<script src="messages.js?v=20261115e"></script>
+<script src="dropdown.js?v=20261115e"></script>
 <script>
 // The page starts once the signed-in student's topics, answers, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("student").then(() => {
@@ -1327,8 +1327,8 @@ TelaDB.start("student").then(() => {
   }
 
   function renderStats() {
-    const s = countBy(topics, "status");
-    $("statTotal").textContent = topics.length;
+    const shown = shownTopics(), s = countBy(shown, "status");
+    $("statTotal").textContent = shown.length;
     $("statDone").textContent = s.done || 0;
     $("statDoing").textContent = s.doing || 0;
     $("statSubjects").textContent = allSubjects().length;
@@ -4130,6 +4130,14 @@ TelaDB.start("student").then(() => {
     return lines;
   }
   const TREE_W = 800, TREE_MID = 400, CROWN_R = 260, MAX_TWIGS = 12;
+  // Shorter bough labels for long science category names, so they fit beside the tree.
+  const TREE_LABELS = {
+    "Infection and Response": "Infection", "Homeostasis and Response": "Homeostasis",
+    "Inheritance, Variation and Evolution": "Inheritance and evolution", "Key concepts in biology": "Key concepts",
+    "Natural selection and genetic modification": "Natural selection and GM", "Health, disease and the development of medicines": "Health and disease",
+    "Plant structures and their functions": "Plant structures", "Animal coordination, control and homeostasis": "Animal coordination",
+    "Exchange and transport in animals": "Exchange and transport", "Ecosystems and material cycles": "Ecosystems and cycles"
+  };
   const num = n => n.toFixed(1);
   // The bud, leaves or leafy bloom at the end (x, y) of a twig pointing at angle a (radians).
   function twigDecor(status, x, y, a, delay = 0) {
@@ -4147,18 +4155,19 @@ TelaDB.start("student").then(() => {
   }
   // The topics in bough-sized bunches, lowest grade at the bottom. Each grade starts a new level of the tree
   // with a bough on the left, and is split evenly over as many boughs as it needs (a pair, when it has more than a few topics).
+  // A group that fits on one bough goes on the opposite side to the last such group, so labels don't pile up on one side.
   function treeBoughs(topics) {
     const order = g => GRADES.indexOf(g) + 1 || 99;
     const names = [...new Set(topics.map(treeGroup))].sort((a, b) => order(a) - order(b) || byCategory(a, b));
     const out = [];
-    let level = 0;
+    let level = 0, lone = 0;
     names.forEach(name => {
       const list = topics.filter(t => treeGroup(t) === name), done = list.filter(t => t.status === "done").length;
       let count = Math.ceil(list.length / MAX_TWIGS);
       if (list.length > 6 && count % 2) count++;
-      const size = Math.ceil(list.length / count);
+      const size = Math.ceil(list.length / count), loneSide = count === 1 && lone++ % 2 ? 1 : -1;
       for (let i = 0, k = 0; i < list.length; i += size, k++) {
-        out.push({ name, list: list.slice(i, i + size), level: level + Math.floor(k / 2), side: k % 2 ? 1 : -1,
+        out.push({ name, list: list.slice(i, i + size), level: level + Math.floor(k / 2), side: count === 1 ? loneSide : k % 2 ? 1 : -1,
           // The left bough names the grade and the right one says how much of it is in bloom; a lone bough says both.
           label: k === 0 ? name : k === 1 ? `${done} of ${list.length} in bloom` : "",
           sub: k === 0 && list.length <= size ? `${done} of ${list.length} in bloom` : "" });
@@ -4201,7 +4210,7 @@ TelaDB.start("student").then(() => {
           <path class="twig-stem" d="M${num(px)} ${num(py)}L${num(ex)} ${num(ey)}"/>${twigDecor(topic.status, ex, ey, a, Math.min(n++ * 8, 1200))}</g>`;
       });
       const lx = num(T[0] + side * 34), anchor = side < 0 ? "end" : "start";
-      const lines = b.label === b.name ? labelLines(b.label) : b.label ? [b.label] : [];
+      const lines = b.label === b.name ? labelLines(TREE_LABELS[b.label] || b.label) : b.label ? [b.label] : [];
       let ly = T[1] + 4 - (lines.length + (b.sub ? 1 : 0) - 1) * 8.5;
       if (lines.length) labels += `<text class="bough-${b.label === b.name ? "label" : "count"}" text-anchor="${anchor}">${lines.map(l =>
         `<tspan x="${lx}" y="${num((ly += 17) - 17)}">${esc(l)}</tspan>`).join("")}</text>`;
@@ -4227,12 +4236,16 @@ TelaDB.start("student").then(() => {
   const treeArrow = (step, off) => `<button type="button" class="tree-arrow" data-tree-step="${step}" aria-label="${step < 0 ? "Previous" : "Next"} tree"${off ? " disabled" : ""}>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="${step < 0 ? "M15 6l-6 6 6 6" : "M9 6l6 6-6 6"}"/></svg></button>`;
   // Each slide has arrows either side of its title, just above the tree.
+  // Biology's tree follows the exam board and course picked on the dashboard, with that board's categories as
+  // boughs and each bough's topics in spec order.
   function treeSlideHTML(subject, i, subjects) {
-    const list = topics.filter(t => t.subject === subject), s = countBy(list, "status"), n = list.length || 1;
+    const list = shownTopics().filter(t => t.subject === subject).sort((a, b) => specIndex(a) - specIndex(b));
+    const s = countBy(list, "status"), n = list.length || 1;
+    const scope = subject === "Biology" ? `${state.board} ${state.course} · ` : "";
     const key = (status, name, count) => `<li>${treeKeyIcon(status)}<span>${name}</span><strong>${count}</strong><small>${Math.round(count / n * 100)}%</small></li>`;
     return `<section class="tree-slide tree-${subject.toLowerCase().replace(/[^a-z]+/g, "-")}" aria-label="${esc(subject)} tree">
       <div class="tree-head">${subjects.length > 1 ? treeArrow(-1, i === 0) : ""}
-        <h4 class="tree-title">${esc(subject)} <small>${list.length} topic${list.length === 1 ? "" : "s"}</small></h4>
+        <h4 class="tree-title">${esc(subject)} <small>${esc(scope)}${list.length} topic${list.length === 1 ? "" : "s"}</small></h4>
         ${subjects.length > 1 ? treeArrow(1, i === subjects.length - 1) : ""}</div>
       <div class="tree-wrap">${treeSVG(list, subject)}<div class="tree-tip" hidden></div></div>
       <ul class="tree-key">
