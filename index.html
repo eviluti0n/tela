@@ -761,6 +761,10 @@
   .tree-slide .tree .leaf { fill: var(--leaf); stroke: var(--leaf-line); }
   .tree-slide .tree .leaf.light { fill: var(--leaf-light); }
   .tree-slide .tree .leaf.dark { fill: var(--leaf-dark); stroke: var(--leaf-dark-line); }
+  /* Exam board and course pickers above the Biology tree */
+  .tree-scope { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 10px; }
+  .tree-scope-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+  .tree-scope-row > span { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
   .tree-key { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 12px; font-size: 14px; }
   .tree-key li { display: flex; align-items: center; gap: 8px; }
   .tree-key .tree { width: 30px; flex: none; }
@@ -1066,14 +1070,14 @@
     if (/questions\.js/.test(e.filename || "")) window.QUESTION_BANK.loadError = e.message;
   });
 </script>
-<script src="questions.js?v=20261115e"></script>
-<script src="questions-biology.js?v=20261115e"></script>
+<script src="questions.js?v=20261115f"></script>
+<script src="questions-biology.js?v=20261115f"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js?v=20261115e"></script>
-<script src="activity.js?v=20261115e"></script>
-<script src="catalog.js?v=20261115e"></script>
-<script src="messages.js?v=20261115e"></script>
-<script src="dropdown.js?v=20261115e"></script>
+<script src="db.js?v=20261115f"></script>
+<script src="activity.js?v=20261115f"></script>
+<script src="catalog.js?v=20261115f"></script>
+<script src="messages.js?v=20261115f"></script>
+<script src="dropdown.js?v=20261115f"></script>
 <script>
 // The page starts once the signed-in student's topics, answers, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("student").then(() => {
@@ -4241,12 +4245,15 @@ TelaDB.start("student").then(() => {
   function treeSlideHTML(subject, i, subjects) {
     const list = shownTopics().filter(t => t.subject === subject).sort((a, b) => specIndex(a) - specIndex(b));
     const s = countBy(list, "status"), n = list.length || 1;
-    const scope = subject === "Biology" ? `${state.board} ${state.course} · ` : "";
+    // Biology's slide lets the exam board and course be changed right there.
+    const scopeChips = (key, values, label) => `<div class="tree-scope-row"><span>${label}</span>${values.map(v =>
+      `<button type="button" class="chip small${state[key] === v ? " active" : ""}" data-tree-${key}="${esc(v)}" aria-pressed="${state[key] === v}">${esc(v)}</button>`).join("")}</div>`;
+    const scope = subject === "Biology" ? `<div class="tree-scope">${scopeChips("board", Object.keys(BIOLOGY_BOARDS), "Exam board")}${scopeChips("course", Object.keys(COURSES), "Course")}</div>` : "";
     const key = (status, name, count) => `<li>${treeKeyIcon(status)}<span>${name}</span><strong>${count}</strong><small>${Math.round(count / n * 100)}%</small></li>`;
     return `<section class="tree-slide tree-${subject.toLowerCase().replace(/[^a-z]+/g, "-")}" aria-label="${esc(subject)} tree">
       <div class="tree-head">${subjects.length > 1 ? treeArrow(-1, i === 0) : ""}
-        <h4 class="tree-title">${esc(subject)} <small>${esc(scope)}${list.length} topic${list.length === 1 ? "" : "s"}</small></h4>
-        ${subjects.length > 1 ? treeArrow(1, i === subjects.length - 1) : ""}</div>
+        <h4 class="tree-title">${esc(subject)} <small>${list.length} topic${list.length === 1 ? "" : "s"}</small></h4>
+        ${subjects.length > 1 ? treeArrow(1, i === subjects.length - 1) : ""}</div>${scope}
       <div class="tree-wrap">${treeSVG(list, subject)}<div class="tree-tip" hidden></div></div>
       <ul class="tree-key">
         ${key("done", "Confident", s.done || 0)}${key("doing", "In progress", s.doing || 0)}${key("todo", "Not started", s.todo || 0)}
@@ -4401,8 +4408,20 @@ TelaDB.start("student").then(() => {
   }
   $("progressBody").addEventListener("click", e => {
     const go = e.target.closest("[data-tree-go]"), step = e.target.closest("[data-tree-step]");
+    const board = e.target.closest("[data-tree-board]"), course = e.target.closest("[data-tree-course]");
     if (go) showTree(+go.dataset.treeGo);
     else if (step) showTree(treeIndex() + +step.dataset.treeStep);
+    else if (board || course) {
+      // Redraw the trees for the new board or course, staying on the same tree and keeping the chip focused.
+      const at = treeIndex(), scroll = $("progressBody").scrollTop, attr = board ? "data-tree-board" : "data-tree-course";
+      setScope(board ? "board" : "course", (board || course).getAttribute(attr));
+      $("progressBody").innerHTML = renderProgress();
+      $("treeStrip").addEventListener("scroll", () => { hideTreeTip(); markTreeTab(); }, { passive: true });
+      showTree(at, "instant");
+      $("progressBody").scrollTop = scroll;
+      const again = $("progressBody").querySelector(`[${attr}="${CSS.escape((board || course).getAttribute(attr))}"]`);
+      if (again) again.focus();
+    }
   });
   ["mouseover", "focusin"].forEach(type => $("progressBody").addEventListener(type, e => {
     const twig = e.target.closest(".twig");
@@ -4597,21 +4616,21 @@ TelaDB.start("student").then(() => {
   bindChips("subjectChips", "subject");
   bindChips("gradeChips", "grade");
   // A new board has its own papers and categories, so those filters start again.
+  // The same for a new course. Both are also picked from the Biology tree in the Progress pop-up.
+  function setScope(key, value) {
+    if (state[key] === value) return;
+    state[key] = value;
+    state.grade = state.category = "All";
+    TelaDB.kvSet(key === "board" ? BOARD_KEY : COURSE_KEY, value);
+    render();
+  }
   $("boardChips").addEventListener("click", e => {
     const chip = e.target.closest(".chip");
-    if (!chip || chip.dataset.value === state.board) return;
-    state.board = chip.dataset.value;
-    state.grade = state.category = "All";
-    TelaDB.kvSet(BOARD_KEY, state.board);
-    render();
+    if (chip) setScope("board", chip.dataset.value);
   });
   $("courseChips").addEventListener("click", e => {
     const chip = e.target.closest(".chip");
-    if (!chip || chip.dataset.value === state.course) return;
-    state.course = chip.dataset.value;
-    state.grade = state.category = "All";
-    TelaDB.kvSet(COURSE_KEY, state.course);
-    render();
+    if (chip) setScope("course", chip.dataset.value);
   });
   bindChips("categoryChips", "category");
   bindChips("statusChips", "status");
