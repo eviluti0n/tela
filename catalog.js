@@ -296,6 +296,47 @@ BIOLOGY_BOARDS.Edexcel.forEach(({ grade, category, tier, description }, title) =
 // Every Biology tile title in the catalog, whichever board it's on.
 const BIOLOGY_TITLES = new Set(SAMPLE_TOPICS.Biology.map(([title]) => title));
 
+// Biology-only content on each board: in GCSE Biology (triple) but not in Combined Science (AQA Trilogy 8464,
+// Edexcel 1SC0). Combined courses hide these; Foundation courses also hide Higher tier only topics.
+const TRIPLE_ONLY = {
+  AQA: new Set([
+    "Culturing microorganisms: antiseptics and antibiotics", "Plant disease: detection and defence",
+    "Monoclonal antibodies: production and uses", "The brain: regions and functions",
+    "Brain scans and treating damage to the nervous system", "The eye: structure and function, accommodation",
+    "Eye defects: cataracts, colour blindness, short and long sight", "Thermoregulation: vasodilation, sweating, shivering",
+    "Osmoregulation: kidneys and water balance", "Osmoregulation in depth: urea formation and ADH",
+    "Kidneys: the nephron, dialysis and transplants", "Plant hormones: auxin, gravitropism, phototropism",
+    "Plant hormones in farming: auxins, gibberellins and ethene", "Sexual vs asexual reproduction: advantages",
+    "DNA structure in detail (nucleotides) and protein synthesis", "How mutations affect the protein made",
+    "Mendel's experiments with pea plants", "Plant tissue culture and cloning", "Decomposition and the rate of decay",
+    "How environmental change affects where species are found", "Trophic levels and energy transfer",
+    "Pyramids of biomass", "Food security"
+  ]),
+  Edexcel: new Set([
+    "Calorimetry: measuring the energy in food", "Required practical: food tests (Benedict's, Biuret, iodine)",
+    "The brain: regions and functions", "Brain scans and treating damage to the nervous system",
+    "The eye: structure and function, accommodation", "Eye defects: cataracts, colour blindness, short and long sight",
+    "DNA structure in detail (nucleotides) and protein synthesis", "How mutations affect the protein made",
+    "Mendel's experiments with pea plants", "Blood groups: codominance and multiple alleles",
+    "Sex-linked inheritance: colour blindness and haemophilia", "Plant tissue culture and cloning",
+    "Plant disease: detection and defence", "Monoclonal antibodies: production and uses",
+    "Culturing microorganisms: antiseptics and antibiotics", "Plant hormones: auxin, gravitropism, phototropism",
+    "Plant hormones in farming: auxins, gibberellins and ethene", "Plant adaptations to extreme environments",
+    "Thermoregulation: vasodilation, sweating, shivering", "Osmoregulation: kidneys and water balance",
+    "Osmoregulation in depth: urea formation and ADH", "Kidneys: the nephron, dialysis and transplants",
+    "Food security", "Decomposition and the rate of decay", "Pollution indicators: lichen, invertebrates",
+    "Trophic levels and energy transfer"
+  ])
+};
+Object.entries(TRIPLE_ONLY).forEach(([board, titles]) => titles.forEach(title => {
+  if (!BIOLOGY_BOARDS[board].has(title)) console.warn(`TRIPLE_ONLY.${board}: no ${board} topic called "${title}"`);
+}));
+// Courses a science student can be on: triple or combined, Higher or Foundation tier.
+const COURSES = {
+  "Triple Higher": { triple: true, higher: true }, "Triple Foundation": { triple: true, higher: false },
+  "Combined Higher": { triple: false, higher: true }, "Combined Foundation": { triple: false, higher: false }
+};
+
 // GCSE Chemistry (Pearson Edexcel 1CH0) topics, by paper and then by spec topic (Topic 1 Key concepts to Topic 9
 // Separate chemistry 2), each list in spec order. Topic 1 (and the formulae and equations in 0.1–0.6) is examined in
 // both papers. "H: " marks content that is Higher tier only (bold in the spec), and "★ " a Core Practical.

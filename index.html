@@ -965,6 +965,10 @@
         <div class="filter-label">Exam board</div>
         <div class="chips" id="boardChips"></div>
       </div>
+      <div class="filter-group" id="courseGroup">
+        <div class="filter-label">Course</div>
+        <div class="chips" id="courseChips"></div>
+      </div>
       <div class="filter-group" id="gradeGroup">
         <div class="filter-label">Grade</div>
         <div class="chips" id="gradeChips"></div>
@@ -1062,14 +1066,14 @@
     if (/questions\.js/.test(e.filename || "")) window.QUESTION_BANK.loadError = e.message;
   });
 </script>
-<script src="questions.js?v=20261115b"></script>
-<script src="questions-biology.js?v=20261115b"></script>
+<script src="questions.js?v=20261115c"></script>
+<script src="questions-biology.js?v=20261115c"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
-<script src="db.js?v=20261115b"></script>
-<script src="activity.js?v=20261115b"></script>
-<script src="catalog.js?v=20261115b"></script>
-<script src="messages.js?v=20261115b"></script>
-<script src="dropdown.js?v=20261115b"></script>
+<script src="db.js?v=20261115c"></script>
+<script src="activity.js?v=20261115c"></script>
+<script src="catalog.js?v=20261115c"></script>
+<script src="messages.js?v=20261115c"></script>
+<script src="dropdown.js?v=20261115c"></script>
 <script>
 // The page starts once the signed-in student's topics, answers, homework and messages have loaded from Supabase (db.js).
 TelaDB.start("student").then(() => {
@@ -1154,15 +1158,19 @@ TelaDB.start("student").then(() => {
 
   // The exam board picked for Biology is remembered for the student (kv "board").
   const BOARD_KEY = "board";
+  // So is the course (triple or combined, Higher or Foundation; kv "course"), which starts on Triple Higher: everything.
+  const COURSE_KEY = "course";
   const state = { query: "", subject: "All", grade: "All", category: "All", status: "All", sort: "category",
-    board: BIOLOGY_BOARDS[TelaDB.kvGet(BOARD_KEY)] ? TelaDB.kvGet(BOARD_KEY) : "AQA" };
+    board: BIOLOGY_BOARDS[TelaDB.kvGet(BOARD_KEY)] ? TelaDB.kvGet(BOARD_KEY) : "AQA",
+    course: COURSES[TelaDB.kvGet(COURSE_KEY)] ? TelaDB.kvGet(COURSE_KEY) : "Triple Higher" };
 
   // Biology topics as the picked board lays them out (its paper, category and tier); null for a catalog topic that
-  // board doesn't have. Other subjects, and Biology topics not in the catalog, are shown as saved.
+  // board or course doesn't have. Other subjects, and Biology topics not in the catalog, are shown as saved.
   function boardView(t) {
     if (t.subject !== "Biology" || !BIOLOGY_TITLES.has(t.title)) return t;
-    const b = BIOLOGY_BOARDS[state.board].get(t.title);
-    return b ? { ...t, grade: b.grade, category: b.category, tier: b.tier, description: b.description } : null;
+    const b = BIOLOGY_BOARDS[state.board].get(t.title), course = COURSES[state.course];
+    if (!b || (!course.triple && TRIPLE_ONLY[state.board].has(t.title)) || (!course.higher && b.tier === "Higher")) return null;
+    return { ...t, grade: b.grade, category: b.category, tier: b.tier, description: b.description };
   }
   const shownTopics = () => topics.map(boardView).filter(Boolean);
 
@@ -1200,6 +1208,8 @@ TelaDB.start("student").then(() => {
     // Exam board, for Biology only. Picking one changes which topics show and which paper each is on.
     $("boardChips").innerHTML = Object.keys(BIOLOGY_BOARDS).map(b => chipHTML(b, b, state.board === b, null, "small")).join("");
     $("boardGroup").style.display = state.subject === "Biology" ? "" : "none";
+    $("courseChips").innerHTML = Object.keys(COURSES).map(c => chipHTML(c, c, state.course === c, null, "small")).join("");
+    $("courseGroup").style.display = state.subject === "Biology" ? "" : "none";
 
     // Grades within the selected subject (hidden when none of those topics have a grade). Biology keeps its
     // exam paper ("Paper 1", "Paper 2") where Maths keeps its grade, so for Biology this filters by paper.
@@ -4580,6 +4590,14 @@ TelaDB.start("student").then(() => {
     state.board = chip.dataset.value;
     state.grade = state.category = "All";
     TelaDB.kvSet(BOARD_KEY, state.board);
+    render();
+  });
+  $("courseChips").addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip || chip.dataset.value === state.course) return;
+    state.course = chip.dataset.value;
+    state.grade = state.category = "All";
+    TelaDB.kvSet(COURSE_KEY, state.course);
     render();
   });
   bindChips("categoryChips", "category");
