@@ -331,9 +331,9 @@ const TRIPLE_ONLY = {
 Object.entries(TRIPLE_ONLY).forEach(([board, titles]) => titles.forEach(title => {
   if (!BIOLOGY_BOARDS[board].has(title)) console.warn(`TRIPLE_ONLY.${board}: no ${board} topic called "${title}"`);
 }));
-// Courses a science student can be on: triple or combined, Higher or Foundation tier.
+// Courses a science student can be on: Triple (Higher only) or Combined, Higher or Foundation tier.
 const COURSES = {
-  "Triple Higher": { triple: true, higher: true }, "Triple Foundation": { triple: true, higher: false },
+  "Triple Higher": { triple: true, higher: true },
   "Combined Higher": { triple: false, higher: true }, "Combined Foundation": { triple: false, higher: false }
 };
 
